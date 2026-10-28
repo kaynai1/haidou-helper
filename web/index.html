@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>海斗速查 · 海克斯大乱斗数据工具</title>
+<meta name="description" content="海克斯大乱斗英雄梯度、海克斯强度与出装方案速查，附 Windows 桌面悬浮窗。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B0F18'/%3E%3Cpath d='M20 8l3.4 8.6L32 20l-8.6 3.4L20 32l-3.4-8.6L8 20l8.6-3.4z' fill='%23F0C15B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://ddragon.leagueoflegends.com">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"></div>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M20 2.5 35.5 11v18L20 37.5 4.5 29V11Z" stroke="rgba(240,193,91,.55)" stroke-width="1.4"/>
+          <path d="M20 9l2.9 7.1L30 19l-7.1 2.9L20 29l-2.9-7.1L10 19l7.1-2.9z" fill="#F0C15B"/>
+        </svg>
+      </span>
+      <span class="brand-name">海斗速查</span>
+      <span class="brand-tag">LITE</span>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="主导航">
+      <a href="#/" data-nav="home">总览</a>
+      <a href="#/champions" data-nav="champions">英雄梯度</a>
+      <a href="#/augments" data-nav="augments">海克斯图鉴</a>
+      <a href="#/builds" data-nav="builds">出装方案</a>
+      <a href="#/overlay" data-nav="overlay">悬浮窗</a>
+    </nav>
+
+    <div class="head-right">
+      <span class="version-pill" id="patch-pill" title="数据版本"><i class="live-dot"></i><span>16.21</span></span>
+      <button class="search-trigger" type="button" data-open-search>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        <span>搜索英雄 / 海克斯</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 2.5 35.5 11v18L20 37.5 4.5 29V11Z" stroke="rgba(240,193,91,.55)" stroke-width="1.4"/>
+            <path d="M20 9l2.9 7.1L30 19l-7.1 2.9L20 29l-2.9-7.1L10 19l7.1-2.9z" fill="#F0C15B"/>
+          </svg>
+        </span>
+        <span class="brand-name">海斗速查</span>
+      </a>
+      <p>海克斯大乱斗的轻量速查工具：英雄梯度、海克斯强度、出装方案，另有 Windows 悬浮窗版本。</p>
+    </div>
+    <div class="foot-col">
+      <h4>浏览</h4>
+      <a href="#/champions">英雄梯度</a>
+      <a href="#/augments">海克斯图鉴</a>
+      <a href="#/builds">出装方案</a>
+    </div>
+    <div class="foot-col">
+      <h4>桌面端</h4>
+      <a href="#/overlay">悬浮窗介绍</a>
+      <a href="#/overlay">快捷键</a>
+      <a href="#/overlay">对局识别</a>
+    </div>
+    <div class="foot-col">
+      <h4>说明</h4>
+      <span>数据版本 <b class="num" id="foot-patch">16.21</b></span>
+      <span>英雄与装备图标来自 Riot Data Dragon</span>
+      <span>数值为演示数据，不代表官方统计</span>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 海斗速查 · 个人练习项目</span>
+    <span>与虎牙直播、Riot Games 无关联。League of Legends 为 Riot Games 商标。</span>
+  </div>
+</footer>
+
+<nav class="mobile-nav" aria-label="移动端导航">
+  <a href="#/" data-nav="home">
+    <svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>
+    <span>总览</span>
+  </a>
+  <a href="#/champions" data-nav="champions">
+    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+    <span>英雄</span>
+  </a>
+  <a href="#/augments" data-nav="augments">
+    <svg viewBox="0 0 24 24"><path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3z"/><path d="M12 8l1.7 4.3L18 14l-4.3 1.7L12 20l-1.7-4.3L6 14l4.3-1.7z"/></svg>
+    <span>海克斯</span>
+  </a>
+  <a href="#/builds" data-nav="builds">
+    <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+    <span>出装</span>
+  </a>
+  <a href="#/overlay" data-nav="overlay">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <span>桌面端</span>
+  </a>
+</nav>
+
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="全局搜索">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <input id="search-input" type="text" placeholder="搜索英雄、海克斯或出装…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot"><span>↑ ↓ 选择</span><span>Enter 打开</span><span>Esc 关闭</span></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal-card" id="modal-card" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="data/data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+/node_modules/
+/overlay/node_modules/
+/dist/
+/release/
+_data/edge-*/
+_data/*.log
+_data/dom.html
+_data/shot-*.png
+_data/cdp-*.png
+_data/overlay-*.png

@@ -1,0 +1,70 @@
+{
+  "name": "haidou-helper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "海斗速查 LITE — 英雄联盟海克斯大乱斗速查网页版 + Windows 悬浮窗（演示数据）",
+  "author": "kaynai1",
+  "homepage": "https://github.com/kaynai1/haidou-helper#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaynai1/haidou-helper.git"
+  },
+  "main": "overlay/main.js",
+  "scripts": {
+    "start": "electron .",
+    "start:web": "node tools/serve.js",
+    "dist": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "33.4.11",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.haidou.lite",
+    "productName": "海斗速查",
+    "copyright": "Copyright © 2026 Haidou Lite",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "overlay/main.js",
+      "overlay/preload.js",
+      "overlay/overlay.html",
+      "overlay/overlay.js",
+      "web/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "web/**/*"
+    ],
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "HaidouLite-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "海斗速查",
+      "artifactName": "HaidouLite-Setup-${version}.exe"
+    }
+  }
+}
