@@ -1,6 +1,6 @@
 {
   "name": "haidou-helper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "海斗速查 LITE — 英雄联盟海克斯大乱斗速查网页版 + Windows 悬浮窗（演示数据）",
   "author": "kaynai1",
@@ -38,6 +38,12 @@
     "asar": true,
     "asarUnpack": [
       "web/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
     ],
     "win": {
       "icon": "build/icon.png",

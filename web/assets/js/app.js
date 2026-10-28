@@ -614,18 +614,18 @@
               <div class="hotkey-row"><b>显示 / 隐藏悬浮窗</b><span class="keycaps"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>H</kbd></span></div>
               <div class="hotkey-row"><b>切换点击穿透</b><span class="keycaps"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></span></div>
               <div class="hotkey-row"><b>重置窗口位置</b><span class="keycaps"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>R</kbd></span></div>
-              <div class="hotkey-row"><b>打开网页速查</b><span class="keycaps"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>O</kbd></span></div>
+              <div class="hotkey-row"><b>打开主窗口</b><span class="keycaps"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>O</kbd></span></div>
             </div>
           </section>
           <section class="panel" id="start">
             <div class="panel-head"><h3 class="panel-title">启动步骤</h3><span class="panel-sub">首次使用</span></div>
             <div class="steps">
-              <div class="step"><span>双击项目根目录的 <b>启动悬浮窗.bat</b>。首次启动会比平时慢几秒。</span></div>
-              <div class="step"><span>窗口出现在屏幕右侧，拖动顶部标题栏可以移动，右下角按钮切换锁定 / 穿透。</span></div>
-              <div class="step"><span>进入对局后自动识别英雄；未检测到对局时，窗口显示演示英雄 <b>${esc(c.name)}</b>。</span></div>
-              <div class="step"><span>按 <b>Ctrl+Shift+H</b> 快速隐藏，按 <b>Ctrl+Shift+L</b> 让鼠标穿透窗口。</span></div>
+              <div class="step"><span>运行安装包 <b>HaidouLite-Setup</b>（或免安装版），启动后先打开主窗口，就是现在这个速查界面。</span></div>
+              <div class="step"><span>悬浮窗默认隐藏。按 <b>Ctrl+Shift+H</b> 或点右下角托盘图标里的「显示悬浮窗」把它叫出来。</span></div>
+              <div class="step"><span>进入对局后悬浮窗会自动出现并识别英雄；未检测到对局时，显示演示英雄 <b>${esc(c.name)}</b>。</span></div>
+              <div class="step"><span>拖动顶部标题栏移动窗口，按 <b>Ctrl+Shift+L</b> 切换鼠标穿透，<b>Ctrl+Shift+R</b> 回到默认位置。</span></div>
             </div>
-            <div class="notice">${icon('info')}<span>悬浮窗需要本机安装依赖（项目已内置）。如果移动过项目目录，请重新运行 <b>npm install</b> 或直接双击 bat 让它自动检查。</span></div>
+            <div class="notice">${icon('info')}<span>源码运行请先执行 <b>npm install</b>，再双击 <b>启动悬浮窗.bat</b>；安装包用户无需安装任何依赖。</span></div>
           </section>
         </div>
         <aside>

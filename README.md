@@ -1,6 +1,6 @@
 # 海斗速查 LITE
 
-面向《英雄联盟》海克斯大乱斗（海斗）的轻量速查工具，包含**网页版**和 **Windows 透明悬浮窗**。
+面向《英雄联盟》海克斯大乱斗（海斗）的轻量速查工具，包含**网页版**和 **Windows 桌面应用**（主窗口 + 游戏内透明悬浮窗）。
 
 选人时看英雄梯度和胜率，进游戏后照着海克斯优先级拿强化，进商店照着出装买装备。
 
@@ -15,7 +15,9 @@ Windows 用户可直接到 [Releases](https://github.com/kaynai1/haidou-helper/r
 - `HaidouLite-Setup-*.exe`：安装版（桌面快捷方式、开始菜单）
 - `HaidouLite-*-x64.exe`：便携版（免安装，双击即用）
 
-安装包未签名，首次运行 SmartScreen 可能提示，点“更多信息 → 仍要运行”即可。网页版无需下载安装，克隆仓库后打开 `web/index.html` 即可。
+安装包未签名，首次运行 SmartScreen 可能提示，点“更多信息 → 仍要运行”即可。
+
+启动后会先打开**主窗口**（完整速查界面）。悬浮窗默认隐藏，需要时按 `Ctrl Shift H` 或点系统托盘图标里的「显示悬浮窗」；进入对局后会自动弹出。网页版无需下载安装，克隆仓库后打开 `web/index.html` 即可。
 
 ## 功能
 
@@ -27,11 +29,13 @@ Windows 用户可直接到 [Releases](https://github.com/kaynai1/haidou-helper/r
 - 全局搜索（`Ctrl K`）、职业 / 梯度筛选、英雄详情、同梯度推荐
 - 响应式布局，手机浏览器同样可用
 
-**Windows 悬浮窗（Electron）**
+**Windows 桌面应用（Electron）**
 
-- 透明、无边框、置顶，不占任务栏，宽度仅 384px
-- 每 5 秒读取本机 Riot Live Client Data，自动识别当前英雄
-- 显示 3 个海克斯强化优先级、首套推荐出装与加点
+- 启动打开与网页版一致的主窗口，内置全部数据，无需浏览器
+- 系统托盘常驻：打开主窗口 / 显示或隐藏悬浮窗 / 点击穿透 / 退出
+- 悬浮窗透明、无边框、置顶，不占任务栏，宽度仅 384px
+- 每 5 秒读取本机 Riot Live Client Data，识别到对局后自动弹出悬浮窗并切换英雄
+- 悬浮窗显示 3 个海克斯强化优先级、首套推荐出装与加点
 - 未进入对局或接口不可用时自动切到演示模式，可手动选择演示英雄
 - 支持点击穿透，不遮挡游戏操作
 
@@ -47,12 +51,11 @@ Windows 用户可直接到 [Releases](https://github.com/kaynai1/haidou-helper/r
 
 项目没有构建步骤、没有外部依赖，双击即用；也可以在项目根目录跑 `node tools/serve.js`，然后访问 `http://127.0.0.1:8321/`。
 
-### 悬浮窗（Windows）
+### 桌面应用（Windows）
 
-推荐直接安装 Release 中的安装包。若使用源码运行：
+推荐直接安装 Release 中的安装包，双击启动后会打开主窗口。若使用源码运行：
 
 ```bash
-cd overlay
 npm install
 npm start
 ```
@@ -61,6 +64,7 @@ npm start
 
 - 从 GitHub 克隆的源码不包含 `node_modules`，需要先执行 `npm install`，或改用安装包。
 - 应用未签名，首次启动 SmartScreen 可能拦截：点“更多信息 → 仍要运行”。
+- 关闭主窗口后应用仍留在托盘；从托盘菜单的「退出」或 `Ctrl Shift Q` 才会完全退出。
 - 悬浮窗只在**进入对局后**能识别英雄；在大厅、选人阶段会显示演示模式。
 
 ### 热键
@@ -70,8 +74,8 @@ npm start
 | `Ctrl Shift H` | 显示 / 隐藏悬浮窗 |
 | `Ctrl Shift L` | 点击穿透开关 |
 | `Ctrl Shift R` | 重置悬浮窗位置 |
-| `Ctrl Shift O` | 用浏览器打开网页版 |
-| `Ctrl Shift Q` | 退出悬浮窗 |
+| `Ctrl Shift O` | 打开主窗口 |
+| `Ctrl Shift Q` | 完全退出应用 |
 
 点击穿透开启后，窗口不再接收鼠标事件，只能用 `Ctrl Shift L` 或热键恢复。窗口高度会随内容（如“未收录英雄”提示）自动调整。
 
@@ -101,8 +105,8 @@ haidou-helper/
 │  ├─ assets/css/app.css
 │  ├─ assets/js/app.js
 │  └─ data/data.js · data.json 生成后的数据
-├─ overlay/                    Windows 悬浮窗源码（Electron 33）
-│  ├─ main.js                  窗口、全局热键、Live Client API 轮询
+├─ overlay/                    Windows 桌面应用源码（Electron 33）
+│  ├─ main.js                  主窗口、悬浮窗、托盘、热键、Live Client API 轮询
 │  ├─ preload.js               contextBridge 暴露的 IPC 接口
 │  ├─ overlay.html             悬浮窗结构与样式
 │  ├─ overlay.js               悬浮窗渲染逻辑
@@ -142,12 +146,14 @@ haidou-helper/
 - 当前只覆盖 42 位英雄、64 个强化，并非全英雄全强化。
 - 悬浮窗仅支持 Windows；网页版支持现代浏览器（Chrome / Edge / Firefox / Safari）。
 - 头像和装备图标从 Data Dragon CDN 加载，需要联网；断网时布局仍可用，图标会缺失。
-- 未做代码签名和自动更新；重复启动只会聚焦已有窗口。
+- 未做代码签名和自动更新；重复启动只会聚焦已有主窗口。
+- 悬浮窗与主窗口不共享滚动位置；主窗口关闭后仍驻留托盘。
 
 ## 验证记录
 
 - 网页版：1440px 与 390px 两档宽度，搜索、筛选、强化弹窗、详情出装均通过 CDP 实测，控制台无报错（`node tools/verify-ui.js`）。
 - 悬浮窗：384px 宽，演示态 / 实时识别金克丝与卡莎 / 未收录英雄提示 / 点击穿透 / 自动高度均通过（`node tools/verify-overlay.js`，需以 `--remote-debugging-port=9444` 启动）。
+- 桌面应用：启动后主窗口可见、悬浮窗隐藏；`Ctrl Shift H` 显示 / 隐藏悬浮窗、托盘菜单、主窗口与悬浮窗两个页面均无控制台报错（v0.1.1 实测）。
 - Windows 打包：安装包与便携版均成功生成；打包后的 `win-unpacked` 版本实测能加载内置数据、图标与自动高度，控制台无报错。
 - 数据量自检：42 英雄、64 强化、84 套出装、56 件装备。
 
