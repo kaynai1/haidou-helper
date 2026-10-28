@@ -200,8 +200,7 @@
       .map((id) => `<img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy">`)
       .join('');
     return `<div class="preview-card">
-      <span class="demo-tag">DEMO DATA</span>
-      <div class="preview-head"><span class="preview-label">对局速览</span><span class="preview-live"><i class="live-dot"></i>演示模式</span></div>
+      <div class="preview-head"><span class="preview-label">对局速览</span><span class="preview-live">演示模式</span></div>
       <div class="preview-champ">
         <img src="${champIcon(c)}" alt="${esc(c.name)}">
         <div>
@@ -239,18 +238,16 @@
       <div class="hero-art"></div>
       <div class="wrap hero-inner">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="live-dot"></i>数据版本 ${D.meta.patch} · ${D.meta.mode}</span>
-          <h1>一屏看懂<br><span class="grad">这一局怎么打</span></h1>
+          <h1>这局怎么打，一屏看懂</h1>
           <p class="hero-desc">英雄梯度、海克斯强度、出装方案放在一起查。选人时先看胜率，对局里按优先级拿强化，进商店照着出装走。</p>
           <div class="hero-actions">
-            <a class="btn btn-gold" href="#/champions">${icon('grid')}查看英雄梯度</a>
-            <a class="btn btn-ghost" href="#/augments">${icon('hex')}打开海克斯图鉴</a>
+            <a class="btn btn-gold" href="#/champions">查看英雄梯度</a>
+            <a class="btn btn-ghost" href="#/augments">打开海克斯图鉴</a>
           </div>
           <div class="hero-stats">
-            <div class="stat"><b>${D.meta.championCount}</b><span>收录英雄</span></div>
-            <div class="stat"><b>${D.meta.augmentCount}</b><span>海克斯强化</span></div>
-            <div class="stat"><b>${D.meta.buildCount}</b><span>出装方案</span></div>
-            <div class="stat"><b>${D.meta.patch}</b><span>数据版本</span></div>
+            <div class="stat"><b class="num">${D.meta.championCount}</b><span>位英雄</span></div>
+            <div class="stat"><b class="num">${D.meta.augmentCount}</b><span>个海克斯强化</span></div>
+            <div class="stat"><b class="num">${D.meta.buildCount}</b><span>套出装</span></div>
           </div>
         </div>
         <div class="hero-preview">${previewCard(ahri)}</div>
@@ -261,11 +258,10 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">TIER LIST</div>
             <h2 class="section-title">当前版本梯度</h2>
             <p class="section-sub">排在 T1 的六位英雄，点开就能看适配海克斯与出装。</p>
           </div>
-          <a class="link-more" href="#/champions">完整梯度榜 ${icon('arrow')}</a>
+          <a class="link-more" href="#/champions">完整梯度榜</a>
         </div>
         <div class="champ-grid t1-grid">${t1.map((c, i) => champCard(c, { i })).join('')}</div>
       </div>
@@ -275,11 +271,10 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">AUGMENTS</div>
             <h2 class="section-title">海克斯强度速览</h2>
             <p class="section-sub">棱彩、黄金、白银三个档位，按稀有度排序，点卡片看详细效果。</p>
           </div>
-          <a class="link-more" href="#/augments">全部 ${D.meta.augmentCount} 个海克斯 ${icon('arrow')}</a>
+          <a class="link-more" href="#/augments">全部 ${D.meta.augmentCount} 个海克斯</a>
         </div>
         <div class="aug-grid">${augTop.map((a, i) => augmentCard(a, { i })).join('')}</div>
       </div>
@@ -289,11 +284,10 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">BUILDS</div>
             <h2 class="section-title">出装方案</h2>
             <p class="section-sub">每个英雄至少两套路线，标注核心三件与技能加点。</p>
           </div>
-          <a class="link-more" href="#/builds">全部 ${D.meta.buildCount} 套出装 ${icon('arrow')}</a>
+          <a class="link-more" href="#/builds">全部 ${D.meta.buildCount} 套出装</a>
         </div>
         <div class="build-grid">${picks.map(({ c, b }, i) => buildCard(b, c, { i })).join('')}</div>
       </div>
@@ -303,7 +297,6 @@
       <div class="wrap">
         <div class="split-band reveal">
           <div>
-            <div class="eyebrow">DESKTOP OVERLAY</div>
             <h3>开局不用切屏，推荐浮在角落</h3>
             <p>Windows 悬浮窗通过 Riot 官方本地对局接口识别你选的英雄，把海克斯优先级和出装留在屏幕边缘。只读接口，不碰游戏内存。</p>
             <div class="split-actions">
@@ -374,7 +367,7 @@
 
     return `<div class="wrap">
       <div class="page-head">
-        <div class="page-eyebrow">CHAMPION TIER</div>
+        
         <h1 class="page-title">英雄梯度</h1>
         <p class="page-desc">按海斗模式强度分成 T1-T5 五档，结合胜率与选取率。点任意英雄查看适配海克斯、出装和玩法要点。</p>
         <div class="stat-strip">
@@ -560,7 +553,7 @@
 
     return `<div class="wrap">
       <div class="page-head">
-        <div class="page-eyebrow">AUGMENT LIBRARY</div>
+        
         <h1 class="page-title">海克斯图鉴</h1>
         <p class="page-desc">名称、稀有度、图标和效果说明来自官方客户端资源，跑 <code>npm run update-augments</code> 就能跟随版本更新。${withDesc} / ${D.augments.length} 个强化有官方文字说明，其余官方未公开。</p>
         <div class="stat-strip">
@@ -631,7 +624,7 @@
 
     return `<div class="wrap">
       <div class="page-head">
-        <div class="page-eyebrow">ITEM BUILDS</div>
+        
         <h1 class="page-title">出装方案</h1>
         <p class="page-desc">按英雄整理的完整出装路线：核心三件、后续补强、出门装与技能加点。前 3 件带金点标记。</p>
         <div class="stat-strip">
@@ -668,8 +661,8 @@
     return `<div class="wrap">
       <section class="overlay-hero">
         <div>
-          <div class="eyebrow">DESKTOP · WINDOWS 10 / 11</div>
-          <h1>把推荐留在<br><span class="gold">游戏画面边缘</span></h1>
+          <div class="eyebrow">Windows 10 / 11 桌面端</div>
+          <h1>把推荐留在游戏画面边缘</h1>
           <p>悬浮窗读取 Riot 官方本地对局接口，自动识别你选的英雄，实时展示该英雄的海克斯优先级与出装。透明置顶、不挡视野，需要时一键穿透点击。</p>
           <div class="hero-actions">
             <button class="btn btn-gold" type="button" data-scroll="start">${icon('bolt')}如何启动</button>
@@ -735,7 +728,7 @@
   }
 
   function viewNotFound(msg) {
-    return `<div class="wrap"><div class="page-head"><div class="page-eyebrow">404</div><h1 class="page-title">${esc(msg || '页面不存在')}</h1><p class="page-desc">链接可能已失效，或者这个英雄还没被收录。</p><div class="hero-actions"><a class="btn btn-gold" href="#/champions">返回英雄梯度</a><a class="btn btn-plain" href="#/">回到首页</a></div></div></div>`;
+    return `<div class="wrap"><div class="page-head"><h1 class="page-title">${esc(msg || '页面不存在')}</h1><p class="page-desc">链接可能已失效，或者这个英雄还没被收录。</p><div class="hero-actions"><a class="btn btn-gold" href="#/champions">返回英雄梯度</a><a class="btn btn-plain" href="#/">回到首页</a></div></div></div>`;
   }
 
   /* ---------- search ---------- */
@@ -1148,6 +1141,23 @@
       openAugment(document.activeElement.dataset.augment);
     }
   });
+
+  /* ---------- 桌面端更新提示 ---------- */
+  // 主进程查到 GitHub 上有新 Release 时会通过 preload 推过来；网页版没有这个接口，静默跳过。
+  if (window.haidouApp && window.haidouApp.onUpdateFound) {
+    window.haidouApp.onUpdateFound((info) => {
+      if (!info || !info.version || document.getElementById('update-bar')) return;
+      const bar = document.createElement('div');
+      bar.id = 'update-bar';
+      bar.innerHTML =
+        `<span>新版本 <b class="num">v${esc(info.version)}</b> 已发布</span>` +
+        '<button type="button" class="update-go">前往下载</button>' +
+        '<button type="button" class="update-dismiss" aria-label="暂不提醒">×</button>';
+      bar.querySelector('.update-go').addEventListener('click', () => window.haidouApp.openUpdatePage());
+      bar.querySelector('.update-dismiss').addEventListener('click', () => bar.remove());
+      document.body.appendChild(bar);
+    });
+  }
 
   window.addEventListener('hashchange', router);
 

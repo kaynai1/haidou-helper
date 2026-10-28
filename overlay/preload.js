@@ -9,3 +9,9 @@ contextBridge.exposeInMainWorld('overlay', {
   quit: () => ipcRenderer.send('overlay:quit'),
   openWeb: () => ipcRenderer.send('overlay:open-web'),
 });
+
+// 主窗口用的接口；悬浮窗页面不会调用
+contextBridge.exposeInMainWorld('haidouApp', {
+  onUpdateFound: (cb) => ipcRenderer.on('app:update-found', (_event, info) => cb(info)),
+  openUpdatePage: () => ipcRenderer.send('app:open-update-page'),
+});

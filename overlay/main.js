@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage, globalShortcut, screen, shell, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu, nativeImage, globalShortcut, screen, shell, ipcMain, dialog } = require('electron');
 const path = require('path');
 const https = require('https');
 
@@ -8,6 +8,7 @@ const WEB_INDEX = app.isPackaged
 const ICON_PATH = app.isPackaged
   ? path.join(process.resourcesPath, 'icon.png')
   : path.join(__dirname, '..', 'build', 'icon.png');
+const RELEASE_API = 'https://api.github.com/repos/kaynai1/haidou-helper/releases/latest';
 const WIDTH = 384;
 const HEIGHT = 440;
 
@@ -60,12 +61,13 @@ function createMainWindow() {
     minWidth: 960,
     minHeight: 640,
     center: true,
-    backgroundColor: '#07090F',
+    backgroundColor: '#0A0A0C',
     autoHideMenuBar: true,
     show: false,
     title: '海斗速查',
     icon: ICON_PATH,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true,
@@ -149,6 +151,7 @@ function updateTrayMenu() {
         click: () => toggleOverlay(),
       },
       { label: pinned ? '取消点击穿透' : '点击穿透', click: () => setPinned(!pinned) },
+      { label: '检查更新', click: checkUpdateFromMenu },
       { type: 'separator' },
       { label: '退出', click: () => app.quit() },
     ])
@@ -163,6 +166,107 @@ function createTray() {
   updateTrayMenu();
   tray.on('click', createMainWindow);
   tray.on('double-click', createMainWindow);
+}
+
+// ---------- 检查更新 ----------
+// 只查 GitHub Releases 的 latest，把 tag 和当前版本比大小；下载始终跳浏览器，不在应用内落盘。
+let lastUpdate = null;
+
+function fetchLatestRelease() {
+  return new Promise((resolve, reject) => {
+    const req = https.get(
+      {
+        host: 'api.github.com',
+        path: '/repos/kaynai1/haidou-helper/releases/latest',
+        headers: { 'User-Agent': 'haidou-helper', Accept: 'application/vnd.github+json' },
+        timeout: 8000,
+      },
+      (res) => {
+        if (res.statusCode !== 200) {
+          res.resume();
+          return reject(new Error(`status ${res.statusCode}`));
+        }
+        let body = '';
+        res.setEncoding('utf8');
+        res.on('data', (chunk) => {
+          body += chunk;
+          if (body.length > 1024 * 1024) req.destroy(new Error('payload too large'));
+        });
+        res.on('end', () => {
+          try {
+            resolve(JSON.parse(body));
+          } catch (err) {
+            reject(err);
+          }
+        });
+        res.on('error', reject);
+      }
+    );
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+  });
+}
+
+function isNewerVersion(remote, local) {
+  const parse = (v) =>
+    String(v)
+      .replace(/^v/, '')
+      .split('.')
+      .map((n) => parseInt(n, 10) || 0);
+  const a = parse(remote);
+  const b = parse(local);
+  for (let i = 0; i < 3; i++) {
+    if (a[i] !== b[i]) return a[i] > b[i];
+  }
+  return false;
+}
+
+async function checkForUpdate() {
+  try {
+    const rel = await fetchLatestRelease();
+    const version = String(rel.tag_name || '').replace(/^v/, '');
+    const url = rel.html_url || 'https://github.com/kaynai1/haidou-helper/releases/latest';
+    if (version && isNewerVersion(version, app.getVersion())) {
+      lastUpdate = { version, url };
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('app:update-found', lastUpdate);
+      }
+      return { found: true, version, url };
+    }
+    return { found: false, version: app.getVersion() };
+  } catch (err) {
+    return { error: err.message };
+  }
+}
+
+async function checkUpdateFromMenu() {
+  const result = await checkForUpdate();
+  if (result.error) {
+    dialog.showMessageBox({
+      type: 'info',
+      message: '检查更新失败',
+      detail: `无法访问 GitHub（${result.error}）。可以到 https://github.com/kaynai1/haidou-helper/releases 手动查看。`,
+      buttons: ['确定'],
+    });
+    return;
+  }
+  if (result.found) {
+    const { response } = await dialog.showMessageBox({
+      type: 'info',
+      message: `发现新版本 v${result.version}`,
+      detail: `当前版本 v${app.getVersion()}。安装包在 Release 页面，下载后重新安装即可。`,
+      buttons: ['打开下载页', '以后再说'],
+      defaultId: 0,
+    });
+    if (response === 0) shell.openExternal(result.url);
+  } else {
+    dialog.showMessageBox({
+      type: 'info',
+      message: '当前已是最新版本',
+      detail: `海斗速查 v${result.version}`,
+      buttons: ['确定'],
+    });
+  }
 }
 
 function getLiveData() {
@@ -292,6 +396,9 @@ ipcMain.on('overlay:resize', (_event, height) => {
 ipcMain.on('overlay:hide', () => toggleOverlay(false));
 ipcMain.on('overlay:quit', () => app.quit());
 ipcMain.on('overlay:open-web', createMainWindow);
+ipcMain.on('app:open-update-page', () => {
+  if (lastUpdate && lastUpdate.url) shell.openExternal(lastUpdate.url);
+});
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
@@ -308,6 +415,8 @@ if (!app.requestSingleInstanceLock()) {
     createTray();
     registerShortcuts();
     pollGame();
+    // 启动后静默查一次更新，失败不打扰
+    setTimeout(() => checkForUpdate(), 3000);
   });
 
   app.on('window-all-closed', () => app.quit());

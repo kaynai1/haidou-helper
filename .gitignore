@@ -8,3 +8,4 @@ _data/dom.html
 _data/shot-*.png
 _data/cdp-*.png
 _data/overlay-*.png
+.claude/

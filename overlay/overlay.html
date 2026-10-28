@@ -8,19 +8,19 @@
 <title>海斗速查 · 悬浮窗</title>
 <style>
   :root{
-    --bg:#0A0E18;
-    --panel:rgba(17,22,36,.72);
+    --bg:#0A0A0C;
+    --panel:rgba(18,19,22,.72);
     --line:rgba(255,255,255,.075);
-    --line-gold:rgba(240,193,91,.26);
-    --gold:#F0C15B;
-    --gold-light:#FFE4A8;
-    --text:#F3EFE4;
-    --muted:#9AA2B5;
-    --dim:#6A7285;
-    --green:#57D98A;
-    --red:#EF6A6A;
-    --violet:#8F7BFF;
-    --cyan:#5FD4E8;
+    --line-gold:rgba(200,170,110,.26);
+    --gold:#C8AA6E;
+    --gold-light:#F0E6D2;
+    --text:#E8E4D8;
+    --muted:#8F939E;
+    --dim:#63666E;
+    --green:#4DBB7C;
+    --red:#E05D5D;
+    --violet:#9A86FF;
+    --cyan:#52B8D8;
     --font:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif;
     --num:"Bahnschrift","DIN Alternate","Segoe UI",sans-serif;
   }
@@ -33,16 +33,12 @@
   }
   .win{
     height:100%;display:flex;flex-direction:column;overflow:hidden;
-    background:linear-gradient(180deg,rgba(16,21,33,.94),rgba(8,11,18,.96));
-    border:1px solid rgba(240,193,91,.25);border-radius:16px;
+    background:linear-gradient(180deg,rgba(18,18,20,.94),rgba(12,12,14,.96));
+    border:1px solid rgba(200,170,110,.25);border-radius:3px;
     box-shadow:0 18px 50px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);
     position:relative;
   }
-  .win::before{
-    content:"";position:absolute;inset:0;pointer-events:none;border-radius:16px;
-    background:radial-gradient(320px 160px at 88% -8%,rgba(240,193,91,.14),transparent 70%);
-  }
-  body.pinned .win{border-color:rgba(240,193,91,.5);outline:1px dashed rgba(240,193,91,.35);outline-offset:-5px}
+  body.pinned .win{border-color:rgba(200,170,110,.5);outline:1px dashed rgba(200,170,110,.35);outline-offset:-5px}
 
   .bar{
     -webkit-app-region:drag;display:flex;align-items:center;gap:7px;
@@ -55,13 +51,13 @@
   .bar .ver{font-family:var(--num);font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:14px}
   .actions{margin-left:auto;display:flex;gap:4px;-webkit-app-region:no-drag}
   .act{
-    width:24px;height:24px;border-radius:6px;border:1px solid transparent;color:var(--dim);
+    width:24px;height:24px;border-radius:3px;border:1px solid transparent;color:var(--dim);
     display:grid;place-items:center;cursor:pointer;background:none;padding:0;
     transition:color .15s,background .15s,border-color .15s;
   }
   .act:hover{color:var(--text);background:rgba(255,255,255,.05);border-color:var(--line)}
   .act svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .act.active{color:var(--gold);border-color:var(--line-gold);background:rgba(240,193,91,.1)}
+  .act.active{color:var(--gold);border-color:var(--line-gold);background:rgba(200,170,110,.1)}
   .act.close:hover{color:#fff;background:rgba(220,70,70,.75);border-color:transparent}
 
   .statusbar{
@@ -69,17 +65,17 @@
     flex:0 0 auto;
   }
   .dot{width:5px;height:5px;border-radius:50%;background:var(--dim);flex:0 0 auto}
-  .dot.live{background:var(--green);box-shadow:0 0 7px rgba(87,217,138,.9)}
-  .dot.demo{background:var(--gold);box-shadow:0 0 7px rgba(240,193,91,.7)}
+  .dot.live{background:var(--green);box-shadow:0 0 7px rgba(77,187,124,.9)}
+  .dot.demo{background:var(--gold);}
   .statusbar .clock{margin-left:auto;font-family:var(--num);color:var(--dim);letter-spacing:.04em}
 
   main{flex:1 1 auto;overflow:auto;padding:8px 12px 10px;position:relative;z-index:1}
   main::-webkit-scrollbar{width:4px}
-  main::-webkit-scrollbar-thumb{background:#283044;border-radius:99px}
+  main::-webkit-scrollbar-thumb{background:#2A2B2E;border-radius:1px}
 
   .champ{
-    position:relative;overflow:hidden;border-radius:11px;border:1px solid var(--line);
-    min-height:88px;padding:12px;display:flex;align-items:flex-end;gap:10px;background:#0A0E17;
+    position:relative;overflow:hidden;border-radius:3px;border:1px solid var(--line);
+    min-height:88px;padding:12px;display:flex;align-items:flex-end;gap:10px;background:#0E0F12;
   }
   .champ .splash{
     position:absolute;inset:0;background-size:cover;background-position:center 22%;
@@ -87,16 +83,16 @@
   }
   .champ::after{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(90deg,rgba(7,10,17,.95) 10%,rgba(7,10,17,.72) 55%,rgba(7,10,17,.28) 100%),
-      linear-gradient(0deg,rgba(7,10,17,.92) 2%,transparent 65%);
+    background:linear-gradient(90deg,rgba(8,8,10,.95) 10%,rgba(8,8,10,.72) 55%,rgba(8,8,10,.28) 100%),
+      linear-gradient(0deg,rgba(8,8,10,.92) 2%,transparent 65%);
   }
   .champ > *{position:relative;z-index:1}
-  .avatar{width:42px;height:42px;border-radius:10px;border:1px solid rgba(240,193,91,.45);object-fit:cover;background:#0A0E16;flex:0 0 auto}
+  .avatar{width:42px;height:42px;border-radius:3px;border:1px solid rgba(200,170,110,.45);object-fit:cover;background:#0E0F12;flex:0 0 auto}
   .champ-info{min-width:0}
   .champ-name{font-size:19px;font-weight:800;line-height:1.15;letter-spacing:.02em}
   .champ-sub{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden}
   .tier{font-family:var(--num);font-weight:700;letter-spacing:.04em}
-  .tier.t1{color:#F0C15B}.tier.t2{color:#5FD4E8}.tier.t3{color:#7FA6FF}.tier.t4{color:#A78BFA}.tier.t5{color:#8A90A0}
+  .tier.t1{color:#C8AA6E}.tier.t2{color:#52B8D8}.tier.t3{color:#7FA6FF}.tier.t4{color:#A78BFA}.tier.t5{color:#8A90A0}
   .champ-wr{margin-left:auto;text-align:right;flex:0 0 auto}
   .champ-wr b{display:block;font-family:var(--num);font-size:19px;line-height:1;color:var(--green)}
   .champ-wr span{font-size:9px;color:var(--dim)}
@@ -105,38 +101,38 @@
   .block-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:9px;letter-spacing:.12em;color:var(--dim);font-weight:600;margin-bottom:4px}
   .block-h .right{font-family:var(--num);letter-spacing:.02em;color:var(--dim);font-weight:400}
   .rec{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:11.5px}
-  .g{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-family:var(--num);font-size:10.5px;font-weight:700;flex:0 0 auto;border:1px solid currentColor}
-  .g.S{color:#F0C15B;background:rgba(240,193,91,.1)}
-  .g.A{color:#5FD4E8;background:rgba(95,212,232,.08)}
+  .g{width:20px;height:20px;border-radius:3px;display:grid;place-items:center;font-family:var(--num);font-size:10.5px;font-weight:700;flex:0 0 auto;border:1px solid currentColor}
+  .g.S{color:#C8AA6E;background:rgba(200,170,110,.1)}
+  .g.A{color:#52B8D8;background:rgba(95,212,232,.08)}
   .g.B{color:#7FA6FF;background:rgba(127,166,255,.08)}
   .g.C{color:#8A90A0;background:rgba(138,144,160,.08)}
   .rec .n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
   .rec .rar{font-size:8.5px;color:var(--dim);border:1px solid var(--line);border-radius:3px;padding:0 3px;margin-left:3px}
   .rec .p{font-family:var(--num);font-size:10px;color:var(--muted);width:34px;text-align:right;flex:0 0 auto}
-  .rec .bar{width:44px;height:2.5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;flex:0 0 auto}
-  .rec .bar i{display:block;height:100%;background:linear-gradient(90deg,#C08E33,#F0C15B);border-radius:99px}
+  .rec .bar{width:44px;height:2.5px;border-radius:1px;background:rgba(255,255,255,.08);overflow:hidden;flex:0 0 auto}
+  .rec .bar i{display:block;height:100%;background:var(--gold)}
 
   .items{display:flex;gap:5px;margin-top:3px}
   .item{
-    width:33px;height:33px;border-radius:7px;border:1px solid var(--line);background:#0A0E16;
+    width:33px;height:33px;border-radius:3px;border:1px solid var(--line);background:#0E0F12;
     overflow:hidden;position:relative;flex:0 0 auto;
   }
-  .item.core{border-color:rgba(240,193,91,.48)}
-  .item.core::after{content:"";position:absolute;right:2px;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(--gold);box-shadow:0 0 5px var(--gold)}
+  .item.core{border-color:rgba(200,170,110,.48)}
+  .item.core::after{content:"";position:absolute;right:2px;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(--gold);}
   .item img{width:100%;height:100%;object-fit:cover;display:block}
   .item-names{font-size:9.5px;color:var(--dim);margin-top:6px;line-height:1.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
   .notice{
-    margin-top:8px;padding:7px 9px;border-radius:8px;border:1px solid rgba(240,193,91,.22);
-    background:rgba(240,193,91,.06);font-size:10px;line-height:1.6;color:var(--muted);
+    margin-top:8px;padding:7px 9px;border-radius:8px;border:1px solid rgba(200,170,110,.22);
+    background:rgba(200,170,110,.06);font-size:10px;line-height:1.6;color:var(--muted);
   }
   .notice b{color:var(--gold-light);font-weight:600}
 
   footer{flex:0 0 auto;border-top:1px solid var(--line);background:rgba(0,0,0,.22);padding:7px 12px 8px}
   .demo-row{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--dim)}
   .demo-row select{
-    flex:1;height:25px;background:#131A29;color:var(--muted);border:1px solid var(--line);
-    border-radius:6px;font-family:var(--font);font-size:10.5px;padding:0 6px;outline:none;
+    flex:1;height:25px;background:#151619;color:var(--muted);border:1px solid var(--line);
+    border-radius:3px;font-family:var(--font);font-size:10.5px;padding:0 6px;outline:none;
   }
   .demo-row select:disabled{opacity:.55}
   .hints{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:9px;color:var(--dim)}
@@ -151,7 +147,7 @@
 <div class="win">
   <header class="bar">
     <span class="mark" aria-hidden="true">
-      <svg viewBox="0 0 40 40"><path d="M20 3 34 11v18L20 37 6 29V11Z" opacity=".9"/><path d="M20 10l2.4 6.1L28.5 19l-6.1 2.4L20 27.5l-2.4-6.1L11.5 19l6.1-2.4z" fill="#0A0E18"/></svg>
+      <svg viewBox="0 0 40 40"><path d="M20 3 34 11v18L20 37 6 29V11Z" opacity=".9"/><path d="M20 10l2.4 6.1L28.5 19l-6.1 2.4L20 27.5l-2.4-6.1L11.5 19l6.1-2.4z" fill="#0A0A0C"/></svg>
     </span>
     <span class="title">海斗速查</span>
     <span class="ver" id="ver">16.21</span>
