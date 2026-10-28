@@ -8,10 +8,12 @@
  * 数据来源（都是官方客户端资源的镜像，不需要 key）：
  *   模式强化列表   .../v1/augment-lists.json
  *   中文名与稀有度 .../v1/cherry-augments.json
- *   效果描述       .../cdragon/arena/zh_cn.json
+ *   效果描述       _data/kiwi-text.json（官方中文，提取自游戏客户端 kiwi.bin +
+ *                  zh_cn lol.stringtable，见 tools/extract-kiwi-text.js）
+ *   描述兜底       .../cdragon/arena/zh_cn.json
  *
  * 说明：官方没有公开「海克斯大乱斗」强化胜率 / 选取率，这里只同步名称、稀有度、
- * 图标和官方文字说明。约六成强化官方没有给出文字说明，desc 会留空。
+ * 图标和官方文字说明。
  */
 const fs = require('fs');
 const path = require('path');
@@ -116,6 +118,15 @@ function runNode(script) {
   const descById = new Map(arena.augments.map((a) => [a.apiName, a]));
   console.log(`${arena.augments.length} 条`);
 
+  // 大乱斗强化的官方中文文本快照（kiwi.bin + zh_cn stringtable 提取产物），
+  // 竞技场的 cdragon 描述只覆盖一部分，这里优先用大乱斗自己的
+  const kiwiTextFile = path.join(__dirname, '..', '_data', 'kiwi-text.json');
+  const kiwiText = fs.existsSync(kiwiTextFile)
+    ? JSON.parse(fs.readFileSync(kiwiTextFile, 'utf8')).augments || {}
+    : {};
+  const kiwiTextIds = Object.keys(kiwiText).length;
+  if (!kiwiTextIds) console.log('提示: 缺少 _data/kiwi-text.json，描述将只有竞技场来源');
+
   const missing = ids.filter((id) => !byId.has(id));
   if (missing.length) throw new Error(`以下强化在 cherry-augments.json 里找不到：${missing.slice(0, 5).join('、')}`);
 
@@ -126,7 +137,12 @@ function runNode(script) {
       if (!rarity) throw new Error(`未知稀有度 ${c.rarity}（${id}）`);
       // KIWI 列表里的 id 带 ARAM_ 前缀，描述表里不一定带，两种都试一次
       const detail = descById.get(id) || descById.get(id.replace(/^ARAM_/, ''));
-      const desc = cleanDesc(detail && detail.desc, detail && detail.dataValues);
+      const kiwi =
+        kiwiText[id] || kiwiText[id.replace(/^ARAM_/, '')] || kiwiText[`ARAM_${id}`] || null;
+      // 优先大乱斗自己的官方描述，缺失时退回竞技场描述
+      const kiwiDesc = cleanDesc(kiwi && (kiwi.desc || kiwi.tooltip), kiwi && kiwi.dataValues);
+      const arenaDesc = cleanDesc(detail && detail.desc, detail && detail.dataValues);
+      const desc = kiwiDesc || arenaDesc;
       return {
         id,
         name: c.nameTRA || c.augmentNameId,

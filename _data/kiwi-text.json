@@ -1,0 +1,2573 @@
+{
+  "note": "海克斯大乱斗强化的官方中文文本，提取自游戏客户端 kiwi.bin + zh_cn lol.stringtable（CommunityDragon 镜像）。desc/tooltip 里的 @键@ 由 dataValues 填充。由 tools/extract-kiwi-text.js 生成。",
+  "updated": "2026-10-28",
+  "augments": {
+    "ARAM_LegDay": {
+      "name": "练腿日",
+      "desc": "获得<speed>@MovementSpeed@移动速度</speed>和<speed>@SlowResist*100@%减速抗性</speed>。",
+      "tooltip": "获得<speed>@MovementSpeed@移动速度</speed>和<speed>@SlowResist*100@%减速抗性</speed>。",
+      "dataValues": {
+        "MovementSpeed": 50,
+        "SlowResist": 0.5
+      }
+    },
+    "Sonata": {
+      "name": "咏叹奏鸣",
+      "desc": "每@Cooldown@秒，以一个不断交替的旋律来<keywordMajor>自动施放</keywordMajor><spellName>坚毅咏叹调</spellName>和<spellName>迅捷奏鸣曲</spellName>。<br><br><rules><spellName>坚毅咏叹调</spellName><healing>治疗</healing>附近友军并提供一个临时的<shield>护盾光环</shield>。</rules><br><br><rules><spellName>迅捷奏鸣曲</spellName>提供一个临时光环来提供<speed>额外移动速度</speed>。</rules>",
+      "tooltip": "每@Cooldown@秒，以一个不断交替的旋律来<keywordMajor>自动施放</keywordMajor><spellName>坚毅咏叹调</spellName>和<spellName>迅捷奏鸣曲</spellName>。<br><br><rules><spellName>坚毅咏叹调</spellName><healing>治疗</healing>附近友军并提供一个临时的<shield>护盾光环</shield>。</rules><br><br><rules><spellName>迅捷奏鸣曲</spellName>提供一个临时光环来提供<speed>额外移动速度</speed>。</rules>",
+      "dataValues": {
+        "Cooldown": 10,
+        "MaxLevel": 1
+      }
+    },
+    "SurgeField": {
+      "name": "电涌力场",
+      "desc": "在施放终极技能时，在你周围生成一个<keywordMajor>地带</keywordMajor>来提供<scaleAbilityHaste>技能急速</scaleAbilityHaste>和<speed>移动速度</speed>。在其中时，它会发射飞弹，飞弹造成相当于你造成的<magicDamage>@MissileDamagePercent*100@%伤害</magicDamage>。",
+      "tooltip": "在施放终极技能时，在你周围生成一个<keywordMajor>地带</keywordMajor>。在它其中时，获得<scaleAbilityHaste>@ZoneAbilityHaste@技能急速</scaleAbilityHaste>和<speed>@ZoneMovementSpeed*100@%移动速度</speed>，并发射若干飞弹来对敌人们造成<magicDamage>@MissileDamagePercent*100@%已造成伤害</magicDamage>。<br><br>这个<keywordMajor>地带</keywordMajor>会在你第一次离开它时跟随你，并且在你第二次离开它时，它会在短暂持续之后消散。<br><br>飞弹伤害：@f1@",
+      "dataValues": {
+        "Buff_Duration": 6,
+        "Radius": 300,
+        "MissileDamagePercent": 0.20000000298023224,
+        "ZoneMovementSpeed": 0.4000000059604645,
+        "ZoneAbilityHaste": 50,
+        "MaxLevel": 1
+      }
+    },
+    "EndlessDecimation": {
+      "name": "无尽大杀四方",
+      "desc": "在战斗状态下，<keywordMajor>自动施放</keywordMajor>一次环形斧头挥舞从而造成<physicalDamage>物理伤害</physicalDamage>。被斧刃命中的敌人们受到额外伤害并<healing>治疗</healing>你。",
+      "tooltip": "在战斗中每@Cooldown@秒<keywordMajor>自动施放</keywordMajor>一次环形斧头挥舞来造成<physicalDamage>物理伤害</physicalDamage>。被斧刃命中的敌人们受到额外伤害(@FullDamage@)并<healing>治疗你@BaseHealPercent*100@%已损失生命值</healing>。用斧刃命中的每个敌人，都会将这个技能的冷却时间缩短10%，最小值为3秒。",
+      "dataValues": {
+        "BaseHealPercent": 0.18000000715255737,
+        "InnerRadiusDamageMod": 0.5,
+        "Cooldown": 8,
+        "WindupLength": 1.25,
+        "PreWindupWarningLength": 1.5,
+        "BaseCDRPercent": 0.10000000149011612
+      }
+    },
+    "ARAM_Firefox": {
+      "name": "火狐",
+      "desc": "<keywordMajor>自动施放</keywordMajor><br>获得<speed>移动速度</speed>并召唤3道烈焰环绕于你，瞄准距离内相距最近的那个可见英雄并造成<magicDamage>魔法伤害</magicDamage>。",
+      "tooltip": "<keywordMajor>自动施放</keywordMajor>：每@Cooldown@秒，获得<speed>@MovementSpeed*100@%移动速度</speed>并召唤3道烈焰环绕于你，瞄准距离内相距最近的那个可见英雄并造成@SingleFireDamage@自适应伤害。后续命中造成@RepeatDamageMod*100@%伤害。<br><br>已造成伤害的总和：@f1@",
+      "dataValues": {
+        "MovementSpeed": 0.25,
+        "MovementSpeedDuration": 2,
+        "MinionBonusDamageMultiplier": 2,
+        "MinionBonusDamageThreshold": 0.20000000298023224,
+        "BaseDamage": 20,
+        "RepeatDamageMod": 0.30000001192092896,
+        "AcquisitionRange": 550,
+        "BonusAcquisitionRange": 725,
+        "InitialDelay": 0.25,
+        "SecondaryDelay": 0.4000000059604645,
+        "FlameDuration": 2.5,
+        "OrbitRadius": 150,
+        "Cooldown": 7,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_GiantSlayer": {
+      "name": "巨人杀手",
+      "desc": "体型变小，获得<speed>移动速度</speed>，并基于敌方英雄体型大于你的程度获得额外伤害。",
+      "tooltip": "体型变小，获得<speed>@MovespeedMod*100@%移动速度</speed>，并基于敌方英雄体型大于你的程度造成@SmallBonusDamage*100@%到@XLargeBonusDamage*100@%额外伤害。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "SizeMod": 0.25,
+        "MovespeedMod": 0.20000000298023224,
+        "SmallBonusDamage": 0.10000000149011612,
+        "MedBonusDamage": 0.15000000596046448,
+        "LargeBonusDamage": 0.25,
+        "XLargeBonusDamage": 0.30000001192092896
+      }
+    },
+    "ARAM_OkBoomerang": {
+      "name": "回力OK镖",
+      "desc": "每@Cooldown@秒朝着一个附近的敌人<keywordMajor>自动施放</keywordMajor>投掷一个回力镖。",
+      "tooltip": "每@BaseCooldown@秒朝着一个附近的敌人<keywordMajor>自动施放</keywordMajor>投掷一个回力镖，对命中的敌人们造成@Damage@自适应伤害。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "BaseCooldown": 7
+      }
+    },
+    "ARAM_ItsKillingTime": {
+      "name": "杀戮时间到了",
+      "desc": "在施放你的终极技能后，标记所有敌人并存储你对他们造成的伤害。当它结束时，引爆该伤害。",
+      "tooltip": "在施放你的终极技能后，标记所有敌人并存储你对他们的@DamageStorePercentage*100@%造成伤害。在@MarkDuration@秒之后，引爆储量伤害(@Cooldown@秒冷却时间)。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "MarkDuration": 5,
+        "Cooldown": 8,
+        "DamageStorePercentage": 0.4000000059604645,
+        "VFXHighDamageThreshold": 500
+      }
+    },
+    "ARAM_InfernoTriggered": {
+      "name": "扳机炼狱",
+      "desc": "获得<spellName>悍勇本色</spellName>。在你达到S<keywordMajor>评价等级</keywordMajor>时，自动使用<spellName>炼狱扳机</spellName>。",
+      "tooltip": "使用与前一个不同的技能或攻击对敌人造成伤害时，会获得<keywordMajor>评价等级</keywordMajor> (从F到S)。<br><br>从每<keywordMajor>评价等级</keywordMajor>中获得<speed>@Calc_Style_MS_Per_Stack@移动速度</speed>。<br><br>在S<keywordMajor>评价等级</keywordMajor>时，消耗你的<keywordMajor>评价等级</keywordMajor>来倾泻出大量的子弹，在2秒里持续对周围的所有敌人进行10次射击。每颗子弹造成<physicalDamage>@Calc_Damage_Per_Shot@物理伤害</physicalDamage>。低于<scaleHealth>@Calc_Crit_Threshold@生命值</scaleHealth>的敌人们会被暴击，受到<physicalDamage>@Calc_Crit_Damage_Per_Shot@物理伤害</physicalDamage>。这个效果有@Cooldown@秒冷却时间。<br><br><rules>子弹会施加生命偷取并对小兵造成@MinionDamageMod*100@%伤害。<br><br>已造成的伤害：@f1.0@<br>炼狱扳机 触发次数：@f2.0@</rules>",
+      "dataValues": {
+        "Style_Duration": 6,
+        "Cooldown": 5,
+        "Duration": 2.25,
+        "MinionDamageMod": 0.25
+      }
+    },
+    "ARAM_SpinToWin": {
+      "name": "旋转至胜",
+      "desc": "你的旋转类技能获得%i:scaleAH%@SpinHaste@技能急速并且造成@SpinDamageAmp@额外伤害，对于终极技能，该额外伤害提升至@SpinDamageAmp_Ult@。<br><br>",
+      "tooltip": "{{ Kiwi_SpinToWin_Summary }}<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "SpinHaste": 30
+      }
+    },
+    "ArmoredImpact": {
+      "name": "装甲冲击",
+      "desc": "施放技能后，你的下一次普通攻击会对附近敌人造成@ArmorDamage@额外物理伤害。",
+      "tooltip": "施放技能后，你的下一次普通攻击会对附近敌人造成@ArmorDamage@额外物理伤害。",
+      "dataValues": {
+        "ArmorPercent": 2.5,
+        "AOEStartSize": 160,
+        "AOEScalePercentPerArmor": 0.004999999888241291,
+        "Cooldown": 10
+      }
+    },
+    "VeilOfWarding": {
+      "name": "防护面纱",
+      "desc": "每@Cooldown@秒获得一层<attention>法术护盾</attention>来格挡下一个敌方技能。",
+      "tooltip": "每@Cooldown@秒获得一层<attention>法术护盾</attention>来格挡下一个敌方技能。",
+      "dataValues": {
+        "ShieldDuration": 2500,
+        "Cooldown": 30,
+        "MaxLevel": 2
+      }
+    },
+    "Missile_Split": {
+      "name": "咒语裂变",
+      "desc": "在命中时、最大距离时或<recast>再次施放</recast>时，你的【{{SpellName}}】技能的飞弹会分裂为两部分。 ",
+      "tooltip": "{{Kiwi_Missile_Split_Summary}} <br><br>额外命中的目标：@f1@<br><rules>敌人被同一技能命中时，承受伤害会减少。</rules>",
+      "dataValues": {
+        "DelayTime": 0.25,
+        "AHMin": 10,
+        "AHMax": 50,
+        "RecastDelay": 0.15000000596046448,
+        "DamageDeductionRatio": 0.30000001192092896
+      }
+    },
+    "Ability_SelfAOE_DoubleCast": {
+      "name": "回响施放",
+      "desc": "施放你的【{{SpellName}}】技能时会朝你的鼠标位置派出一个复制体并再次施放该技能。",
+      "tooltip": "施放你的【{{SpellName}}】技能时会朝你的鼠标位置派出一个复制体并且在@DelayTime@秒之后再次施放该技能。",
+      "dataValues": {
+        "DelayTime": 0.25,
+        "CloneMissileSpeed": 1000,
+        "CloneMoveToDistance": 500,
+        "CloneDamageRatio": 1,
+        "CloneDuration": 4
+      }
+    },
+    "Overextender": {
+      "name": "过量延伸者",
+      "desc": "回城并进入到你的加农炮发射器。它的距离、飞行速度和伤害已经得到显著提升。",
+      "tooltip": "你的加农炮发射器的距离、飞行速度和伤害已经得到显著提升。回城并进入到你的加农炮发射器。<br><br>旅途经过的单位数：@f1@",
+      "dataValues": {
+        "DamageIncrease": 0.5,
+        "CannonRangeIncrease": 12000
+      }
+    },
+    "ARAM_SearingDawn": {
+      "name": "炽烈黎明",
+      "desc": "你的技能会标记敌人，使其在被你的友军的下一个攻击或技能命中时会受到额外<magicDamage>魔法伤害</magicDamage>。",
+      "tooltip": "你的技能会标记敌人，使其在被你的友军的下一个攻击或技能命中时会受到额外<magicDamage>@Damage@魔法伤害</magicDamage>。<br><br>已造成伤害的总和：@f2@",
+      "dataValues": {
+        "ProcCooldown": 0.75
+      }
+    },
+    "StillHere": {
+      "name": "屹立不倒",
+      "desc": "基于你的已损失<scaleHealth>%i:scaleHealth%生命值</scaleHealth>获得<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>和<lifeSteal>%i:scaleLS%生命偷取</lifeSteal>。",
+      "tooltip": "每损失1%<scaleHealth>%i:scaleHealth%生命值</scaleHealth>，获得<attackSpeed>%i:scaleAS%@ASPerMissingPercentHP*100@%攻击速度</attackSpeed>和<lifeSteal>%i:scaleLS%@OmnivampPerMissingPercentHP*100@%生命偷取</lifeSteal>。",
+      "dataValues": {
+        "ASPerMissingPercentHP": 0.019999999552965164,
+        "AHMissingPercentHP": 2,
+        "OmnivampPerMissingPercentHP": 0.0035000001080334187
+      }
+    },
+    "Upgrade_DeathDance": {
+      "name": "升级：死亡之舞",
+      "desc": "获得<gold>%i:goldCoins% @Gold@</gold>。<br><br><keywordMajor>死亡之舞</keywordMajor>的<passive>无视痛苦</passive>提升至@RangeMeleeSplitTT@所受伤害，并且在参与一次击杀后，<keywordMajor>即刻</keywordMajor><healing>治疗更多</healing>生命值。",
+      "tooltip": "获得<gold>%i:goldCoins% @Gold@</gold>。<br><br><keywordMajor>死亡之舞</keywordMajor>的<passive>无视痛苦</passive>提升至@RangeMeleeSplitTT@所受伤害，并且在参与一次击杀后，<keywordMajor>即刻</keywordMajor>治疗<healing>@HealTotal_UpgradeDD_TT@</healing>生命值。",
+      "dataValues": {
+        "HealPercent": 1.25,
+        "BonusHealPercentTT": 0.25
+      }
+    },
+    "SnapBack": {
+      "name": "复位",
+      "desc": "再次施放【{{SpellName}}】技能时会产生爆炸，并回到你的原本位置。",
+      "tooltip": "再次施放【{{SpellName}}】技能时会产生爆炸，造成@SnapDamage@魔法伤害，并回到你的原本位置。",
+      "dataValues": {}
+    },
+    "BEES": {
+      "name": "小蜜蜂！！！",
+      "desc": "每过一段时间，你的下一个命中敌方英雄的技能会发射一个会爆炸的<keyword>小蜜蜂</keyword>巢穴，在一段短时间里造成<magicDamage>魔法伤害</magicDamage>和<status>减速</status>。<br><br><keyword>小蜜蜂</keyword>附带<OnHit>%i:OnHit%攻击特效</OnHit>。",
+      "tooltip": "每@Calc_Cooldown@秒，你的下一个命中敌方英雄的技能会朝该目标投掷一个蜂巢。在抵达时，该蜂巢会爆炸并且<keyword>小蜜蜂</keyword>会蜂拥至所有附近的敌方英雄处，使其在@Damage_Duration@秒里<status>减速</status>@Calc_Slow@并持续造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>。<br><br><rules><keyword>小蜜蜂</keyword>附带@Calc_OnHit_Efficacy@效能的<OnHit>%i:OnHit%攻击特效</OnHit>。<br><br>被小蜜蜂叮过的敌人数：@f3@<br><br><flavorText>根据所有已知的航空定律，蜜蜂就不可能会飞……</flavorText></rules>",
+      "dataValues": {
+        "Damage_Duration": 2,
+        "AoE_Radius": 425,
+        "TicksPerSecond": 2
+      }
+    },
+    "Bonk": {
+      "name": "邦！",
+      "desc": "被【{{SpellName}}】技能强化的攻击或技能会对目标和附近的敌人们造成额外伤害。",
+      "tooltip": "被【{{SpellName}}】技能强化的攻击或技能会对目标和附近的敌人们造成额外的@DamageMultiplier*100@%伤害。<br><br>被“邦”的额外英雄数量：@f1@",
+      "dataValues": {
+        "DamageMultiplier": 0.30000001192092896,
+        "AoERange": 300
+      }
+    },
+    "ARAM_DivineDomain": {
+      "name": "飞升仪式",
+      "desc": "参与击杀敌方英雄后会留下其精华。攻击该精华会提供<speed>移动速度</speed>并重置基础技能冷却时间。",
+      "tooltip": "参与击杀你在过去@Kill_Track_Duration@秒内造成过伤害的英雄，会使其留下其<keywordMajor>精华</keywordMajor>，持续@Soul_Duration@秒。攻击一个<keywordMajor>精华</keywordMajor>会消耗它。<br><br>消耗一个<keywordMajor>精华</keywordMajor>会使你闪烁至它的位置、让你变为<attention>不可被选取</attention>和<attention>不可阻挡</attention>、提供在@Move_Speed_Duration@秒里持续衰减的<speed>@Calc_Move_Speed@移动速度</speed>、<healing>治疗你@Calc_Heal_Min@到@Calc_Heal_Max@生命值(基于已损失生命值)</healing>、并重置你的基础技能冷却时间。<br><br><rules>治疗：@f1.0@<br>已返还的冷却时间：@f3.0@<br><flavorText>今天，你们将一睹飞升之威能！——沙漠皇帝 阿兹尔</flavorText></rules>",
+      "dataValues": {
+        "Soul_Duration": 8,
+        "Windup_Duration": 1.25,
+        "Radius": 375,
+        "Move_Speed_Duration": 2,
+        "Soul_Attack_Range": 400,
+        "Kill_Track_Duration": 3,
+        "MaxLevel": 1
+      }
+    },
+    "TheBoomAndTheBass": {
+      "name": "鼓声暴起 低音轰鸣",
+      "desc": "施放技能后，你的下一次攻击变得更快，造成<magicDamage>额外魔法伤害</magicDamage>并为你提供<speed>持续衰减的移动速度</speed>。",
+      "tooltip": "施放技能后，你在@Charge_Duration@秒内的下一次普攻变得更快，附带<magicDamage>@Calc_Damage@魔法伤害</magicDamage><OnHit>%i:OnHit%攻击特效</OnHit>，并为你提供在@Move_Speed_Duration@秒里持续衰减的<speed>@Calc_Move_Speed@移动速度</speed>。<br><br><rules>已强化的攻击次数：@f1@<br>已造成的伤害：@f2@</rules>",
+      "dataValues": {
+        "Charge_Duration": 6,
+        "Move_Speed_Duration": 2,
+        "Max_Counters": 2
+      }
+    },
+    "Quest_Sneakerhead": {
+      "name": "王中王，靴中靴",
+      "desc": "即刻：随机获得一双升级后的靴子。<br><br>需求：完成其任务，以更换为另一双。<br><br>奖励：嘉文一世之靴",
+      "tooltip": "<mainText><font color='#a327ef'>完成以下的任务即可获得一份超级大奖：</font></mainText><br><br>任务1：装备【狂战士胫甲】时，攻击<attackSpeed>@f1@/@BGAttacks@次</attackSpeed><br>任务2：装备【轻灵之靴】时，移动<speed>@f2@/@BOSSteps@步</speed><br>任务3：装备【明朗之靴】时，施放<scaleAP>@f3@/@IBOLSpells@次技能</scaleAP><br>任务4：装备【水银之靴】时，受到控制效果<status>@f4@/@MTCCs@次</status><br>任务5：装备【铁板靴】时，减少<scaleAD>@f5@/@PSDamageMelee@攻击伤害</scaleAD><br>任务6：装备【法师之靴】时，造成<attention>@f6@/@SSSDamage@技能伤害</attention><br>",
+      "dataValues": {
+        "BGAttacks": 25,
+        "BOSSteps": 300,
+        "IBOLSpells": 20,
+        "MTCCs": 5,
+        "SSSDamage": 1500,
+        "PSDamageMelee": 200,
+        "PSDamageRange": 200
+      }
+    },
+    "PinCushion": {
+      "name": "豪猪",
+      "desc": "承受来自英雄的伤害会积攒一次尖针迸发，这些尖针会从你身上飞出，对附近的敌人们造成伤害和减速。",
+      "tooltip": "承受来自英雄的伤害会积攒一次尖针迸发。当达到临界质量时，尖针就会爆裂，对附近敌人们造成<physicalDamage>@Calc_Damage@物理伤害</physicalDamage>和持续@Slow_Duration@秒的@Calc_Slow@<status>减速</status>。<br><br><rules>爆裂次数：@f1.0@<br>伤害：@f2.0@</rules>",
+      "dataValues": {
+        "Radius": 400,
+        "VFX_Breakpoint_1": 0.25,
+        "VFX_Breakpoint_2": 0.5,
+        "VFX_Breakpoint_3": 0.75,
+        "Cast_Windup": 1.5,
+        "Slow_Duration": 2
+      }
+    },
+    "ARAM_ShadowRunner": {
+      "name": "暗影疾奔",
+      "desc": "在使用一个冲刺、闪烁或传送类技能或离开<stealth>潜行</stealth>状态之后，获得<speed>移动速度</speed>。",
+      "tooltip": "在使用一个冲刺、闪烁或传送类技能或离开<stealth>潜行</stealth>状态之后，获得持续@BuffDuration@秒的<speed>@MSAmount@移动速度</speed>。",
+      "dataValues": {
+        "MSAmount": 300,
+        "BuffDuration": 2
+      }
+    },
+    "FishBait": {
+      "name": "鲨鱼诱饵",
+      "desc": "在阵亡之后的若干秒，一头鲨鱼会啃噬所有附近的敌人们。你可以在阵亡后进行移动，以给鲨鱼攻击进行定位。",
+      "tooltip": "阵亡时，变成一个<keyword>鲨鱼诱饵</keyword>。你不能采取除了移动之外的任何其它行动，会<status>对附近的敌人们造成@Slow*100@%减速</status>。在若干秒之后，一头<keyword>鲨鱼</keyword>会浮现，<status>击飞</status>所有附近的敌人们并啃咬他们，对范围内的所有敌人造成<magicDamage>@BaseDamageToApply@ + @MissingHealthPercentDamage@已损失生命值的魔法伤害</magicDamage>。<br><br>鲨鱼击杀敌方英雄的次数：<attention>@f2.0@</attention>",
+      "dataValues": {
+        "AOESize": 400,
+        "Duration": 3.5,
+        "MoveSpeed": 400,
+        "Slow": 0.4000000059604645,
+        "MaxLevel": 2,
+        "MissingHealthPercent": 0.30000001192092896
+      }
+    },
+    "ARAM_ScopierWeapons": {
+      "name": "更万用的瞄准镜",
+      "desc": "获得@RangeIncrease@攻击距离。",
+      "tooltip": "获得@RangeIncrease@攻击距离。",
+      "dataValues": {
+        "MeleeRangeIncrease": 150,
+        "RangedRangeIncrease": 100
+      }
+    },
+    "ARAM_EndlessHunt": {
+      "name": "吃过路兵",
+      "desc": "周期性地识别出敌方英雄身上的<keywordMajor>破绽</keywordMajor>。用攻击或技能命中破绽时，会造成<trueDamage>最大生命值真实伤害</trueDamage>、<healing>回复生命值</healing>并提供<speed>移动速度</speed>。这些效果可以叠加。",
+      "tooltip": "周期性地识别出敌方英雄身上的<keywordMajor>破绽</keywordMajor>。 用攻击或技能命中<keywordMajor>破绽</keywordMajor>时，会造成额外的<trueDamage>@BaseVitalDamage*100@% + 每层@StackDamage*100@%最大生命值真实伤害</trueDamage>、回复<healing>@VitalHeal@ + @MissingHealthHeal*100@%已损失生命值</healing>，并提供在@MSDuration@秒里持续衰减的<speed>@MovementSpeed@+每层5%额外移动速度</speed>。<br><br>连着命中的最大破绽数：@f1@",
+      "dataValues": {
+        "BaseVitalDamage": 0.05999999865889549,
+        "StackDamage": 0.014999999664723873,
+        "MSDuration": 2,
+        "VitalMaxHealthDamage": 0.05999999865889549,
+        "MS": 0.5,
+        "MissingHealthHeal": 0.05000000074505806
+      }
+    },
+    "PressureCooker": {
+      "name": "高压锅",
+      "desc": "每一秒，对附近的敌方英雄们施加一层可叠加的<keywordMajor>灼烧</keywordMajor>，这个效果受益于你的<scaleHealth>最大生命值</scaleHealth>。<br><br><font color='#F0C200'>任务：</font>对敌方英雄造成<keywordMajor>灼烧</keywordMajor>伤害。<br><br><font color='#F0C200'>奖励</font>：每任务等级都会提升体型和伤害。",
+      "tooltip": "{{Kiwi_PressureCooker_Tooltip@f4@}}",
+      "dataValues": {
+        "Range": 300,
+        "Range2": 500,
+        "BurnVamp": 0.05000000074505806,
+        "BleedDuration": 2,
+        "Range3": 600
+      }
+    },
+    "Totentanz": {
+      "name": "死之舞",
+      "desc": "将一个召唤师技能替换为<spellName>{{Kiwi_Augment_Totentanz_Summoner_Name}}</spellName>。<br><br><spellName>{{Kiwi_Augment_Totentanz_Summoner_Name}}</spellName>：向前闪烁并进入<attention>不可被击杀</attention>状态。在@Buff_Duration@秒内参与击杀一个英雄，否则<br><danger>你会直接阵亡</danger>。",
+      "tooltip": "将一个召唤师技能替换为<spellName>{{Kiwi_Augment_Totentanz_Summoner_Name}}</spellName>。<br><br><spellName>{{Kiwi_Augment_Totentanz_Summoner_Name}}</spellName>：{{Kiwi_Augment_Totentanz_Summoner_Tooltip}}<br><br><rules>违抗死亡的次数：@f1@<br>被剥夺生命的次数：@f3@<br><br><flavorText>“你们终归是要死的，为什么不选择死亡的方式呢？” — 死亡颂唱者 卡尔萨斯</flavorText></rules>",
+      "dataValues": {
+        "Buff_Duration": 5,
+        "Takedown_Window": 3,
+        "CastTime": 1,
+        "MinHealth": 25,
+        "Kill_Empower_Duration": 10
+      }
+    },
+    "SharkTempest": {
+      "name": "鲨鱼暴风",
+      "desc": "鲨鱼们环绕着你的【雪球】，对附近的敌人们造成伤害和<status>减速</status>。当你的【雪球】命中一个英雄时，其会陷入一阵鲨鱼风暴之中！",
+      "tooltip": "<keyword>鲨鱼们</keyword>环绕着你的【雪球】，对它们途经的敌人们造成<status>减速</status>和<magicDamage>@BaseDamageTotal@魔法伤害</magicDamage>。如果你的【雪球】命中了一个英雄，鲨鱼们会吸附至其身上并生成一阵<keyword>鲨鱼暴风</keyword>，从而对附近的敌人们造成每秒<magicDamage>@AttachedDamagePerSecond@魔法伤害</magicDamage>和<status>持续@AttachedSlowDuration@秒的@SlowStrengthTT*100@%减速</status>。",
+      "dataValues": {
+        "Range": 300,
+        "AttachedAOESize": 425,
+        "SlowDuration": 1.5,
+        "AttachedSlowDuration": 3,
+        "SlowStrengthTT": 0.4000000059604645,
+        "SlowStrength": -0.4000000059604645,
+        "AttachDuration": 3
+      }
+    },
+    "SwiftAndSafe": {
+      "name": "快中求稳",
+      "desc": "在冲刺或闪烁后，获得<shield>护盾值</shield>。",
+      "tooltip": "在冲刺或闪烁后，获得持续@ShieldDuration@秒的<shield>@ShieldAmount@护盾值</shield>。 (@Cooldown@秒冷却时间)<br>",
+      "dataValues": {
+        "Cooldown": 5,
+        "APPercent": 0.25999999046325684,
+        "ADPercent": 0.6499999761581421,
+        "ShieldDuration": 2
+      }
+    },
+    "ARAM_GetExcited": {
+      "name": "罪恶快感",
+      "desc": "参与击杀后，在@BuffDuration@秒内提升<speed>移动速度</speed>和<attackSpeed>攻击速度</attackSpeed>。",
+      "tooltip": "参与击杀后，获得持续@BuffDuration@秒的<speed>@MSBuff*100@%移动速度</speed>和<attackSpeed>@ASBuff*100@%攻击速度</attackSpeed>。",
+      "dataValues": {
+        "BuffDuration": 4,
+        "ASBuff": 0.15000000596046448,
+        "MSBuff": 1,
+        "MaxLevel": 2
+      }
+    },
+    "TitansPulse": {
+      "name": "保持坚定",
+      "desc": "当【{{SpellName}}】技能对敌方英雄造成伤害时，获得@ARMR_Inc@<scaleArmor>护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>。",
+      "tooltip": "用【{{SpellName}}】技能对敌方英雄造成伤害会基于其%i:miniAdaptiveForce%伤害类型为你提供@ARMR_Inc@<scaleArmor>护甲</scaleArmor>或<scaleMR>魔抗</scaleMR>。<br><br>额外<scaleArmor>护甲</scaleArmor>：@f1@<br>额外<scaleMR>魔抗</scaleMR>：@f2@<br><br><br><rules>如果这不是你的第一个强化符文，获得@AdditionalARMR@<scaleArmor>护甲</scaleArmor>和<scaleMR>魔抗</scaleMR>。</rules>",
+      "dataValues": {
+        "AdditionalARMR": 20,
+        "SpellIDCD": 5
+      }
+    },
+    "ItsGoTime": {
+      "name": "前进时间到",
+      "desc": "激活【{{SpellName}}】技能会在其持续期间为你提供<speed>移动速度</speed>。",
+      "tooltip": "激活【{{SpellName}}】技能会在其持续期间为你提供<speed>@Calc_Move_Speed@移动速度</speed>。",
+      "dataValues": {}
+    },
+    "ARAM_TankItOrLeaveIt": {
+      "name": "会心防御",
+      "desc": "你可以使用你的<crit>暴击几率(最大@MaxChance*100@%几率)</crit>来进行<crit>会心防御</crit>，使你有一定几率来使所受伤害降低。<br><br>获得<crit>%i:scaleCrit%@CritChance*100@%暴击几率</crit>。",
+      "tooltip": "你可以使用你的暴击几率(最大@MaxChance*100@%几率)来进行<crit>会心防御</crit>，使你有一定几率来使所受伤害降低@DamageReduction*100@%。获得@CritChance*100@%暴击几率。<br><br>已降低的伤害：@f2@",
+      "dataValues": {
+        "DamageReduction": 0.20000000298023224,
+        "CritChance": 0.25,
+        "MaxChance": 0.5,
+        "SpellIDCD": 5
+      }
+    },
+    "ARAM_ScopedWeapons": {
+      "name": "万用瞄准镜",
+      "desc": "获得@RangeIncrease@攻击距离。",
+      "tooltip": "获得@RangeIncrease@攻击距离。",
+      "dataValues": {
+        "MeleeRangeIncrease": 75,
+        "RangedRangeIncrease": 50
+      }
+    },
+    "Upgrade_SunderedSky": {
+      "name": "升级：焚天",
+      "desc": "将【焚天】对每个目标的冷却时间缩短至@PerTargetCooldown@秒，并且治疗你@MissingHealthRatio@已损失生命值。<br><br>获得<gold>@Gold@金币</gold>。",
+      "tooltip": "{{UpgradeSunderedSky_Description}}",
+      "dataValues": {}
+    },
+    "FinalForm": {
+      "name": "最终形态",
+      "desc": "在施放你的<attention>终极技能</attention>时，获得持续@AugDuration@秒的<shield>最大生命值护盾</shield>、<lifeSteal>全能吸血</lifeSteal>和<speed>移动速度</speed>。",
+      "tooltip": "在施放你的<attention>终极技能</attention>时，获得持续@AugDuration@秒的<shield>@MaxHealthShield*100@%最大生命值护盾</shield>、<lifeSteal>@OmniVamp*100@%全能吸血</lifeSteal>和<speed>@MSBonus*100@%额外移动速度</speed>。(@Cooldown@秒冷却时间)。",
+      "dataValues": {
+        "MaxHealthShield": 0.5,
+        "OmniVamp": 0.20000000298023224,
+        "MSBonus": 0.30000001192092896,
+        "AugDuration": 10,
+        "Cooldown": 20,
+        "MaxLevel": 2
+      }
+    },
+    "ARAM_Quest_SteelYourHeart": {
+      "name": "钢化你心",
+      "desc": "<font color='#F0C200'>任务：</font>需求：持有【心之钢】且层数在@StackThreshold@层或以上。<br><br>奖励：将你的心之钢层数乘以@StackMultiplication@。",
+      "tooltip": "<font color='#F0C200'>任务：</font>需求：持有【心之钢】且层数在@StackThreshold@层或以上。<br><br>奖励：将你的心之钢层数乘以@StackMultiplication@。",
+      "dataValues": {
+        "StackThreshold": 300,
+        "StackMultiplication": 3
+      }
+    },
+    "ARAM_ImTheJuggernaut": {
+      "name": "泰坦的坚决",
+      "desc": "在承受或造成伤害时获得层数。每@Stacks_Max@层，获得<scaleAF>适应之力</scaleAF>、<scaleArmor>护甲</scaleArmor>、<scaleMR>魔法抗性</scaleMR>、<attention>体型</attention>和<status>韧性</status>。",
+      "tooltip": "在造成或承受英雄伤害时为你提供@StacksPerHit@层持续@Stack_Duration@秒的<keyword>战神附体</keyword>。每@Stacks_Max@层<keyword>战神附体</keyword>，你获得<attention>@Calc_AF@适应之力</attention>、<scaleArmor>@Calc_Defenses@护甲</scaleArmor>、<scaleMR>@Calc_Defenses@魔法抗性</scaleMR>、<attention>@Calc_Size@体型</attention>和<status>@Calc_Tenacity@韧性</status>。<br><br><rules>你拥有的层数越多，层数就衰减得越快。<br>最大战神附体等级：@f1.0@</rules>",
+      "dataValues": {
+        "Stacks_Max": 10,
+        "Stack_Duration": 6,
+        "StacksPerHit": 1,
+        "MaxLevel": 2
+      }
+    },
+    "ARAM_QuantumComputing": {
+      "name": "量子计算",
+      "desc": "周期性地<keywordMajor>自动施放</keywordMajor>一次巨型斩击。被击中的敌人会被<status>减速</status>，受到额外<physicalDamage>最大生命值伤害</physicalDamage>，并且治疗你。",
+      "tooltip": "每@AutoCastCooldown@秒在你周围<keywordMajor>自动施放</keywordMajor>一次巨型斩击，造成<physicalDamage>@BaseDamageTotal@物理伤害</physicalDamage>。被外沿命中的敌人会被施加在@SlowDuration@秒里持续衰减的@SlowPercentage@%<status>减速</status>，并受到额外的<physicalDamage>@OuterEdgeTooltip@最大生命值的物理伤害</physicalDamage>。你回复<healing>相当于@OuterConeHealingRatio@%已造成英雄伤害的生命值</healing>。<br><br>已造成治疗效果的总和：@f2@",
+      "dataValues": {
+        "AutoCastCooldown": 30,
+        "BaseDamage": 40,
+        "SlowDuration": 2,
+        "ChargeDuration": 0.75,
+        "SlowPercentage": 80,
+        "OuterConeMaxHPDamage": 0.10000000149011612,
+        "ADRequiredFor1PercentDamage": 35,
+        "ADRequiredTooltipOnly": 0.0002500000118743628,
+        "MonsterDamageReduction": 50,
+        "OuterConeHealingRatio": 80,
+        "MonsterHealingCap": 0.10000000149011612,
+        "BlastLength": 650,
+        "ConeAngle": 45,
+        "APRequiredFor1PercentDamage": 60,
+        "BonusHPRequiredFor1PercentDamag": 600,
+        "BADRatio": 0.6000000238418579,
+        "APRequiredTooltipOnly": 0.00015999999595806003,
+        "BonusHPRequiredTooltipOnly": 0.000009999999747378752
+      }
+    },
+    "ARAM_SoulSiphon": {
+      "name": "灵魂虹吸",
+      "desc": "<crit>暴击</crit><lifeSteal>造成伤害的@HealPercentage*100@%会等额治疗你自身</lifeSteal>。<br><br>获得<crit>%i:scaleCrit% @CritChance*100@%暴击几率</crit>。",
+      "tooltip": "获得<crit>@CritChance*100@%暴击几率</crit>和作用于<crit>暴击</crit>的<lifeSteal>@HealPercentage*100@%生命偷取</lifeSteal>。<br><br>已造成治疗效果的总和：@f2@",
+      "dataValues": {
+        "HealPercentage": 0.11999999731779099,
+        "CritChance": 0.25
+      }
+    },
+    "ARAM_DiveBomber": {
+      "name": "俯冲轰炸",
+      "desc": "在你阵亡时爆炸，造成<trueDamage>巨量真实伤害</trueDamage>。",
+      "tooltip": "在你阵亡时爆炸，对附近的敌人们造成<trueDamage>目标@PercentMaxHPDamage*100@%最大生命值的真实伤害</trueDamage>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "ExplosionRadius": 500,
+        "PercentMaxHPDamage": 0.20000000298023224
+      }
+    },
+    "EmpyreanPromise": {
+      "name": "至高天诺言",
+      "desc": "获得%i:scaleHealShield%@HSAmp*100@%治疗和护盾强度。获得<spellName>至高天诺言</spellName>作为一个召唤师技能。<br><br><rules><active>警惕</active><br>传送至你的友军并在着陆时提供持续@ShieldDuration@秒的<shield>@ShieldAmount@护盾值</shield>。</rules>",
+      "tooltip": "获得%i:scaleHealShield%@HSAmp*100@%治疗和护盾强度。获得<spellName>至高天诺言</spellName>作为一个召唤师技能。<br><br><rules><active>警惕</active><br>传送至你的友军并在着陆时提供持续@ShieldDuration@秒的<shield>@ShieldAmount@护盾值</shield>。</rules>",
+      "dataValues": {
+        "ShieldDuration": 3,
+        "ShieldRatioAP": 1,
+        "ShieldRatioBHealth": 0.10000000149011612,
+        "DelayMovingTime": 0.25,
+        "HSAmp": 0.15000000596046448,
+        "MoveSpeed": 4000
+      }
+    },
+    "BouncingBees": {
+      "name": "弹跳蜜蜂",
+      "desc": "施放技能后，你的下一次普攻会弹跳至相距最近的那个敌人<br><br><font color='#F0C200'>任务：</font>将普攻弹跳至敌方英雄<br><br><font color='#F0C200'>奖励：</font>每任务等级获得<physicalDamage>+%i:scaleAD%@ADPerMilestone@攻击力</physicalDamage>和额外一次弹跳",
+      "tooltip": "使用技能后，你的下一次普攻会弹跳至相距最近的那个敌人。<br><br><font color='#F0C200'>任务：</font>将普攻弹跳至敌方英雄<br><br><font color='#F0C200'>奖励：</font>每任务等级获得<physicalDamage>+@ADPerMilestone@攻击力</physicalDamage>和额外一次弹跳<br><br>已获取攻击力的总和：@f1@",
+      "dataValues": {
+        "BounceDistance": 700,
+        "BounceAngle": 140,
+        "ADPerMilestone": 30,
+        "BounceProcDuration": 10,
+        "BounceAngleIncreasePerBounce": 5
+      }
+    },
+    "ARAM_Terror": {
+      "name": "惊惧",
+      "desc": "每当你施放【{{SpellName}}】技能时，<status>恐惧</status>你周围的敌人们.",
+      "tooltip": "每当你施放【{{SpellName}}】技能时，<status>恐惧</status>你周围的敌人们@MaximumFearDuration@秒。",
+      "dataValues": {
+        "FearDurationCDDenominator": 20,
+        "FearRange": 450,
+        "MaximumFearDuration": 1.75
+      }
+    },
+    "BrassBlast": {
+      "name": "黄铜爆音",
+      "desc": "将一个召唤师技能替换为<spellName>黄铜爆音</spellName>。<br><br><spellName>黄铜爆音</spellName>：蓄力吹响大喇叭，<status>击退</status>并对敌人造成<magicDamage>魔法伤害</magicDamage>。",
+      "tooltip": "将一个召唤师技能替换为<spellName>黄铜爆音</spellName>。<br><br><charge>开始蓄力</charge>：为大喇叭蓄力，最多蓄力@ChargeTimeTT@秒。<br><br><release>释放：吹响喇叭，</release><status>击退</status>敌人并基于蓄力时间造成<magicDamage>@BrassBlastDamage_Min@至@BrassBlastDamage_Max@魔法伤害</magicDamage>。<br><br><rules>最短蓄力时间：@MinChargeTimeTT@秒</rules>",
+      "dataValues": {
+        "ConeStartRange": 700,
+        "MaxChargeTime": 2.5,
+        "ChargeTimeTT": 1.5,
+        "KnockbackDuration": 0.75,
+        "KnockBackDistanceMax": 500,
+        "SelfSlowPercent": 0.10000000149011612,
+        "KnockbackSpeed": 1300,
+        "KnockbackHeight": 250,
+        "MinChargeTimeTT": 0.25
+      }
+    },
+    "SnowballUpgrade": {
+      "name": "升级：雪球",
+      "desc": "<spellName>雪球</spellName>获得@AbilityHaste@技能急速。击中一个敌人时，会产生一次降雪，来对附近的敌人造成<magic>范围伤害</magic>和<status>减速</status>效果。<br><br><rules>如果你没有雪球，获得一个<spellName>雪球</spellName>。</rules><br>",
+      "tooltip": "你的雪球获得@AbilityHaste@技能急速。<br>击中时会产生一片区域，使其中的敌人受到@TotalSlowAmount@<status>减速</status>效果，以及在@BaseDuration@秒的持续时间里每秒造成<magicDamage>@TotalDamagePerSecond@魔法伤害</magicDamage>(总计<magicDamage>@TotalDamage@魔法伤害</magicDamage>)。<br><br><br>",
+      "dataValues": {
+        "AbilityHaste": 50,
+        "BaseDamagePerSecond": 100,
+        "BaseDuration": 2,
+        "BaseSlowAmount": 0.5,
+        "APRatioPerSecond": 0.6000000238418579,
+        "TicksPerSecond": 4,
+        "CastDelay": 0.25,
+        "SlowPer100AP": 0.0006000000284984708,
+        "BonusADRatio": 1
+      }
+    },
+    "PromQueen": {
+      "name": "舞会女王",
+      "desc": "每@BaseCD@秒，<keywordMajor>自动施放</keywordMajor>一道闪亮宝冠降临在你头上。当它着陆时，获得洛的终极技能，魅惑你碰到的敌人们。",
+      "tooltip": "每@BaseCD@秒，<keywordMajor>自动施放</keywordMajor>一道闪亮宝冠降临在你头上。当它着陆时，获得洛的终极技能，魅惑你碰到的敌人们。",
+      "dataValues": {
+        "BaseCD": 35,
+        "CharmDuration": 1.5,
+        "Radius": 300,
+        "WarningDelay": 2.5,
+        "MoveSpeedPercent": 0.5,
+        "PromQueenDuration": 6
+      }
+    },
+    "ARAM_DrawYourSword": {
+      "name": "亮出你的剑",
+      "desc": "变为近战状态，并且获得<physicalDamage>攻击力</physicalDamage>、<healing>生命值</healing>、<attackSpeed>攻击速度</attackSpeed>、<lifesteal>生命偷取</lifesteal>和<speed>移动速度</speed> (每个属性都基于舍弃的攻击距离而进一步提升)。",
+      "tooltip": "你现在是近战状态。获得<physicalDamage>@BonusAD*100@%攻击力</physicalDamage>、<healing>@BonusHP*100@%生命值</healing>、<attackSpeed>@BonusAS*100@%攻击速度</attackSpeed>、<lifesteal>@BonusLifesteal*100@%生命偷取</lifesteal>和<speed>@BonusMS*100@%移动速度</speed> (每个属性都已基于攻击距离的损失而进一步提升)。",
+      "dataValues": {
+        "BonusAD": 0.23999999463558197,
+        "BonusHP": 0.23999999463558197,
+        "BonusAS": 0.20000000298023224,
+        "BonusMS": 0.20000000298023224,
+        "BonusLifesteal": 0.20000000298023224,
+        "MeleeAttackRange": 200,
+        "MaxStatMod": 1,
+        "ExtraStackAttackRangeFloor": 500,
+        "ExtraStackAttackRangeCeiling": 650
+      }
+    },
+    "ARAM_Recursion": {
+      "name": "循环往复",
+      "desc": "获得@AbilityHaste@技能急速。",
+      "tooltip": "获得@AbilityHaste@技能急速。",
+      "dataValues": {
+        "AbilityHaste": 60
+      }
+    },
+    "ARAM_Flashbang": {
+      "name": "闪光弹",
+      "desc": "你的【闪现】会引发一次爆炸，造成伤害和<status>减速</status>（阵亡时重置）。",
+      "tooltip": "你的【闪现】会引发一次爆炸，造成@ExplosiveDamage@伤害和<status>减速</status>（阵亡时重置）。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "SlowAmount": 0.3499999940395355,
+        "SlowDuration": 1.25,
+        "Range": 300
+      }
+    },
+    "ARAM_StackosaurusRex": {
+      "name": "叠角龙",
+      "desc": "在你获得一个技能的永久<keywordMajor>层数</keywordMajor>时，多获得@StackModifier*100@%！",
+      "tooltip": "在你获得一个技能的永久<keywordMajor>层数</keywordMajor>时，多获得@StackModifier*100@%！",
+      "dataValues": {
+        "StackModifier": 1
+      }
+    },
+    "GetJinxed": {
+      "name": "罪恶快感！",
+      "desc": "将一个召唤师技能替换为<spellName>罪恶快感！</spellName><br><br><spellName>罪恶快感！</spellName>驾驭一枚飞弹，它会在命中敌方英雄、建筑物或墙体后爆炸。爆炸半径内的敌人会受到<physicalDamage>物理伤害</physicalDamage>。",
+      "tooltip": "将一个召唤师技能替换为<spellName>罪恶快感！</spellName><br><br><spellName>罪恶快感！</spellName>：{{Kiwi_Augment_GetJinxed_Spell_Tooltip}}<br><br><rules>{{Kiwi_Augment_GetJinxed_Tracker}}<br><br><flavorText>“别慌，还能发生什么更糟糕的事情呢？”— 暴走萝莉 金克丝</flavorText></rules>",
+      "dataValues": {
+        "AoERadius": 400,
+        "TerrainRadius": 50,
+        "CollisionRadius": 100,
+        "MaxLevel": 1,
+        "RideDuration": 15,
+        "InitialSpeed": 250,
+        "BoosterSpeed1": 750,
+        "BoosterSpeed2": 50,
+        "BoosterSpeed3": 1400,
+        "TurnRateMultiplier1": 5,
+        "TurnRateMultiplier2": 3,
+        "TurnRateMultiplier3": 1.75,
+        "CastTime": 0.4000000059604645,
+        "TurnRateMultTime1": 0.800000011920929,
+        "TurnRateMultTime2": 2,
+        "TurnRateMultTime3": 2.299999952316284,
+        "BoosterDelay1": 0.800000011920929,
+        "BoosterDelay2": 1.75,
+        "BoosterDelay3": 2.25,
+        "DistanceForMaxDamage": 2000
+      }
+    },
+    "ARAM_MountainSoul": {
+      "name": "山脉龙魂",
+      "desc": "你获得山脉龙魂，在脱离战斗之后获得一个持续一小段时间的<shield>护盾</shield>。",
+      "tooltip": "你获得【山脉龙魂】，在脱离战斗之后获得持续一小段时间的<shield>护盾值</shield>。<br><br>已生成的护盾值总和：@f1@",
+      "dataValues": {}
+    },
+    "KingMe": {
+      "name": "尊我为王",
+      "desc": "当你第一次<attention>携带一件传说级装备</attention>并乘坐敌人的传送门时，你会<font color = '#d158f9'>加冕为王</font>，升级你的装备并获得一个随机棱彩阶强化符文。",
+      "tooltip": "当你第一次<attention>携带一件传说级装备</attention>并乘坐敌人的传送门时，你会<font color = '#d158f9'>加冕为王</font>，升级你的装备并获得一个随机棱彩阶强化符文。",
+      "dataValues": {
+        "MasterworkLevel": 13,
+        "BaseStatAmp": 0.10000000149011612,
+        "GameModeInteger": 1,
+        "UpgradeTotalGoldValue": 1000,
+        "UpgradeADEff": 35,
+        "UpgradeAPEff": 20,
+        "UpgradeHPEff": 2.6600000858306885,
+        "UpgradeAREff": 20,
+        "UpgradeMREff": 18,
+        "UpgradeAHEff": 31.25,
+        "UpgradeASEff": 30
+      }
+    },
+    "PatOnTheBack": {
+      "name": "轻拍背部",
+      "desc": "友军会在你走过时鼓励你，为你提供<shield>护盾</shield>和<speed>移动速度</speed>。",
+      "tooltip": "友军会在你走过时鼓励你，为你提供持续@Buff_Duration@秒的<shield>@Calc_Shield@护盾</shield>和<speed>@Calc_MS@移动速度</speed>。这个效果可以叠加。<br><br><rules>每个友军需要经过@Calc_Per_Target_Cooldown@秒冷却时间才能重新轻拍你的背部。<br><br>已受到的鼓励次数：@f1.0@</rules>",
+      "dataValues": {
+        "Trigger_Radius": 200,
+        "Buff_Duration": 3
+      }
+    },
+    "CrimsonCobalt": {
+      "name": "深红钴蓝闪光",
+      "desc": "被【{{SpellName}}】技能伤害过的敌方英雄会被标记。攻击带标记的敌人会造成<magicDamage>额外魔法伤害</magicDamage>并缩减【{{SpellName}}】技能的冷却时间。",
+      "tooltip": "用【{{SpellName}}】技能伤害过的敌方英雄会被标记@Debuff_Duration@秒。攻击一个带标记的敌人会造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>并缩减【{{SpellName}}】技能@Calc_Cooldown_Refund@秒冷却时间。<br><br><rules>已造成的伤害：@f1@<br>已消耗的标记：@f3@</rules>",
+      "dataValues": {
+        "Debuff_Duration": 4
+      }
+    },
+    "SquishySlappyGrab": {
+      "name": "软弹啪叽抓",
+      "desc": "偶尔对所有附近的敌方英雄放出软弹啪叽的手，然后用灵链系住。你的下次攻击将拉拽所有被系住的敌人。",
+      "tooltip": "偶尔对所有附近的敌方英雄放出软弹啪叽的手，然后用灵链系住@Buff_Duration@秒。当你处于系住敌人的状态时，你的下一次攻击将<status>拉拽</status>其到你的位置，对其造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>和<status>@Stun_Duration@秒晕眩</status>。你每<status>拉拽</status>到一个敌人就会获得持续@Shield_Duration@秒的<shield>@Calc_Shield@护盾值</shield>。<br><br>这个效果有@Cooldown@秒冷却时间。<br><br><rules>已抓到的敌人数：@f1.0@<br>已造成的伤害：@f2.0@<br>已获得的护盾值：@f3.0@</rules>",
+      "dataValues": {
+        "Cooldown": 30,
+        "Buff_Duration": 4,
+        "Cast_Radius": 450,
+        "Radius": 800,
+        "Shield_Duration": 2.5,
+        "Stun_Duration": 0.25,
+        "Cast_Delay": 1.5,
+        "Tether_Range": 950,
+        "Close_Pull_Range": 450,
+        "Long_Pull_Distance": 350
+      }
+    },
+    "MightyShield": {
+      "name": "强力护盾",
+      "desc": "当你获得护盾时，获得%i:miniAdaptiveForce%<font color = '#8347ff'>@AdaptiveAmp@适应之力</font>，持续@ShieldDuration@秒。(@Cooldown@秒冷却时间)",
+      "tooltip": "当你获得护盾时，获得%i:miniAdaptiveForce%<font color = '#8347ff'>@AdaptiveAmp@适应之力</font>，持续@ShieldDuration@秒。(@Cooldown@秒冷却时间)",
+      "dataValues": {
+        "ShieldDuration": 3,
+        "Cooldown": 5
+      }
+    },
+    "ARAM_Impassable": {
+      "name": "不动如山",
+      "desc": "获得<spellName>余震</spellName>和<spellName>冰川增幅</spellName>基石符文。",
+      "tooltip": "获得<spellName>余震</spellName>和<spellName>冰川增幅</spellName>基石符文。<br><li><spellName>余震</spellName>：在你<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Immobilize'>定身</lol-uikit-tooltipped-keyword>一个敌方英雄后提供防御属性，稍后会在你的周围造成爆发性的魔法伤害。<li><spellName>冰川增幅</spellName>：定身一名敌方英雄时会生成@RayCount@道冰川射线来减速附近的敌人们并降低他们对你的队友们的伤害。",
+      "dataValues": {
+        "SlowZoneDuration": 3,
+        "SlowZoneSlowBase": 0.20000000298023224,
+        "SlowZoneLength": 700,
+        "SlowZoneWidth": 80,
+        "RayCount": 3,
+        "Cooldown": 12,
+        "BeamPosIndent": 100,
+        "CCCarryOverRatio": 1,
+        "DmgReduction": 0.15000000596046448,
+        "SlowZoneSlowAPRatio": 0.05999999865889549,
+        "SlowZoneSlowbADRatio": 0.07000000029802322,
+        "SlowZoneSlowHealShieldRatio": 0.09000000357627869,
+        "DamageRadius": 350,
+        "StartingBaseDamage": 25,
+        "MaxBaseDamage": 120,
+        "DelayBeforeBurst": 2.5,
+        "HealthRatio": 8,
+        "SizeInc": 0.25,
+        "SlowAmount": 0.15000000596046448,
+        "SlowDuration": 2.5,
+        "FlatResists": 35,
+        "FlatResistsMax": 35,
+        "BonusResistsMin": 80,
+        "BonusResistsMax": 150,
+        "PercentBonusResists": 0.800000011920929
+      }
+    },
+    "WarlockJuicebox": {
+      "name": "术士果汁盒",
+      "desc": "获得<lifeSteal>@Calc_Vamp@全能吸血</lifeSteal>。",
+      "tooltip": "获得<lifeSteal>@Calc_Vamp@全能吸血</lifeSteal>。",
+      "dataValues": {
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_BreadAndButter": {
+      "name": "面包和黄油",
+      "desc": "你的【{{SpellName}}】技能获得@QAbilityHaste@技能急速。",
+      "tooltip": "你的【{{SpellName}}】技能获得@QAbilityHaste@技能急速。",
+      "dataValues": {
+        "QAbilityHaste": 100,
+        "QReducedAbilityHaste": 100
+      }
+    },
+    "ARAM_Cruelty": {
+      "name": "残忍",
+      "desc": "<status>定身</status>或<status>缚地</status>一个英雄时，召唤一颗会在短暂延迟后着陆的彗星，对附近的敌人们造成<magicDamage>魔法伤害</magicDamage>。",
+      "tooltip": "<status>定身</status>或<status>缚地</status>一个敌方英雄时，召唤一颗彗星至敌人上方。彗星会在@DelayTime@秒后着陆，对附近的敌人们造成<magicDamage>@TotalDamage@魔法伤害</magicDamage>。<br><rules>这个效果对每次技能施放和每个目标都有@PerSpellLockout@秒冷却时间。</rules><br><br>已造成伤害：@f1@",
+      "dataValues": {
+        "DelayTime": 1,
+        "PerSpellLockout": 6,
+        "Radius": 300
+      }
+    },
+    "ARAM_MadScientist": {
+      "name": "科学狂人",
+      "desc": "每次重生时，你的体型要么变大(获得<font color = '#8347ff'>适应之力</font>和<scaleHealth>生命值</scaleHealth>)，要么变小(获得技能急速和<speed>移动速度</speed>)。",
+      "tooltip": "每次重生时，你的体型要么变大(获得<font color = '#8347ff'>@ADAmp*100@%适应之力</font>和<scaleHealth>@HealthAmp*100@%生命值</scaleHealth>)，要么变小(获得@Haste@技能急速和<speed>@MovespeedAmp*100@%移动速度</speed>)。",
+      "dataValues": {
+        "ADAmp": 0.30000001192092896,
+        "APAmp": 0.30000001192092896,
+        "HealthAmp": 0.20000000298023224,
+        "MovespeedAmp": 0.4000000059604645,
+        "Haste": 70,
+        "SizeAmp": 0.4000000059604645
+      }
+    },
+    "BlueBarrier": {
+      "name": "蓝色屏障",
+      "desc": "获得持续@ShieldDuration@秒的<shield>护盾</shield>，数额相当于你花费的@ManaToShieldPercent@<scaleMana>%i:scaleMana%法力值</scaleMana>。",
+      "tooltip": "{{Kiwi_Augment_BlueBarrier_Description}}<br><br><rules>护盾值至多为@ShieldMax@</rules>",
+      "dataValues": {
+        "ShieldDuration": 1.5
+      }
+    },
+    "MoshMonster": {
+      "name": "热舞怪兽",
+      "desc": "施放【{{SpellName}}】技能会获得@InitialHPGain@额外生命值，并在{{SpellName}}持续期间减速附近敌人<br><br>每次参与击杀都会永久提升该效果。",
+      "tooltip": "施放【{{SpellName}}】技能会获得<scaleHealth>@InitialHPGain@额外生命值</scaleHealth>，并在{{SpellName}}<br>持续期间使附近敌人<status>减速</status>@SlowAmount@<br>参与击杀会永久提升由@HPIncreasePerTakedown@获得的生命值，并扩大减速地带的范围。<br><br><rules>使用【{{SpellName}}】技能时的参与击杀数算作<attention>三倍</attention>。</rules>",
+      "dataValues": {
+        "InitialAOESize": 350,
+        "HPIncreasePerTakedownPercent": 0.029999999329447746,
+        "CountersPerUltKill": 3
+      }
+    },
+    "ARAM_Dashing": {
+      "name": "全凭身法",
+      "desc": "你的冲刺、跳跃、闪烁或传送类技能获得<scaleAbilityHaste>@Haste@技能急速</scaleAbilityHaste>。",
+      "tooltip": "你的冲刺、跳跃、闪烁或传送类技能获得<scaleAbilityHaste>@Haste@技能急速</scaleAbilityHaste>。",
+      "dataValues": {
+        "Haste": 175
+      }
+    },
+    "SpecializedEmpowerment": {
+      "name": "威能之追求",
+      "desc": "<font color='#F0C200'>任务：</font>用【{{SpellName}}】技能命中敌人@QuestRequirement@次。<br><br><font color='#F0C200'>奖励：</font>永久提升【{{SpellName}}】技能伤害。",
+      "tooltip": "{{Augment_SpecializedEmpowerment_Tooltip@f6@}}",
+      "dataValues": {
+        "DamageAmpReward": 30
+      }
+    },
+    "TakeemDownDownDown": {
+      "name": "将他们放倒倒倒",
+      "desc": "普攻和技能在命中时造成<magicDamage>额外魔法伤害</magicDamage>并对敌方英雄施加层数。<br><br>在满层时，消耗所有层数，<magicDamage>基于已损失生命值造成魔法伤害</magicDamage>，并基于造成的伤害<healing>回复生命值</healing>。",
+      "tooltip": "普攻和技能会对敌方英雄施加一层持续@Stack_Duration@秒的效果，并造成<magicDamage>@Calc_Damage_Hit@魔法伤害</magicDamage>+<magicDamage>@Calc_Damage_Per_Previous_Stack@x层数的魔法伤害</magicDamage>。<br><br>对一个拥有@Stacks_Max@层效果的敌人造成伤害时，会消耗这些层数，造成<magicDamage>@Calc_Damage_Consume@已损失生命值的魔法伤害</magicDamage>，并且<healing>你回复@Calc_Healing@造成伤害的生命值</healing>。<br><br><rules>触发次数：@f1@<br>已造成的伤害：@f2@<br>治疗效果：@f3@</rules>",
+      "dataValues": {
+        "Stacks_Max_Minus_One": 4,
+        "Stacks_Max": 5,
+        "Stack_Duration": 5,
+        "Attack_Stacks": 1,
+        "Ability_Stacks": 1,
+        "Attack_Empower_Duration": 4
+      }
+    },
+    "InfiniteRecursion": {
+      "name": "无限循环往复",
+      "desc": "获得@StartingHaste@技能急速，外加每次参与击杀@HastePerStack@技能急速。",
+      "tooltip": "获得@StartingHaste@技能急速，外加每次参与击杀@HastePerStack@技能急速。<br><br>当前技能急速：@CurrentHaste@",
+      "dataValues": {
+        "HastePerStack": 3,
+        "StartingHaste": 60,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_TransmuteGold": {
+      "name": "质变：黄金阶",
+      "desc": "获得1个随机<keywordMajor>%i:Augment%黄金阶强化符文</keywordMajor>。",
+      "tooltip": "获得1个随机<keywordMajor>%i:Augment%黄金阶强化符文</keywordMajor>。",
+      "dataValues": {}
+    },
+    "ARAM_Overflow": {
+      "name": "溢流",
+      "desc": "你的<scaleMana>法力</scaleMana>消耗翻倍。<br><br>你的技能的<healing>治疗效果</healing>、<shield>护盾效果</shield>和伤害获得提升，提升幅度基于你的<scaleMana>最大法力值</scaleMana>。",
+      "tooltip": "你的<scaleMana>法力值</scaleMana>消耗翻倍。你的技能的<healing>治疗效果</healing>、<shield>护盾效果</shield>和伤害的效能提升<scaleMana>@ManaCalc@</scaleMana>。",
+      "dataValues": {
+        "InitialAmpPercent": 10
+      }
+    },
+    "ARAM_FeyMagic": {
+      "name": "精怪魔法",
+      "desc": "你的<attention>终极技能</attention>的伤害会对敌人造成持续若干秒的<status>变形</status>效果。",
+      "tooltip": "你的<attention>终极技能</attention>的伤害会对敌人造成@PolyDuration@秒<status>变形</status>效果(@PolyCooldown@秒冷却时间)。",
+      "dataValues": {
+        "WEnemySlow": 60,
+        "PolyCooldown": 15,
+        "PolyDuration": 2
+      }
+    },
+    "ARAM_MagicMissile": {
+      "name": "魔法飞弹",
+      "desc": "造成技能伤害会发射@NumberOfMissiles@个飞弹，每个造成基于飞行距离的<trueDamage>百分比最大生命值的真实伤害</trueDamage>。",
+      "tooltip": "造成技能伤害会对命中的每个敌人发射@NumberOfMissiles@个飞弹，基于飞行距离，每个造成至多<trueDamage>@MaxHealthDamageTooltip@%最大生命值的真实伤害</trueDamage>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "NumberOfMissiles": 3,
+        "MaxHealthDamagePerMissile": 0.0033400000538676977,
+        "Cooldown": 6,
+        "MaxRangeThreshold": 1000,
+        "MaxHealthDamageTooltip": 1
+      }
+    },
+    "WeaponOfDestiny": {
+      "name": "命运之武器",
+      "desc": "你的第一件传说级装备成为<prismatic>命运之武器</prismatic>，属性基于参与击杀英雄数提升。",
+      "tooltip": "你的第一件传说级装备成为<prismatic>命运之武器</prismatic>。过去3秒内受到过你伤害的英雄阵亡时，<prismatic>命运之武器</prismatic>会获得属性提升。<br><br><rules><prismatic>命运之武器</prismatic>无法售出。<br>升级：@f1@</rules>",
+      "dataValues": {
+        "GoldValue": 200,
+        "BaselineGoldAmp": 1000,
+        "UpgradeAD": 30,
+        "UpgradeAP": 50,
+        "UpgradeCritChance": 0.25,
+        "UpgradeCritDamage": 0.05999999865889549,
+        "UpgradeAS": 0.4000000059604645,
+        "UpgradeAH": 20,
+        "UpgradeHSPower": 0.20000000298023224,
+        "UpgradeAR": 50,
+        "UpgradeMR": 50,
+        "UpgradeArmorPenFlat": 35,
+        "UpgradeMagicPenFlat": 25,
+        "UpgradeArmorPenPercent": 0.25,
+        "UpgradeMagicPenPercent": 0.15000000596046448,
+        "UpgradeLifesteal": 0.25,
+        "UpgradeOmnivamp": 0.25,
+        "UpgradeMSPercent": 0.15000000596046448,
+        "UpgradeMana": 1000,
+        "UpgradeHealth": 375
+      }
+    },
+    "ARAM_ADAPt": {
+      "name": "物理转魔法",
+      "desc": "将<scaleAD>额外攻击力</scaleAD>转化为<scaleAP>法术强度</scaleAP>。获得<scaleAP>@APAmp*100@%法术强度</scaleAP>。",
+      "tooltip": "将<scaleAD>额外攻击力</scaleAD>转化为<scaleAP>法术强度</scaleAP>，并获得<scaleAP>@APAmpCalcTooltip@法术强度</scaleAP>。<br><br>当前转化：@f1@<br><br><rules>每点<scaleAD>攻击力</scaleAD>转化为<scaleAP>@ConversionRate@法术强度</scaleAP>。</rules>",
+      "dataValues": {
+        "ConversionRate": 1.666659951210022,
+        "InverseRate": 0.6000000238418579,
+        "APAmp": 0.15000000596046448
+      }
+    },
+    "DoubleDefense": {
+      "name": "加固护盾",
+      "desc": "来自【{{SpellName}}】技能的护盾变得更强并且受益于目标的已损失生命值。",
+      "tooltip": "来自【{{SpellName}}】技能的护盾变强至多@BonusRatioMax*100@%，受益于目标的已损失生命值。<br><br>额外护盾：@f1@<br><rules>在@MinHealthThreshold*100@%最大生命值时达到最大效能。</rules>",
+      "dataValues": {
+        "BonusRatioMax": 0.6000000238418579,
+        "MinHealthThreshold": 0.30000001192092896
+      }
+    },
+    "OminousPact": {
+      "name": "不祥契约",
+      "desc": "基于<scaleHealth>已损失生命值</scaleHealth>，获得<scaleAP>法术强度</scaleAP>、<speed>移动速度</speed>和<omnivamp>全能吸血</omnivamp>，每次你施放技能时会对自身造成伤害。<br>",
+      "tooltip": "基于<scaleHealth>已损失生命值</scaleHealth>，获得<magicDamage>@APPerLevel@法术强度</magicDamage>，<speed>@MSMod*100@%移动速度</speed>和<omnivamp>@MaxOmnivamp*100@%全能吸血</omnivamp>。施放技能会消耗你的@SpellHealthCost*100@%当前生命值。<br><br><rules>在@HealthThresholdTT*100@%生命值时获得最大增益。</rules><br>",
+      "dataValues": {
+        "MaxOmnivamp": 0.20000000298023224,
+        "MSMod": 0.5,
+        "SpellHealthCost": 0.05000000074505806,
+        "HealthThresholdTT": 0.30000001192092896,
+        "MaxLevel": 2
+      }
+    },
+    "ARAM_Perseverance": {
+      "name": "坚韧",
+      "desc": "获得巨幅提升的<healing>生命回复</healing>，这个数额会在低<scaleHealth>生命值</scaleHealth>时进一步提升。",
+      "tooltip": "获得<healing>@BaseRegen*100@%基础生命回复</healing>，在低于<scaleHealth>25%生命值</scaleHealth>时提升至<healing>@AmpedRegen*100@%基础生命回复</healing>。<br><br>已造成治疗效果的总和：@f2@",
+      "dataValues": {
+        "BaseRegen": 10,
+        "AmpedRegen": 20,
+        "AmpedHPThreshold": 0.25
+      }
+    },
+    "ARAM_FromBeginningToEnd": {
+      "name": "有始有终",
+      "desc": "获得<spellName>先攻</spellName>和<spellName>黑暗收割</spellName>基石符文。",
+      "tooltip": "获得<spellName>先攻</spellName>和<spellName>黑暗收割</spellName>基石符文。<br><li><spellName>先攻</spellName>：当你率先进入英雄战斗后，在@AugDuration@秒内可以造成@DamageAmp*100@%额外伤害，并且基于造成的伤害获得金币。<br><li><spellName>黑暗收割</spellName>：伤害一名低生命值的英雄时会造成<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>自适应伤害</lol-uikit-tooltipped-keyword>并从该猎物身上收割灵魂。<br><br>已造成伤害的总和：@f2@<br>已获得金币的总和：@f3@",
+      "dataValues": {
+        "AugDuration": 3,
+        "DamageAmp": 0.10000000149011612,
+        "OOCTimer": 10,
+        "GoldProcBonus": 20,
+        "GoldPercentBonus": 0.6000000238418579,
+        "GoldPercentBonusRanged": 0.41999998688697815,
+        "GraceWindow": 0.25,
+        "MissileNoiseNumberLimiter": 3,
+        "MissileNoiseRangeLimiter": 1500,
+        "HarvestThreshold": 0.5,
+        "DHCooldown": 35,
+        "BaseDamageLow": 50,
+        "BaseDamageHigh": 100,
+        "ADRatio": 0.10000000149011612,
+        "APRatio": 0.05000000074505806,
+        "DamagePerSoulEssence": 11,
+        "CooldownResetValue": 1,
+        "ModesCooldownReduction": 1,
+        "StartingSoulsPerAugment": 8
+      }
+    },
+    "HeavyIsTheCrown": {
+      "name": "王冠之重",
+      "desc": "获得<scaleAD>%i:scaleAD%攻击力</scaleAD>、<scaleAP>%i:scaleAP%法术强度</scaleAP>和<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>，但<speed>移动速度</speed><danger>降低</danger>。<br><br>每次参与击杀都会获得一层【背负】以提升该效果。阵亡时失去一半层数",
+      "tooltip": "获得%i:scaleAD%<scaleAD>@InitialFlatAD@攻击力</scaleAD>、%i:scaleAP%<scaleAP>@InitialFlatAP@法术强度</scaleAP>，并使你的<scaleAD>额外攻击力</scaleAD>、<scaleAP>额外法术强度</scaleAP>和<attackSpeed>总攻击速度</attackSpeed>提升@InitialStatIncrease*100@%。<danger>在战斗中，你的总</danger><speed>移动速度</speed>降低@InitialMSDecrease*-100@%。<br><br>每次参与击杀都会获得一层【背负】，使你的<scaleAD>额外攻击力</scaleAD>、<scaleAP>额外法术强度</scaleAP>和<attackSpeed>总攻击速度</attackSpeed>提升@StatIncreasePercentPerTakedown*100@%，但每层重担会使你的<speed>移动速度</speed>额外降低@MSDecreasePerTakedown*-100@%，最低降至50%。<br><br>阵亡时失去@PercentStackLostOnDeath*100@%层数。<br><br><rules>百分比属性提升：@f1@%<br>移动速度降低：@f2@%</rules><br><br><flavorText>这就是你要的……</flavorText>",
+      "dataValues": {
+        "StatIncreasePercentPerTakedown": 0.05000000074505806,
+        "MSDecreasePerTakedown": -0.02500000037252903,
+        "CrownSizeGrowthPerTakedown": 0.05000000074505806,
+        "MaxMSDecrease": -0.5,
+        "AHPerTakedown": 8,
+        "InitialStatIncrease": 0.10000000149011612,
+        "InitialMSDecrease": -0.05000000074505806,
+        "InitialAHIncrease": 10,
+        "InitialFlatAD": 10,
+        "InitialFlatAP": 25,
+        "PercentStackLostOnDeath": 0.5,
+        "CombatSecondsUntilSlow": 1.5,
+        "CombatDuration": 7
+      }
+    },
+    "ARAM_Juiced": {
+      "name": "注魔",
+      "desc": "<OnHit>%i:OnHit%攻击特效</OnHit>造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>，这个伤害可以<crit>暴击</crit>。",
+      "tooltip": "<OnHit>%i:OnHit%攻击特效</OnHit>造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>，这个伤害可以<crit>暴击</crit>。<br><br><rules>已造成的伤害：@f1.0@</rules>",
+      "dataValues": {
+        "ManaPercentDamagePercent": 0.07000000029802322,
+        "MaxLevel": 1,
+        "MaxLevelManaSpendThreshold": 300,
+        "MaxLevelPerTriggerDamageAmp": 0.10000000149011612
+      }
+    },
+    "MercysStrike": {
+      "name": "仁慈打击",
+      "desc": "在使用【{{SpellName}}】技能为你的友军提供治疗或护盾之后，你的下一次普攻获得<attention>攻击距离</attention>、<speed>攻击速度</speed>并造成额外<magicDamage>最大生命值魔法伤害</magicDamage>。",
+      "tooltip": "在使用【{{SpellName}}】技能为你的友军提供治疗或护盾之后之后，你的下一次普攻获得<attention>@AttackRangeInc@额外攻击距离</attention>、<speed>@ASBonus*100@%攻击速度</speed>并造成额外的<magicDamage>@MaxHealthDamage@最大生命值魔法伤害</magicDamage>。<br><br>已造成伤害的总和：@f1.0@<br><rules>防御塔受到@HealthPercentBase*100@%最大生命值魔法伤害。</rules>",
+      "dataValues": {
+        "AttackRangeInc": 300,
+        "HealthPercentBase": 0.02500000037252903,
+        "HSPercent": 0.20000000298023224,
+        "ASBonus": 0.75
+      }
+    },
+    "ARAM_Minionmancer": {
+      "name": "仆从大师",
+      "desc": "你的召唤物获得@MinionDamageIncrease*100@%体型提升、生命值和伤害。",
+      "tooltip": "你的召唤物获得@MinionDamageIncrease*100@%体型提升、生命值和伤害。",
+      "dataValues": {
+        "MinionSizeIncrease": 0.4000000059604645,
+        "MinionHealthIncrease": 0.4000000059604645,
+        "MinionDamageIncrease": 0.4000000059604645
+      }
+    },
+    "GoH_PentakillAug_W": {
+      "name": "力量",
+      "desc": "<evolve>强化</evolve>【{{SpellName}}】技能!<br><br>{{Kiwi_GoH_PentakillAug_Generic_Tooltip}}",
+      "tooltip": "<evolve>强化版</evolve>技能获得{{SpellName}}<scaleAbilityHaste>20技能急速</scaleAbilityHaste>、10%额外<silver>伤害</silver>、以及10%<healing>治疗</healing>和<shield>护盾</shield>效果。",
+      "dataValues": {}
+    },
+    "GoH_PentakillAug_R": {
+      "name": "厄运",
+      "desc": "<evolve>强化</evolve>【{{SpellName}}】技能!<br><br>{{Kiwi_GoH_PentakillAug_Generic_Tooltip}}",
+      "tooltip": "<evolve>强化版</evolve>技能获得{{SpellName}}<scaleAbilityHaste>20技能急速</scaleAbilityHaste>、10%额外<silver>伤害</silver>、以及10%<healing>治疗</healing>和<shield>护盾</shield>效果。",
+      "dataValues": {}
+    },
+    "GoH_PentakillAug_Generic": {
+      "name": "",
+      "desc": "<evolve>强化</evolve>【{{SpellName}}】技能!<br><br>{{Kiwi_GoH_PentakillAug_Generic_Tooltip}}",
+      "tooltip": "<evolve>强化版 </evolve>",
+      "dataValues": {}
+    },
+    "GoH_PentakillAug_E": {
+      "name": "鞭挞",
+      "desc": "<evolve>强化</evolve>【{{SpellName}}】技能!<br><br>{{Kiwi_GoH_PentakillAug_Generic_Tooltip}}",
+      "tooltip": "<evolve>强化版</evolve>技能获得{{SpellName}}<scaleAbilityHaste>20技能急速</scaleAbilityHaste>、10%额外<silver>伤害</silver>、以及10%<healing>治疗</healing>和<shield>护盾</shield>效果。",
+      "dataValues": {}
+    },
+    "GoH_PentakillAug_Q": {
+      "name": "重型",
+      "desc": "<evolve>强化</evolve>【{{SpellName}}】技能!<br><br>{{Kiwi_GoH_PentakillAug_Generic_Tooltip}}",
+      "tooltip": "<evolve>强化版</evolve>技能获得{{SpellName}}<scaleAbilityHaste>20技能急速</scaleAbilityHaste>、10%额外<silver>伤害</silver>、以及10%<healing>治疗</healing>和<shield>护盾</shield>效果。",
+      "dataValues": {}
+    },
+    "ARAM_LittleDevil": {
+      "name": "你肩上的恶魔",
+      "desc": "与【大魔王】本尊签订一个契约。<br><br>他<omnivamp>持续汲取你的生命力</omnivamp>，但回报给你力量，让你对英雄造成<trueDamage>额外真实伤害</trueDamage>并且创造<healing>治疗残片</healing>供你获取。",
+      "tooltip": "你已与【大魔王】本尊签订了一个契约。他<omnivamp>每秒汲取你@Calc_Drain_Per_Second_Non_Combat@当前生命值，如果附近有敌人则提升至@Calc_Drain_Per_Second@当前生命值</omnivamp>。<br><br>作为回报，他会增幅你的攻击和技能以造成额外的<trueDamage>@Calc_Damage_Amp@真实伤害</trueDamage>，并且它们还会使<omnivamp>生命残片</omnivamp>出现在附近@Remnant_Duration@秒。<br><br>吸收一个<omnivamp>生命残片</omnivamp>会<healing>治疗你@Calc_Remnant_Healing@生命值</healing>并为你提供持续@Move_Speed_Duration@秒的<speed>@Calc_Move_Speed@移动速度</speed>。<br><br><rules>被汲取的生命值：@f1.0@<br>已造成的伤害：@f2.0@<br>已获取的残片：@f4.0@<br>已回复的生命值：@f5.0@<br>周期性伤害有@DotDamageCooldown@秒冷却时间</rules>",
+      "dataValues": {
+        "Amp_Duration": 8,
+        "Amp": 2,
+        "Remnant_Duration": 5,
+        "Move_Speed_Duration": 1,
+        "Detection_Radius": 1000,
+        "Remnant_Spawn_Cooldown": 0.75,
+        "DotDamageCooldown": 1.5,
+        "BaseDamageAmp": 0.20000000298023224,
+        "BaseDamageReduction": 0.20000000298023224,
+        "MaxLevel": 3,
+        "MSAmp": 0.15000000596046448
+      }
+    },
+    "VoidDash": {
+      "name": "虚空冲刺",
+      "desc": "用【{{SpellName}}】技能冲刺时会产生一片【虚空地带】来对敌方英雄们造成<status>减速</status>和魔法伤害。",
+      "tooltip": "【{{SpellName}}】技能会在目标终点产生一片【虚空地带】。它会对敌方英雄们造成持续@SlowDuration@秒的@SlowAmount*100@%<status>减速</status>以及<magicDamage>@TotalDamage@魔法伤害</magicDamage>。 <br><br>已减速的英雄数：@f1@",
+      "dataValues": {
+        "BaseDamage": 25,
+        "DelayBeforeKnockUp": 0.30000001192092896,
+        "SlowAmount": 0.3499999940395355,
+        "SlowDuration": 1,
+        "KnockUpRadius": 250,
+        "Haste": 1
+      }
+    },
+    "Fruitify": {
+      "name": "水果化",
+      "desc": "参与击杀会引发<keyword>水果</keyword>爆炸。<br><br><keyword>水果</keyword>可回复<healing>生命值</healing>和<scaleMana>法力值</scaleMana>。",
+      "tooltip": "每次参与击杀，会使被击杀英雄爆炸为@FruitsPerTakedown@个<keyword>水果</keyword>。<br><keyword>水果</keyword>将为你<healing>回复@HealingPerFruit@最大生命值</healing>和<scaleMana>@ManaPerFruit@最大法力值</scaleMana>。<br><br><rules><keyword>水果</keyword>还会提供@WeirdResourcePerFruit@<energy>能量值</energy>、<energy>怒气值</energy>、<energy>(纳尔)怒气值</energy>、<energy>龙怒值</energy>和<energy>勇气值</energy>。<br><br>已生成水果：@f1@</rules>",
+      "dataValues": {
+        "FruitDuration": 10
+      }
+    },
+    "ARAM_CourageoftheColossus": {
+      "name": "巨像的勇气",
+      "desc": "<status>定身</status>或<status>缚地</status>一个敌方英雄后获得<shield>@TotalShield@护盾值</shield>。<br>",
+      "tooltip": "<status>定身</status>或<status>缚地</status>一个敌方英雄后获得<shield>@TotalShield@护盾值</shield>。<br><br>已生成的护盾值：@f2@",
+      "dataValues": {
+        "HealthScalar": 0.03999999910593033,
+        "SpellIDCD": 5
+      }
+    },
+    "ARAM_DivineIntervention": {
+      "name": "神圣干预",
+      "desc": "每@BaseCD@秒，<keywordMajor>自动施放</keywordMajor>一颗护体星星。在它着陆时，你和附近的友军们进入持续若干秒的<keywordMajor>免疫伤害</keywordMajor>状态。 ",
+      "tooltip": "每@BaseCD@秒，<keywordMajor>自动施放</keywordMajor>一颗护体星星缓慢降临在你身上。在它着陆时，你和附近的友军们进入持续@InvulnerabilityDuration@秒的<keywordMajor>免疫伤害</keywordMajor>状态。 ",
+      "dataValues": {
+        "BaseCD": 35,
+        "InvulnerabilityDuration": 2.5,
+        "Radius": 400,
+        "InitalDelay": 15,
+        "WarningDelay": 2.5
+      }
+    },
+    "ARAM_SkilledSniper": {
+      "name": "老练狙神",
+      "desc": "用一个非终极技能<keywordMajor>狙击</keywordMajor>一个敌人时，返还该技能@ReducedCooldownPercent*100@%冷却时间(周期性技能返还@PeriodicReductionAmount*100@%)。",
+      "tooltip": "用一个非终极技能<keywordMajor>狙击</keywordMajor>一个敌人时，返还该技能@ReducedCooldownPercent*100@%冷却时间(周期性技能返还@PeriodicReductionAmount*100@%)。<br><br><rules><keywordMajor>狙击</keywordMajor> - 从@SnipeDistance@码外对敌人造成伤害</rules><br><br>",
+      "dataValues": {
+        "SnipeDistance": 600,
+        "ReducedCooldownPercent": 0.800000011920929,
+        "PeriodicReductionAmount": 0.6499999761581421
+      }
+    },
+    "BiggestSnowballEver": {
+      "name": "史上最大雪球",
+      "desc": "你的<spellName>雪球</spellName>获得@Haste@技能急速。<br><br>你的雪球现在变得<attention>非常大</attention>，并且可以穿过小兵。它会<status>减速</status>， <status>击飞</status>英雄，并造成额外<magicDamage>伤害</magicDamage>。<br><br><rules>如果你没有雪球，则获得一个<spellName>雪球</spellName>。</rules>",
+      "tooltip": "你的<spellName>雪球</spellName>获得@Haste@技能急速。<br><br>你的雪球现在变得<attention>非常大</attention>，并且可以穿过小兵。它会对敌人造成持续@SlowDuration@秒的@MoveSpeedModTooltip*100@%<status>减速</status>， 将他们<status>击飞</status>@KnockUpDuration@秒，并造成额外<magicDamage>@SnowballDamage@伤害</magicDamage>。<br><br><rules>如果你没有雪球，则获得一个<spellName>雪球</spellName>。</rules>",
+      "dataValues": {
+        "MoveSpeedMod": -0.20000000298023224,
+        "SlowDuration": 2,
+        "KnockUpDuration": 0.75,
+        "Haste": 100,
+        "MoveSpeedModTooltip": 0.20000000298023224,
+        "APRatio": 0.6000000238418579,
+        "bADRatio": 1
+      }
+    },
+    "DontChangeTheChannel": {
+      "name": "别停止引导",
+      "desc": "你每<shield>引导</shield>一秒都会获得<attention>护盾值</attention>。",
+      "tooltip": "在<attention>引导</attention>状态下，每秒获得<shield>@Calc_Shield@护盾值</shield>。它会在你未处于<attention>引导</attention>状态时不断衰减。<br><br><rules>总护盾值：@f1.0@</rules>",
+      "dataValues": {
+        "Shield_Interval": 1
+      }
+    },
+    "ARAM_AllForYou": {
+      "name": "全心为你",
+      "desc": "你的<healing>治疗</healing>和<shield>护盾</shield>在用在一个友军身上时会变强。",
+      "tooltip": "你的<healing>治疗</healing>和<shield>护盾</shield>在用在一个友军身上时会变强@HealShieldAmp*100@%。",
+      "dataValues": {
+        "HealShieldAmp": 0.30000001192092896
+      }
+    },
+    "ARAM_Vulnerability": {
+      "name": "易损",
+      "desc": "你的装备效果和持续伤害效果可以<crit>暴击</crit>。<br><br>获得<crit>%i:scaleCrit% @CritChance*100@%暴击几率</crit>。",
+      "tooltip": "你的装备效果和持续伤害效果可以<crit>暴击来造成@CritDamage*100@%额外伤害</crit>。<br><br>获得<crit>%i:scaleCrit%@CritChance*100@%暴击几率</crit>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "CritDamage": 1.4500000476837158,
+        "CritChance": 0.25,
+        "SpellIDCD": 5
+      }
+    },
+    "ARAM_OutlawsGrit": {
+      "name": "狂徒豪气",
+      "desc": "在使用一次冲刺、闪烁或传送之后，你获得<scaleArmor>@ResistsPerStack@护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>，这个效果至多可叠加至@MaxStacks@层。",
+      "tooltip": "在使用一次冲刺、闪烁或传送之后，你获得<scaleArmor>@ResistsPerStack@护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>，这个效果至多可在@MaxStacks@层时叠加至@MaxResistTooltipOnly@。<br>每@Refresh@秒重置。",
+      "dataValues": {
+        "MaxStacks": 5,
+        "ResistsPerStack": 12,
+        "Refresh": 15
+      }
+    },
+    "Salvation": {
+      "name": "拯救",
+      "desc": "受到伤害导致你的生命值低于<scaleHealth>@HealthThresholdTooltipPercent@%</scaleHealth>时，会释放一道冲击波，对附近敌人造成伤害并将其<Status>击退</Status>，同时为你周围大范围区域内的<healing>所有友方英雄回复生命值</healing>。",
+      "tooltip": "受到伤害导致你的生命值低于<scaleHealth>@HealthThresholdTooltipPercent@%</scaleHealth>时，会释放一道冲击波，对敌方英雄造成<magicDamage>@Damage@魔法伤害</magicDamage>并将其<Status>击退</Status>，同时<healing>为所有被命中的友方英雄回复@TotalHeal@生命值</healing>。",
+      "dataValues": {
+        "Increment": 2,
+        "BaseDamage": 100,
+        "KnockbackDistanceMin": 100,
+        "KnockbackDistanceMax": 450,
+        "KnockbackRange": 600,
+        "HealAPRatio": 1.2000000476837158,
+        "HealHealthRatio": 0.10000000149011612,
+        "HealRange": 1200,
+        "MaxRangeHealPercent": 0.5,
+        "HealthPercentTrigger": 0.5,
+        "AuraCooldown": 90
+      }
+    },
+    "ARAM_SymphonyofWar": {
+      "name": "战争交响乐",
+      "desc": "获得<spellName>致命节奏</spellName>和<spellName>征服者</spellName>基石符文。",
+      "tooltip": "获得<spellName>致命节奏</spellName>和<spellName>征服者</spellName>基石符文。<br><li><spellName>致命节奏</spellName> - 攻击英雄提供<attackSpeed>攻击速度</attackSpeed>，至多叠加6层。在6层时，你的攻击发射造成额外伤害的一个弩箭。<br><li><spellName>征服者</spellName>：攻击敌方英雄时提供适应之力层数。在达到@MaxStacks@层后，将你的一部分伤害转化为等额的治疗效果。",
+      "dataValues": {
+        "MinAdaptivePerStack": 3,
+        "MaxAdaptivePerStack": 5.5,
+        "MaxStacks": 12,
+        "BuffDuration": 5,
+        "TimeUntilNextStackFromSameSpell": 5,
+        "HealingPercent": 0.10000000149011612,
+        "RangedHealingPercent": 0.07999999821186066,
+        "Duration": 6,
+        "RangeBonus": 50,
+        "PerCastIDLockout": 10,
+        "ASCap": 10,
+        "StackCap": 6
+      }
+    },
+    "GrowthSpurt": {
+      "name": "生机迸发",
+      "desc": "获得<active>生机迸发</active>作为一个召唤师技能。<br><br>生机迸发会猛然提升你的体型，<status>击飞</status>附近的敌人们并提供<scaleHealth>最大生命值</scaleHealth>。",
+      "tooltip": "获得<active>生机迸发</active>作为一个召唤师技能。<br><br>生机迸发会猛然提升你的体型，<status>击飞</status>附近的敌人们@KnockbackDuration@秒并提供持续@BuffDuration@秒的<scaleHealth>@TotalBonusHealth@最大生命值</scaleHealth>。",
+      "dataValues": {
+        "BonusHealth": 300,
+        "SlowPercent": 15,
+        "BuffDuration": 7,
+        "AoERadius": 400,
+        "KnockbackDuration": 1,
+        "KnockbackDistance": 275,
+        "ScaleIncrease": 0.5,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_CircleofDeath": {
+      "name": "死亡之环",
+      "desc": "<healing>治疗效果</healing>和<healing>生命回复效果</healing>还会对相距最近的那个敌方英雄造成<magicDamage>魔法伤害</magicDamage>。<br>",
+      "tooltip": "你的<health>治疗效果</health>和<health>生命回复效果</health>会对相距最近的那个敌方英雄造成<magicDamage>@HealToDamageConversion*100@%该数额的魔法伤害</magicDamage>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "HealToDamageConversion": 0.699999988079071,
+        "DamageRange": 1000
+      }
+    },
+    "ARAM_Flashy": {
+      "name": "闪现向前",
+      "desc": "你的闪现有@FlashAmmoTooltip@层充能。在@AmmoRechargeTime@秒后，再次获得所有充能。",
+      "tooltip": "你的闪现有@FlashAmmoTooltip@层充能。在@AmmoRechargeTime@秒后，再次获得所有充能。",
+      "dataValues": {
+        "FlashCooldown": 2,
+        "FlashAmmoTooltip": 3,
+        "AmmoRechargeTime": 120
+      }
+    },
+    "ARAM_WeeWooWeeWoo": {
+      "name": "喂呜喂呜",
+      "desc": "在朝着<scaleHealing>低生命值</scaleHealing>的友军移动时，获得<speed>移动速度</speed>。你的<healing>治疗</healing>和<shield>护盾</shield>获得提升，基于你目标的低生命值程度。",
+      "tooltip": "朝着附近友军移动时，获得至多<speed>@Calc_Move_Speed_Max@移动速度</speed>，基于其<scaleHealth>已损失生命值</scaleHealth>。你的<healing>治疗</healing>和<shield>护盾</shield>也会提升至多@Calc_HS_Amp_Max@，基于<scaleHealth>目标的已损失生命值</scaleHealth>。<br><br><rules>额外治疗：@f1.0@<br>额外护盾：@f2.0@</rules>",
+      "dataValues": {
+        "VFX_Health_Threshold": 0.5,
+        "MS_Linger_Duration": 2,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_SustainingStrike": {
+      "name": "虹吸",
+      "desc": "用【{{SpellName}}】技能伤害敌方英雄时会<healing>治疗</healing>你。",
+      "tooltip": "<healing>治疗</healing>相当于用【{{SpellName}}】技能对敌方英雄的@Lifesteal*100@%造成伤害的生命值。",
+      "dataValues": {
+        "Lifesteal": 0.30000001192092896
+      }
+    },
+    "ARAM_Hellbent": {
+      "name": "濒死悟道",
+      "desc": "用攻击或技能伤害敌方英雄时会提供层数。在满层时，你会在阵亡时进行<attention>复活强化</attention>。 ",
+      "tooltip": "用攻击或技能打击敌方英雄时会提供给你一层持续@Stacks_Duration@秒的<attention>复活限度</attention>(最大层数：@Stacks_Max@)。在满层时变为<danger>濒死悟道</danger>。<br><br><danger>濒死悟道</danger>：在濒临死亡时，在@Revive_Duration@秒里<attention>复活</attention>至<scaleHealth>@Calc_Revive_Max_Health@最大生命值</scaleHealth>。在此之后，你获<attention>@Calc_AdaptiveForce@适应之力</attention>、<speed>朝着敌方英雄时的@Calc_MoveSpeed@移动速度</speed>、以及<lifeSteal>@Calc_Omnivamp@全能吸血</lifeSteal>，持续@Buff_Duration@秒。<br><br>这个效果有@Cooldown@秒冷却时间。",
+      "dataValues": {
+        "Revive_Duration": 4,
+        "Cooldown": 90,
+        "Buff_Duration": 15,
+        "Stacks_Duration": 6,
+        "Stacks_Max": 10,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_EmpoweredByTheFaithful": {
+      "name": "信念者的强化",
+      "desc": "为友军提供<healing>治疗</healing>或<shield>护盾</shield>会赐福他们，使其伤害填充你的<keyword>虔诚</keyword>。<br><br>当你拥有足够的<keyword>虔诚</keyword>时，释放一道冲击波来造成<magicDamage>魔法伤害</magicDamage>并处决低生命值的敌人们。",
+      "tooltip": "为友军提供<healing>治疗</healing>或<shield>护盾</shield>会赐福他们@Buff_Duration@秒。当被赐福的友军对敌方英雄造成伤害时，你获得<keywordMajor>虔诚</keywordMajor>层数。在@Devotion_Threshold@<keywordMajor>虔诚</keywordMajor>时，释放一道冲击波来造成<magicDamage>@Calc_Damage@魔法伤害</magicDamage>并处决低于<scaleHealth>@Calc_Execute_Threshold@生命值</scaleHealth>的敌人们。<br><br><rules>已造成的伤害：@f1.0@<br>已击杀的敌人数：@f2.0@</rules>",
+      "dataValues": {
+        "Buff_Duration": 8,
+        "Devotion_Threshold": 50,
+        "Dot_Cooldown": 1
+      }
+    },
+    "KillSecured": {
+      "name": "杀意翻涌",
+      "desc": "在朝着低生命值的敌人时，获得额外<speed>移动速度</speed>。",
+      "tooltip": "在朝着低于<health>@HealthThreshold*100@%生命值</health>的敌人时，获得<speed>@MovementSpeed*100@%移动速度</speed>。",
+      "dataValues": {
+        "MovementSpeed": 0.6000000238418579,
+        "HealthThreshold": 0.4000000059604645,
+        "MaxLevel": 1
+      }
+    },
+    "Snowbomb": {
+      "name": "冰雪爆裂",
+      "desc": "再次施放<spellName>雪球</spellName>会造成提升<magicDamage>伤害</magicDamage>、<status>击飞</status>该目标、并<status>击退</status>附近的敌人们。",
+      "tooltip": "你的<spellName>雪球</spellName>获得@AbilityHaste@技能急速。这个技能的再次施放造成@DamageAmp@提升<magicDamage>伤害</magicDamage>、<status>击飞</status>该目标、并击退附近的敌人们。<br><br>已击退的单位数：@f1@",
+      "dataValues": {
+        "AbilityHaste": 100
+      }
+    },
+    "ARAM_Purist_Caster": {
+      "name": "纯粹主义者 - 术师",
+      "desc": "获得百分比冷却缩减并将你的所有<attackSpeed>攻击速度</attackSpeed>转化为技能急速。",
+      "tooltip": "获得@Calc_CDR@冷却缩减并将你的所有<attackSpeed>攻击速度</attackSpeed>转化为技能急速。(当前：@f1.1@技能急速)。<br><br><rules>转化率：@Haste_Per_AS@技能急速每<attackSpeed>1%攻击速度</attackSpeed></rules>",
+      "dataValues": {
+        "Haste_Per_AS": 0.6499999761581421,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_DualWield": {
+      "name": "双刀流",
+      "desc": "在攻击时，发射一个箭矢，它施加效能削减的{{ Item_Keyword_OnHit }}。获得<attackSpeed>@AttackSpeed*100@%总攻击速度</attackSpeed>。",
+      "tooltip": "在你攻击时，发射一个弩箭，它造成@AttackReduction*100@%伤害并以@OnHitMod*100@%效能施加你的{{ Item_Keyword_OnHit }}。<br><br>获得<attackSpeed>@AttackSpeed*100@% 总攻击速度</attackSpeed>。",
+      "dataValues": {
+        "AttackSpeed": 0.10000000149011612,
+        "AttackReduction": 0.4000000059604645,
+        "OnHitMod": 0.4000000059604645,
+        "SecondMissileDelay": 0.15000000596046448
+      }
+    },
+    "LonelyWarrior": {
+      "name": "孤勇者",
+      "desc": "附近每有一个敌方英雄，你就会获得<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>、<scaleArmor>%i:scaleAR%护甲</scaleArmor>和<scaleMR>%i:scaleMR%魔法抗性</scaleMR>。 ",
+      "tooltip": "附近@ProximityRange@码内每有一个敌方英雄，你就会获得<attackSpeed>@ASPerEnemyTooltip@攻击速度</attackSpeed>、<scaleArmor>@ArmorPerEnemy@护甲</scaleArmor>和<scaleMR>@MRPerEnemy@魔法抗性</scaleMR>。",
+      "dataValues": {
+        "ASPerEnemy": 0.15000000596046448,
+        "ArmorPerEnemy": 10,
+        "MRPerEnemy": 10,
+        "ProximityRange": 600
+      }
+    },
+    "YouSpinMeRightRound": {
+      "name": "转得我眩晕了",
+      "desc": "将一个召唤师技能替换为<spellName>骄行荡寇</spellName>。<br><br><rules><spellName>骄行荡寇</spellName>发射一根钩爪，吸附在地形上，在此之后，你可以<recast>再次施放</recast>来绕着它摆荡。在摆荡状态下，自动攻击相距最近的那个敌人。在与一个敌方英雄碰撞或<recast>再次施放</recast>时结束摆荡。</rules>",
+      "tooltip": "将一个召唤师技能替换为<spellName>骄行荡寇</spellName>。<br><br><rules><spellName>骄行荡寇</spellName>发射一根钩爪，吸附在地形上，在此之后，你可以<recast>再次施放</recast>来绕着它摆荡。在摆荡状态下，自动攻击相距最近的那个敌人。在与一个敌方英雄碰撞或<recast>再次施放</recast>时结束摆荡。</rules>",
+      "dataValues": {
+        "BaseDamage": 0,
+        "ADRatio": 0.15000000596046448,
+        "TimeToCastE2": 2,
+        "AnchorLifetime": 3,
+        "MinJumpbackDistance": 250,
+        "CritDamageReduction": 0.10000000149011612,
+        "AttackSpeedCoefficient": 0.30000001192092896,
+        "EdgeToEdgeCollisionRadius": 50,
+        "AttackFrequency": 0.20000000298023224,
+        "OnHitDamageReduction": 0.25,
+        "ResetCooldownToSet": 0.5,
+        "DistanceShiftTowardsWall": 175,
+        "E3LockoutDuration": 0.5,
+        "SpinDuration": 25000,
+        "AttackRange": 500,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_Homeguard": {
+      "name": "家园卫士",
+      "desc": "获得<speed>@MovementSpeed*100@%移动速度</speed>，在受到伤害后失效@DisableCooldown@秒。",
+      "tooltip": "获得<speed>@MovementSpeed*100@%移动速度</speed>，在受到伤害后失效@DisableCooldown@秒。",
+      "dataValues": {
+        "MovementSpeed": 1,
+        "Duration": 10,
+        "DisableCooldown": 6
+      }
+    },
+    "Overloaded": {
+      "name": "超负荷",
+      "desc": "使用另一个技能会重置【{{SpellName}}】技能的冷却时间。",
+      "tooltip": "{{Augment_Overloaded_Summary}}<br><br><rules>重置次数：@f1.0@<br>有用的重置次数：@f2.0@<br>重置效率：@f3.0@%<br><br><flavorText>“它们来找卷轴了……按计划来……EQEQEQ……” —— 那个蓝人</flavorText></rules>",
+      "dataValues": {}
+    },
+    "ARAM_Earthwake": {
+      "name": "大地苏醒",
+      "desc": "你的冲刺、闪烁或传送类技能会留下一条在@ExplosionDelayTime@秒后爆炸的轨迹。",
+      "tooltip": "你的冲刺、跳跃、闪烁或传送类技能会留下一条在1秒后爆炸的轨迹，造成<physicalDamage>@Damage@物理伤害</physicalDamage>。<br><br>已造成伤害的总和：@f2@",
+      "dataValues": {
+        "ExplosionRadius": 300,
+        "ExplosionDelayTime": 0.75,
+        "APRatio": 0.6000000238418579,
+        "BonusADRatio": 1.25,
+        "PerwaveDamageCD": 1,
+        "MaxRange": 2000,
+        "MinionMod": 0.699999988079071
+      }
+    },
+    "ARAM_Upgrade_Immolate": {
+      "name": "升级：献祭",
+      "desc": "<attention>【璀璨回响】</attention>和<attention>【日炎圣盾】</attention>每当有目标受到【献祭】效果影响时，提供<gold>@GoldPerTick@ 金币</gold> 。获得<gold>250金币</gold>。",
+      "tooltip": "<attention>【璀璨回响】</attention>和<attention>【日炎圣盾】</attention>每当有目标受到【献祭】效果影响时，提供<gold>@GoldPerTick@金币</gold>。获得<gold>250金币</gold>。<br><br>已赚取的金币：@f1@",
+      "dataValues": {
+        "GoldPerTick": 12
+      }
+    },
+    "Terraind": {
+      "name": "地形专家",
+      "desc": "你的【{{SpellName}}】技能会在它周围的一个区域内造成伤害。",
+      "tooltip": "由你的【{{SpellName}}】技能生成的地形会每秒对附近的敌人们造成<magicDamage>@TickDamageTooltip@魔法伤害</magicDamage>。<br><br>地形伤害：@f1@<br><br><rules>如果是终极技能，那么此伤害提升@Calc_TT_Ult_Damage_Amp@。</rules>",
+      "dataValues": {
+        "AHMin": 20,
+        "AHMax": 60,
+        "MinDamagePerTick": 40,
+        "MaxDamagePerTick": 70,
+        "APRatio": 0.05000000074505806
+      }
+    },
+    "Overkill": {
+      "name": "针插垫",
+      "desc": "在【{{SpellName}}】技能期间进行攻击会对你的目标凿下<keywordMajor>大钉</keywordMajor>。大钉会积累伤害、处决、并在到期时提供<MS>移动速度</MS>。",
+      "tooltip": "在【{{SpellName}}】技能期间进行攻击会对你的目标凿下<keywordMajor>大钉</keywordMajor>。<br><br>大钉会在【{{SpellName}}】技能到期时引爆，每层造成<physicalDamage>@DamagePerStack@物理伤害</physicalDamage>并提供持续3秒的<speed>@MSPerStack@移动速度</speed>。如果已积累的伤害足以击杀该敌方英雄，则大钉将提前引爆并将其处决。<br><br>最多大钉引爆数：@f1@",
+      "dataValues": {
+        "MSPerStack": 10,
+        "ASPerStack": 0.05000000074505806
+      }
+    },
+    "ARAM_Quickstep": {
+      "name": "快步",
+      "desc": "当你使用【{{SpellName}}】技能时，朝你的鼠标指针进行冲刺。",
+      "tooltip": "{{Kiwi_Augment_Vanguard_Desc}}",
+      "dataValues": {
+        "ChargeRange": 350
+      }
+    },
+    "Goldrend": {
+      "name": "夺金",
+      "desc": "用攻击或技能对一个英雄造成伤害时会造成额外<magicDamage>魔法伤害</magicDamage>，并为你提供<gold>金币</gold>和 <speed>移动速度</speed>。",
+      "tooltip": "用攻击或技能对一个英雄造成伤害时会造成额外<magicDamage>@ReaperDamage@魔法伤害</magicDamage>，并为你提供<gold>@TotalGoldPerProcTooltip@</gold>金币和持续@MovementSpeedDuration@秒的<speed>@PercentMovespeedGain*100@%移动速度</speed>(每个英雄有@TimerDuration@秒冷却时间)。<br><br>已造成的伤害：@f1@<br>已赚得金币：@f2@",
+      "dataValues": {
+        "MovementSpeedDuration": 1.5,
+        "PercentMovespeedGain": 0.25,
+        "TimerDuration": 30,
+        "APRatio": 0.20000000298023224,
+        "GoldPerProc": 10,
+        "TotalLoops": 3,
+        "BonusADRatio": 0.4000000059604645
+      }
+    },
+    "ARAM_SpiritBomb": {
+      "name": "灵魄炸弹",
+      "desc": "为友方英雄提供<healing>治疗</healing>和<shield>护盾</shield>时会为你积攒一颗【灵魄炸弹】。在满层时，投掷该炸弹至<scaleHealth>生命值最低的那个友军</scaleHealth>，从而对其和附近友军们提供<healing>治疗</healing>和<shield>护盾</shield>。",
+      "tooltip": "提供<healing>治疗</healing>和<shield>护盾</shield>时会为你积攒一颗<keywordMajor>灵魄炸弹</keywordMajor>。在满层时，投掷该<keywordMajor>灵魄炸弹</keywordMajor>至你<scaleHealth>生命值最低的那个友军</scaleHealth>。在接触到该目标后，它会<healing>治疗附近友军们各自的@Calc_Heal@已损失生命值</healing>并为他们提供持续@Shield_Duration@秒的<shield>@Calc_Shield@当前生命值的护盾值</shield>。<br><br><rules>已投掷的灵魄炸弹数量：@f1.0@<br>治疗：@f2.0@<br>护盾：@f3.0@</rules>",
+      "dataValues": {
+        "Radius": 475,
+        "Shield_Duration": 2,
+        "VFX_Breakpoint_1": 0.25,
+        "VFX_Breakpoint_2": 0.5,
+        "VFX_Breakpoint_3": 0.75,
+        "Cast_Delay": 1.100000023841858
+      }
+    },
+    "ARAM_Zealot": {
+      "name": "狂热者",
+      "desc": "获得<attention>@Calc_Crit_Chance@暴击几率</attention>和<attackSpeed>@Calc_AS@攻击速度</attackSpeed>（随法术强度变化）。",
+      "tooltip": "获得<attention>@Calc_Crit_Chance@暴击几率</attention>和<attackSpeed>@Calc_AS@攻击速度</attackSpeed>（随法术强度变化）。",
+      "dataValues": {
+        "ASAPRatio": 0.0005000000237487257,
+        "CritAPRatio": 0.0005000000237487257,
+        "MaxLevel": 1,
+        "BaseAttackSpd": 0.3499999940395355,
+        "BaseCritChance": 0.25
+      }
+    },
+    "DoubleTime": {
+      "name": "翻倍时间",
+      "desc": "在短时间内用2种不同技能对一名敌方英雄造成伤害时，会造成<magicDamage>魔法伤害</magicDamage>并提供<scaleMana>最大法力值</scaleMana>。<br>",
+      "tooltip": "在@DamageWindowSeconds@秒内用2种不同技能对一名敌方英雄造成伤害时，会造成<magicDamage>@PercentOfManaDamage@魔法伤害</magicDamage>并提供<scaleMana>@ManaGain@%i:scaleMana%最大法力值</scaleMana>。<br><br><rules>已获得法力值：@f1@<br><br>每个目标有@ManaGainCD@秒冷却时间</rules>",
+      "dataValues": {
+        "DamageWindowSeconds": 4,
+        "ManaGainCD": 4
+      }
+    },
+    "ARAM_ScopiestWeapons": {
+      "name": "最万用的瞄准镜",
+      "desc": "获得@RangeIncrease@攻击距离。",
+      "tooltip": "获得@RangeIncrease@攻击距离。",
+      "dataValues": {
+        "MeleeRangeIncrease": 250,
+        "RangedRangeIncrease": 150
+      }
+    },
+    "ARAM_MindtoMatter": {
+      "name": "由心及物",
+      "desc": "使你的<scaleHealth>最大生命值</scaleHealth>提升，数额相当于你一半的<scaleMana>法力值</scaleMana>。",
+      "tooltip": "获得<scaleHealth>@ManaToHealthCalc@生命值</scaleHealth>。",
+      "dataValues": {
+        "ConvertCap": 99999
+      }
+    },
+    "ARAM_UltimateRevolution": {
+      "name": "终极刷新",
+      "desc": "在施放<attention>终极技能</attention>后刷新你的终极技能(@Cooldown@秒冷却时间或阵亡时重置)。",
+      "tooltip": "在施放<attention>终极技能</attention>后刷新你的终极技能(@Cooldown@秒冷却时间或阵亡时重置)。",
+      "dataValues": {
+        "Cooldown": 75
+      }
+    },
+    "Recoil": {
+      "name": "反冲",
+      "desc": "你的【{{SpellName}}】技能造成额外伤害并且你因反冲力而后退。",
+      "tooltip": "【{{SpellName}}】技能造成@DamageAmp@额外伤害并且你因反冲力而后退。",
+      "dataValues": {
+        "RecoilDistance": 450,
+        "RecoilSpeed": 1500,
+        "ArmedTimeout": 4,
+        "ShakeDuration": 0.25,
+        "ShakeMagnitude": 45
+      }
+    },
+    "ARAM_MasterofDuality": {
+      "name": "物法皆修",
+      "desc": "你的每次攻击为你提供可叠加的<scaleAP>法术强度</scaleAP>，并且你的每次技能在伤害敌人时为你提供可叠加的<scaleAD>攻击力</scaleAD>。",
+      "tooltip": "你的每次攻击为你提供可叠加的<scaleAP>@APGained@法术强度</scaleAP>，并且你的每次技能在伤害敌人时为你提供可叠加的<scaleAD>@ADGained@攻击力</scaleAD>，<br><br><rule>这个增益可无限叠加并刷新，但有@StackDuration@秒的持续时间。</rule>",
+      "dataValues": {
+        "StackDuration": 5
+      }
+    },
+    "ARAM_Upgrade_Sheen": {
+      "name": "升级：耀光",
+      "desc": "你的<passive>咒刃</passive>效果造成<physical>额外伤害</physical>并<heal>治疗</heal>你自身，治疗量相当于目标生命值的一定百分比。此外，获得<gold>250金币</gold>。",
+      "tooltip": "你的<passive>咒刃</passive>效果造成相当于目标@DamageMaxHP*100@%生命值的<physicalDamage>额外伤害</physicalDamage>，并<healing>治疗</healing>你自身，治疗效果相当于目标@HealMaxHP*100@%生命值。此外，获得<gold>250金币</gold>。<br><br>已造成的伤害：@f1@<br>已造成的治疗总和：@f2@",
+      "dataValues": {
+        "DamageMaxHP": 0.03999999910593033,
+        "HealMaxHP": 0.03500000014901161
+      }
+    },
+    "ARAM_BangBang": {
+      "name": "狙神飞星",
+      "desc": "<font color='#F0C200'>任务：</font>用技能<keywordMajor>狙击</keywordMajor>@QuestRequirement@个敌方英雄<br><br><font color='#F0C200'>奖励：</font>一颗流星会飞向被<keywordMajor>狙击</keywordMajor>的敌方英雄，在其周围的一个区域内造成<magicDamage>魔法伤害</magicDamage>",
+      "tooltip": "{{Augment_BangBang_Tooltip@f3@}}<br><br><flavorText>砰！砰！噢，这枪打得好啊！</flavorText>",
+      "dataValues": {
+        "SnipeDistance": 600,
+        "AOE": 150,
+        "MaxDistanceForScaling": 3000,
+        "MaxAOEDistanceScaling": 2,
+        "MaxDamageDistanceScaling": 2.299999952316284,
+        "PerTargetPerCastIDCooldown": 8
+      }
+    },
+    "ARAM_Multishot": {
+      "name": "多重射击",
+      "desc": "<font color='#F0C200'>任务：</font>用【{{SpellName}}】技能命中敌方英雄@QuestRequirement@次。<br><br><font color='#F0C200'>奖励：</font>发射数量基于任务等级的额外飞弹。",
+      "tooltip": "<font color='#F0C200'>任务：</font>用【{{SpellName}}】技能命中敌方英雄@QuestRequirement@次。<br><br><font color='#F0C200'>奖励：</font>发射数量基于任务等级的额外飞弹。",
+      "dataValues": {
+        "DamageDeductionRatio": 0.30000001192092896
+      }
+    },
+    "Sound_Barrier": {
+      "name": "音之屏障",
+      "desc": "为一名友军提供<shield>护盾</shield>时，会在@BurstDecayDuration@秒内提供持续衰减的<speed>移动速度</speed>和<status>幽灵</status>状态。",
+      "tooltip": "为一名友军提供<shield>护盾</shield>时，会提供在@BurstDecayDuration@秒内持续衰减的@SpeedPercent@<speed>移动速度</speed>和<status>幽灵疾步</status>。<br><br><rules>每个目标的冷却时间：@PerTargetCooldown@秒。</rules>",
+      "dataValues": {
+        "BurstDecayDuration": 1.5,
+        "PerTargetCooldown": 1.5
+      }
+    },
+    "Poltergeist": {
+      "name": "吵闹鬼",
+      "desc": "获得【吵闹鬼】作为一个召唤师技能。<br><br>吵闹鬼会同时施放召唤师技能【屏障】和【幽灵疾步】。",
+      "tooltip": "获得【吵闹鬼】作为一个召唤师技能。<br><br>吵闹鬼会同时施放召唤师技能【屏障】和【幽灵疾步】。",
+      "dataValues": {
+        "Duration": 5,
+        "AllyRange": 835,
+        "MoveSpeed": 0.30000001192092896
+      }
+    },
+    "BigShot": {
+      "name": "大腕",
+      "desc": "获得<crit>@Calc_Bonus_Crit_Damage@暴击伤害</crit>和<scaleAD>@Calc_Bonus_AD@额外攻击力</scaleAD>。<br><br><attackSpeed>你的@Calc_Percent_AS_To_Convert@攻击速度</attackSpeed>转化为<crit>暴击伤害</crit>。",
+      "tooltip": "获得<crit>@Calc_Bonus_Crit_Damage@暴击伤害</crit>和<scaleAD>@Calc_Bonus_AD@额外攻击力</scaleAD>。<br><br><attackSpeed>你的@Calc_Percent_AS_To_Convert@攻击速度</attackSpeed>转化为<crit>暴击伤害</crit>。<br>(每<attackSpeed>@Calc_AS_To_Crit_Damage@攻击速度</attackSpeed>转为<crit>@Calc_Crit_Damage_Per_AS@暴击伤害</crit>)<br><br><rules>当前暴击伤害：@f1.1@%</rules>",
+      "dataValues": {
+        "KillTrackDuration": 3,
+        "VFX_Breakpoint_High": 85,
+        "VFX_Breakpoint_Medium": 55,
+        "ConversionCritNum": 0.0066999997943639755
+      }
+    },
+    "DarkWind": {
+      "name": "贪欲束缚",
+      "desc": "用你的【{{SpellName}}】技能<status>定身</status>或<status>缚地</status>敌方英雄时造成额外<magicDamage>伤害</magicDamage>并<healing>对你进行治疗</healing>。",
+      "tooltip": "用你的【{{SpellName}}】技能<status>定身</status>或<status>缚地</status>敌方英雄时造成额外<magicDamage>@Damage@魔法伤害</magicDamage>并治疗你<healing>@f3@生命值</healing>。<br><br>伤害总和：<magicDamage>@f2@</magicDamage><br>最小治疗：<healing>@Heal@</healing><br>治疗总和：<healing>@f1@</healing><br><br><rules>治疗效果基于技能冷却时间至多提升至@BonusHealingPercent_Max*100@%。</rules>",
+      "dataValues": {
+        "BounceRangeCheck": 500,
+        "Heal_APRatio": 0.05000000074505806,
+        "Heal_bHPRatio": 0.10000000149011612,
+        "Damage_APRatio": 0.10000000149011612,
+        "Damage_HPRatio": 0.004999999888241291,
+        "BonusHealingPercent_Min": 0.15000000596046448,
+        "BonusHealingPercent_Max": 0.5
+      }
+    },
+    "ARAM_ProteinShake": {
+      "name": "蛋白粉奶昔",
+      "desc": "获得<healing>%i:scaleHealShield%@BonusHSPower@%治疗和护盾强度</healing>，基于额外<scaleArmor>护甲</scaleArmor>和<scaleMR>魔抗</scaleMR>。",
+      "tooltip": "获得<healing>%i:scaleHealShield%@BonusHSPower@%治疗和护盾强度</healing>，基于额外<scaleArmor>护甲</scaleArmor>和<scaleMR>魔抗</scaleMR>。",
+      "dataValues": {
+        "ConversionRate": 0.3499999940395355,
+        "InitialHS": 25,
+        "MaxLevel": 1
+      }
+    },
+    "LittleExtraHelp": {
+      "name": "小小的额外帮助",
+      "desc": "在你的【{{SpellName}}】技能持续期间获得@RangeIncrease@攻击距离和@ExtraAttackSpeed@<attackSpeed>攻击速度</attackSpeed>。",
+      "tooltip": "在你的【{{SpellName}}】技能持续期间获得@RangeIncrease@攻击距离和@ExtraAttackSpeed@<attackSpeed>攻击速度</attackSpeed>。",
+      "dataValues": {}
+    },
+    "ARAM_Quest_VoidImmolation": {
+      "name": "艾卡西亚的陷落",
+      "desc": "即刻：获得1个【斑比的熔渣】。<br><br><font color='#F0C200'>任务：</font>持有<keywordMajor>日炎圣盾</keywordMajor>和<keywordMajor>璀璨回响</keywordMajor>。<br><br><font color='#F0C200'>奖励：</font>将这些装备合成为<keywordMajor>虚空献祭</keywordMajor>。",
+      "tooltip": "即刻：获得1个【斑比的熔渣】。<br><br>任务：持有<keywordMajor>日炎圣盾</keywordMajor>和 <keywordMajor>璀璨回响</keywordMajor>。<br><br>奖励：将<keywordMajor>【日炎圣盾】</keywordMajor> 和<keywordMajor>【璀璨回响】</keywordMajor> 合成为<keywordMajor>【虚空献祭】</keywordMajor> 。",
+      "dataValues": {}
+    },
+    "ARAM_WindspeakersBlessing": {
+      "name": "风语者的祝福",
+      "desc": "你的<healing>治疗效果</healing>和<shield>护盾效果</shield>还会提升目标的<scaleArmor>护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>，这些加成持续3秒。",
+      "tooltip": "你的<healing>治疗效果</healing>和<shield>护盾效果</shield>还会提升目标@Resists@<scaleArmor>护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>，这些加成持续3秒。",
+      "dataValues": {}
+    },
+    "ARAM_UltimateUnstoppable": {
+      "name": "终极不可阻挡",
+      "desc": "在你使用你的终极技能后，你获得持续@UnstoppableDuration@秒的<status>控制免疫</status>。 (@Cooldown@秒冷却时间)。",
+      "tooltip": "在你使用你的终极技能后，你获得持续@UnstoppableDuration@秒的<status>控制免疫</status>。 (@Cooldown@秒冷却时间)。",
+      "dataValues": {
+        "Cooldown": 8,
+        "UnstoppableDuration": 3
+      }
+    },
+    "ARAM_Firebrand": {
+      "name": "火上浇油",
+      "desc": "你的攻击会施加一个可无限叠加的<keywordMajor>灼烧</keywordMajor>{{ Item_Keyword_OnHit }}，持续造成伤害。",
+      "tooltip": "你的攻击还会<keywordMajor>灼烧</keywordMajor>敌人，在@BleedDuration@秒的持续时间里每秒持续造成<magicDamage>@PercentMaxHPDamagePer5Seconds*20@%最大生命值的魔法伤害</magicDamage>。这个<keywordMajor>灼烧</keywordMajor>可无限叠加。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "PercentMaxHPDamagePer5Seconds": 0.019999999552965164,
+        "BleedDuration": 5
+      }
+    },
+    "ARAM_MysticPunch": {
+      "name": "秘术冲拳",
+      "desc": "{{ Item_Keyword_OnHit }}使你的各个技能的冷却时间缩减@CooldownRefund@秒%i:scaleCooldown%。",
+      "tooltip": "{{ Item_Keyword_OnHit }}使你的各个技能的冷却时间缩减@CooldownRefund@秒%i:scaleCooldown%。",
+      "dataValues": {
+        "CooldownRefund": 1.25,
+        "MinCDR": 0.5
+      }
+    },
+    "ARAM_DawnbringersResolve": {
+      "name": "黎明使者的坚决",
+      "desc": "在跌到<scaleHealth>@HealthThreshold*100@%生命值</scaleHealth>以下时，<healing>在3秒里持续回复共@HealAmount*100@%最大生命值</healing>。<br>阵亡时或每@Cooldown@秒重置。<br>",
+      "tooltip": "在跌到<scaleHealth>@HealthThreshold*100@%生命值</scaleHealth>以下时，<healing>在3秒里持续回复共@HealAmount*100@%最大生命值</healing>。<br>阵亡时或每@Cooldown@秒重置。<br>",
+      "dataValues": {
+        "HealthThreshold": 0.5,
+        "HealAmount": 0.30000001192092896,
+        "Duration": 3,
+        "Cooldown": 45
+      }
+    },
+    "ARAM_Marksmage": {
+      "name": "神射法师",
+      "desc": "你的攻击造成相当于你<scaleAP>@APRatio*100@%法术强度</scaleAP>的额外<physicalDamage>物理伤害</physicalDamage>。",
+      "tooltip": "你的攻击造成额外<physicalDamage>@APDamage@物理伤害</physicalDamage>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "APRatio": 0.75
+      }
+    },
+    "ChainReaction": {
+      "name": "连锁反应",
+      "desc": "如果一个被【{{SpellName}}】技能<status>击退</status>的目标命中了另一个英雄，则二者都会被<status>击飞</status>并受到<magicDamage>伤害</magicDamage>。在与地形产生碰撞时，该<status>击飞</status>时长会延长并且他们会受到<magicDamage>额外伤害</magicDamage>。",
+      "tooltip": "如果你用【{{SpellName}}】技能<status>击退</status>的一个英雄命中了另一个英雄，二者都会被<status>击飞</status>@ChampCollideKnockupDuration@秒并且受到<magicDamage>@EnemyHitDamage@魔法伤害</magicDamage>。如果敌方英雄们与地形产生碰撞，则会被<status>击飞</status>@MinKnockUpDuration@秒并受到额外<magicDamage>@WallCollisionDamage@伤害</magicDamage>。<br><br>被击飞的敌人数：@f1@<br>墙体命中次数：@f2@<br><br><rules>击飞时长和高度受益于你的技能的冷却时间。<br><rules>对于终极技能，该伤害值提升至@Ult_DamageAmp@。</rules></rules>",
+      "dataValues": {
+        "WallStunDuration": 0.5,
+        "MinKnockUpHeight": 1.2300000190734863,
+        "MinKnockUpDuration": 0.75,
+        "MaxCooldown": 100,
+        "BuffDetectDuration": 1,
+        "CollisionRadius": 200,
+        "MaxKnockUpDuration": 1.100000023841858,
+        "WallCollisionDamage_Min": 150,
+        "WallCollisionDamage_Max": 800,
+        "EnemyHitDamage_Min": 100,
+        "EnemyHitDamage_Max": 400,
+        "ChampCollideKnockupDuration": 0.5
+      }
+    },
+    "UltimateAwakening": {
+      "name": "终极唤醒",
+      "desc": "获得@AH@终极技能急速。<br>在施放你的<keyword>终极技能</keyword>后，刷新你的所有基础技能并获得持续@BuffDuration@秒的@AdditionalHaste@基础技能急速。(@Cooldown@秒冷却时间)",
+      "tooltip": "获得@AH@终极技能急速。<br>在施放你的<keyword>终极技能</keyword>后，刷新你的所有基础技能并获得持续@BuffDuration@秒的@AdditionalHaste@基础技能急速。(@Cooldown@秒冷却时间)",
+      "dataValues": {
+        "Cooldown": 20,
+        "AH": 30,
+        "AdditionalHaste": 300,
+        "BuffDuration": 15
+      }
+    },
+    "BurstingTeeth": {
+      "name": "牙仙子",
+      "desc": "爆裂敌人会掉落<keyword>牙齿</keyword>。拾取<keyword>牙齿</keyword>会提供给你永久的<scaleLethality>穿甲</scaleLethality>和<magicPen>法术穿透</magicPen>。",
+      "tooltip": "当你在<attention>@BurstDurationCheck@</attention>秒内对一个敌方英雄造成大于其<attention>@BurstRequirement@</attention>生命值的伤害时，其会掉落一颗<keyword>牙齿</keyword>。<br><br>你的<attention>@f1@</attention>颗<keyword>牙齿</keyword>藏品目前给予你<scaleLethality>@LethalityPerTooth@穿甲</scaleLethality>和<magicPen>@MPenPerTooth@法术穿透</magicPen>。<br><br><rules>对每个目标有@PerTargetCooldown@秒冷却时间</rules>",
+      "dataValues": {
+        "BurstDurationCheck": 2.5,
+        "PerTargetCooldown": 4
+      }
+    },
+    "ARAM_CriticalHealing": {
+      "name": "会心治疗",
+      "desc": "你的<healing>治疗</healing>和<shield>护盾</shield>可以暴击，造成@CritHeal*100@%额外数额的效果。获得%i:scaleCrit% @CritChance*100@%暴击几率。 ",
+      "tooltip": "你的<healing>治疗</healing>和<shield>护盾</shield>可以暴击，造成@CritHeal*100@%额外数额的效果。获得%i:scaleCrit% @CritChance*100@%暴击几率。 ",
+      "dataValues": {
+        "CritHeal": 0.4000000059604645,
+        "CritChance": 0.25,
+        "SpellIDCD": 5,
+        "CriticalMissleTriggerRange": 550
+      }
+    },
+    "GroupHug": {
+      "name": "一起抱抱",
+      "desc": "用【{{SpellName}}】技能 为友方英雄提供<healing>治疗</healing>或<shield>护盾</shield>时，会对@TargetToPick@名其他附近友方英雄再次施放该技能。<br>",
+      "tooltip": "用【{{SpellName}}】技能 为友方英雄提供<healing>治疗</healing>或<shield>护盾</shield>时，会对@TargetToPick@名其他附近友方英雄再次施放该技能。<br><br><rules>治疗和护盾效能变为@Efficiency_Heal@。<br><flavorText>这就是友谊的力量！</flavorText></rules>",
+      "dataValues": {
+        "TargetToPick": 2,
+        "MinRange": 500
+      }
+    },
+    "ARAM_Stats": {
+      "name": "属性！",
+      "desc": "获得@AmountOfStatAnvils@个%i:StatAnvil%【属性锻造器】！",
+      "tooltip": "获得@AmountOfStatAnvils@个%i:StatAnvil%【属性锻造器】！",
+      "dataValues": {
+        "AmountOfStatAnvils": 2
+      }
+    },
+    "ThirdTimesTheHarm": {
+      "name": "伤不过三",
+      "desc": "对一个敌方英雄的每第三次连续攻击会造成<trueDamage>真实伤害</trueDamage>并永久提升由这个技能造成的伤害。",
+      "tooltip": "@Mark_Duration@秒内对一个敌方英雄的每第三次连续攻击会为你提供一层效果，并造成<trueDamage>@Calc_Damage@最大生命值的真实伤害+@f2@真实伤害</trueDamage>(每层<trueDamage>@Calc_Damage_Per_Stack@</trueDamage>伤害)。<br><br><rules>层数：@f1.0@<br>造成伤害：@f3@</rules>",
+      "dataValues": {
+        "Mark_Duration": 4
+      }
+    },
+    "Upgrade_Stormsurge": {
+      "name": "升级：风暴狂涌",
+      "desc": "<passive>风暴狂涌 - 风啸</passive>现在总会在一个区域内引爆，基于最大生命值造成<magicDamage>魔法伤害</magicDamage>。<br><br>被初段引爆命中的敌方英雄会被<passive>风啸</passive>标记。<br><br>获得<gold>%i:goldCoins%@Gold@金币</gold>。<br><br><br>",
+      "tooltip": "<passive>风暴狂涌 - 风啸</passive>现在总会在一个区域内引爆，对附近所有敌人造成<magicDamage>相当于@PercentHealthDamage@最大生命值的魔法伤害</magicDamage>。<br><br>被初段引爆命中的敌方英雄会被<passive>风啸</passive>标记。<br><br>获得<gold>%i:goldCoins%@Gold@金币</gold>。<br>",
+      "dataValues": {
+        "BlastRadius": 350,
+        "PercentHealthBase": 0.10000000149011612,
+        "PercentHealthPerAP": 0.00019999999494757503,
+        "SpreadSquallOnBlast": 1
+      }
+    },
+    "ARAM_ClownCollege": {
+      "name": "小丑学院",
+      "desc": "获得召唤师技能<spellName>欺诈魔术</spellName>。<br>获得<spellName>背刺</spellName>被动。<br><br>在你阵亡时，对附近的敌人们造成大量<trueDamage>真实伤害</trueDamage>和<status>恐惧</status>。",
+      "tooltip": "<spellName>背刺</spellName>：你从背后袭击敌人时，会造成@BasicAttackDamage@<physicalDamage>额外物理伤害</physicalDamage>。<br><br><spellName>欺诈魔术</spellName>：你传送并变为<keywordStealth>隐形</keywordStealth>，持续@StealthDuration@秒。你在<keywordStealth>隐形</keywordStealth>状态下的第一次攻击将造成额外的<physicalDamage>@TotalDamage@物理伤害</physicalDamage>。如果从背后进行打击，那么这个攻击会暴击，造成@QCritDamageMod@伤害。<br><br><spellName>幻像：阵亡</spellName>：在阵亡时，在你周围造成<trueDamage>@FearDamage*100@%最大生命值的真实伤害</trueDamage>以及@FearDuration@秒恐惧。",
+      "dataValues": {
+        "StealthDuration": 3,
+        "PseudoCastTime": 0.125,
+        "ExtraAATime": 1,
+        "CastRange": 400,
+        "FearDuration": 1,
+        "FearRadius": 350,
+        "FearDamage": 0.25,
+        "BaseDamage": 100
+      }
+    },
+    "TickleMonster": {
+      "name": "嗡嗡怪兽",
+      "desc": "<scaleAD>%i:scaleAD%攻击力</scaleAD>转化<br>为<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>。<br><br>普攻附带<magicDamage>额外魔法伤害</magicDamage><OnHit>%i:OnHit%攻击特效</OnHit>。",
+      "tooltip": "<scaleAD>%i:scaleAD%攻击力</scaleAD>转化为<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>。<br>(每<scaleAD>@Calc_ADtoAS@攻击力</scaleAD>转为<attackSpeed>@Calc_ASPerAD@攻击速度</attackSpeed>)<br><br>普攻附带<magicDamage>@Calc_OnHitDamage@额外魔法伤害</magicDamage><OnHit>%i:OnHit%攻击特效</OnHit>。<br><br><rules>额外攻击速度：@f1.1*100@%</rules>",
+      "dataValues": {
+        "ADMultiplier": 1.75,
+        "CalcASVal": 0.017500000074505806
+      }
+    },
+    "ShrinkEngine": {
+      "name": "缩小引擎",
+      "desc": "参与击杀后会让你变小并且获得技能急速和<speed>移动速度</speed>。<br><br>阵亡时损失@PercentOfStacksLost*100@%层数。",
+      "tooltip": "参与击杀后会让你变小@SizeReductionPerStack*100@%，每次提供<speed>@HastePerStack@技能急速</speed>和<speed>@MoveSpeedAmpPerStack*100@%移动速度</speed>。<br><br>阵亡时损失@PercentOfStacksLost*100@%层数。<br>------------------------------------------------------------<br>你目前有<font color=\"#80eeff\">@f3@</font>层，为你提供：<br>+ <font color=\"#f2deff\">@f1@</font>技能急速<br>+ <font color=\"#f2deff\">@f2@%</font>移动速度",
+      "dataValues": {
+        "SizeReductionPerStack": 0.03999999910593033,
+        "MoveSpeedAmpPerStack": 0.009999999776482582,
+        "MinSize": 20,
+        "PercentOfStacksLost": 0.6499999761581421,
+        "HastePerStack": 8,
+        "MaxLevel": 2
+      }
+    },
+    "ARAM_BigBrain": {
+      "name": "超强大脑",
+      "desc": "每拥有<scaleAP>%i:scaleAP%@AP@法术强度</scaleAP>就会获得<shield>@ShieldBase@护盾值</shield>。阵亡时或耗尽后70秒重置。",
+      "tooltip": "获得<shield>@TotalShield@护盾值</shield>。阵亡时或耗尽后70秒重置。",
+      "dataValues": {
+        "ShieldBase": 3,
+        "APRatio": 3,
+        "AP": 1
+      }
+    },
+    "FlowOfSpirit": {
+      "name": "灵魂乐流",
+      "desc": "施放【{{SpellName}}】技能会为你提供持续一段时间的<attackSpeed>%i:scaleAS%攻击速度</attackSpeed>。",
+      "tooltip": "施放【{{SpellName}}】技能会为你提供持续@Buff_Duration@秒的<attackSpeed>@Calc_Attack_Speed@%i:scaleAS%攻击速度</attackSpeed>。<br><br><rules>已打出的攻击次数：@f2@</rules>",
+      "dataValues": {
+        "Buff_Duration": 4
+      }
+    },
+    "ARAM_RabbleRousing": {
+      "name": "活力焕发",
+      "desc": "使用【{{SpellName}}】技能时回复<healing>生命值</healing>。",
+      "tooltip": "使用【{{SpellName}}】技能时回复<healing>@f1@生命值</healing><br><br>已获得的总治疗量：@f2@<br><rules>治疗量等同于@HealAmount@，对于冷却时间较长的技能，该数值还会提升至@BonusPercentMax*100@%。</rules>",
+      "dataValues": {
+        "MaxHealthPercentageHeal": 0.014999999664723873,
+        "BonusPercentMax": 0.5,
+        "bAD": 0.25,
+        "AP": 0.15000000596046448,
+        "BonusHealthPercentageHeal": 0.05000000074505806
+      }
+    },
+    "ARAM_Archmage": {
+      "name": "大法师",
+      "desc": "施放一个技能会返还另一个随机技能的花费，数额相当于@RefundPercent*100@%原技能冷却时间。",
+      "tooltip": "施放一个技能会返还另一个随机技能的花费，数额相当于@RefundPercent*100@%原技能冷却时间。",
+      "dataValues": {
+        "RefundPercent": 0.30000001192092896,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_CantTouchThis": {
+      "name": "你摸不到",
+      "desc": "施放你的<attention>终极技能</attention>会使你进入短时间的<keywordMajor>免疫伤害</keywordMajor>状态。",
+      "tooltip": "施放你的<attention>终极技能</attention>会使你进入持续@InvulnDuration@秒的的<status>免疫伤害</status>状态(@Cooldown@秒冷却时间)。",
+      "dataValues": {
+        "Cooldown": 8,
+        "InvulnDuration": 2
+      }
+    },
+    "ARAM_Upgrade_IE": {
+      "name": "升级：无尽之刃",
+      "desc": "获得<gold>500金币</gold>。<br>装备<attention>无尽之刃</attention>后，可使你的%i:scaleCrit%暴击几率在每次攻击都会提供随机的%i:scaleCritMult%暴击伤害。",
+      "tooltip": "获得<gold>500金币</gold>。<br>装备【无尽之刃】后，可使你的暴击造成随机的<keyword>额外暴击伤害</keyword>，最高可至你暴击几率的@CritChanceToDamage*100@%。<br><br>已造成的暴击伤害：<attention>@f1@</attention><br><br><br>",
+      "dataValues": {
+        "BonusCritDMG": 0.10000000149011612,
+        "CritChanceToDamage": 0.5
+      }
+    },
+    "ARAM_StuckInHereWithMe": {
+      "name": "和我一起困在这里",
+      "desc": "使用你的<keywordMajor>终极技能</keywordMajor>时会<status>嘲讽</status>附近的敌人们并提供给你伤害减免。<br><br>获得@UltimateHaste@终极技能急速。",
+      "tooltip": "在使用你的<keywordMajor>终极技能</keywordMajor>后，获得持续@TauntChannelTime@秒的@DamageMitigation@伤害减免，然后你<status>嘲讽</status>其中的敌人们@TauntDuration@秒。<br><br>获得@UltimateHaste@终极技能急速。",
+      "dataValues": {
+        "TauntRadius": 500,
+        "TauntDuration": 2,
+        "TauntChannelTime": 2,
+        "AugmentCooldown": 30,
+        "UltimateHaste": 30,
+        "MaxLevel": 1
+      }
+    },
+    "Donation": {
+      "name": "捐赠",
+      "desc": "获得<font color=\"#ffd138\">@GoldAmount@</font>金币。无需多问。",
+      "tooltip": "收到<font color=\"#ffd138\">@GoldAmount@</font>金币。谢了！ :)",
+      "dataValues": {
+        "GoldAmount": 1750,
+        "IncFrequency": 10,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_TankEngine": {
+      "name": "坦克引擎",
+      "desc": "参与击杀时，获得一个层数，使你的体型增大并提升<scaleHealth>最大生命值</scaleHealth>。阵亡时损失层数。",
+      "tooltip": "参与击杀时，获得一个层数，使你的体型增大@SizeIncrement*100@%并提升<scaleHealth>@MaxHPIncrement*100@%最大生命值</scaleHealth>。阵亡时损失@PercentOfStacksLost*100@%层数。<br><br>已获得生命值的总和：@f1@<br>",
+      "dataValues": {
+        "SizeIncrement": 0.05000000074505806,
+        "MaxHPIncrement": 0.05000000074505806,
+        "PercentOfStacksLost": 0.6499999761581421
+      }
+    },
+    "ARAM_CelestialBody": {
+      "name": "星界躯体",
+      "desc": "获得<scaleHealth>@Health@生命值</scaleHealth>，但你造成的伤害降低@DamageReduction*100@%。",
+      "tooltip": "获得<scaleHealth>@Health@生命值</scaleHealth>，但你造成的伤害降低@DamageReduction*100@%。",
+      "dataValues": {
+        "Health": 1500,
+        "DamageReduction": 0.10000000149011612
+      }
+    },
+    "ARAM_PhenomenalEvil": {
+      "name": "超凡邪恶",
+      "desc": "在你用技能对敌人造成伤害时永久获得<scaleAP>@APPerProc@法术强度</scaleAP>。<br><br>如果是作为你的第二个强化符文，则自带<scaleAP>@StartingAPIfSecondAugment@法术强度</scaleAP>。",
+      "tooltip": "在你用技能对敌人造成伤害时永久获得<scaleAP>@APPerProc@法术强度</scaleAP>。<br><br>如果是作为你的第二个强化符文，则自带<scaleAP>@StartingAPIfSecondAugment@法术强度</scaleAP>。<br><br>你已获得<scaleAP>@f1@法术强度</scaleAP>。维迦会感到自豪的！",
+      "dataValues": {
+        "ProcCooldown": 1,
+        "StartingAPIfSecondAugment": 40,
+        "APPerProc": 1,
+        "SpellIDCD": 3
+      }
+    },
+    "SupportMain": {
+      "name": "主玩辅助",
+      "desc": "<font color='#F0C200'>任务：</font><healing>治疗</healing>友方英雄@QuestRequirement@生命值。<br><br><font color='#F0C200'>奖励：</font>你提供的任何治疗效果现在还会在初始治疗之后提供持续治疗。",
+      "tooltip": "<font color='#F0C200'>任务：</font><healing>治疗</healing>友方英雄@QuestRequirement@生命值。<br><br><font color='#F0C200'>奖励：</font>你提供的任何治疗效果现在还会在@HealDuration@秒里提供相当于@HealPercent@%初始治疗量的持续治疗效果。<br><br>已造成的治疗：@QuestProgress@ / @QuestRequirement@<br>",
+      "dataValues": {
+        "HealPercent": 25,
+        "HealDuration": 3
+      }
+    },
+    "ARAM_ApexInventor": {
+      "name": "尖端发明家",
+      "desc": "获得<scaleBonus>@ItemHaste@装备急速</scaleBonus>(相当于@TooltipCDR@%装备冷却缩减)。<br><br><rules>装备急速可缩减所有装备技能的冷却时间%i:cooldown%。</rules>",
+      "tooltip": "获得<scaleBonus>@ItemHaste@装备急速</scaleBonus>(相当于@TooltipCDR@%装备冷却缩减)。<br><br><rules>装备急速可缩减所有装备技能的冷却时间%i:cooldown%。</rules>",
+      "dataValues": {
+        "ItemHaste": 100,
+        "TooltipCDR": 50
+      }
+    },
+    "ARAM_SonicBoom": {
+      "name": "天音爆",
+      "desc": "在为你的友军提供增益效果、<healing>治疗效果</healing>或<shield>护盾效果</shield>时，会对其附近的敌人们造成伤害和<status>减速</status>。",
+      "tooltip": "在为你的友军提供增益效果、<healing>治疗效果</healing>或<shield>护盾效果</shield>时，会对其附近的敌人们造成<trueDamage>@Damage@真实伤害</trueDamage>和持续2秒的@SlowAmount*-100@%<status>减速</status>。(@ProcCooldown@秒冷却时间)<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "Radius": 450,
+        "ProcCooldown": 2,
+        "SlowAmount": -0.30000001192092896
+      }
+    },
+    "SapMagic": {
+      "name": "吸元秘术",
+      "desc": "每@TimeLockout@秒，你的下次攻击造成<physicalDamage>额外物理伤害</physicalDamage>，并为你回复<healing>生命值</healing>{{ Item_Keyword_OnHit }}。<br><br>施放技能会缩减该效果的冷却时间。",
+      "tooltip": "每@TimeLockout@秒，你的下次攻击额外造成<physicalDamage>@CalcDamage@物理伤害</physicalDamage>，并为你回复<healing>@CalcHeal@生命值</healing>{{ Item_Keyword_OnHit }}。<br><br>每次施放技能，会使该效果的冷却时间缩减<attention>@TimeRefund@秒</attention>。<br><br><rules>生命值回复：@f2@</rules>",
+      "dataValues": {}
+    },
+    "KeepGoing": {
+      "name": "装填",
+      "desc": "在【{{SpellName}}】技能期间的普攻{{ Item_Keyword_OnHit }}会降低其冷却时间。",
+      "tooltip": "在【{{SpellName}}】技能期间的普攻{{ Item_Keyword_OnHit }}会降低其@f2@秒冷却时间。<br><br>已节省的秒数：@f1@",
+      "dataValues": {
+        "Buff_Duration": 6,
+        "Radius": 300
+      }
+    },
+    "LichBrain": {
+      "name": "巫妖大脑",
+      "desc": "获得<scaleAP>@Calc_AP@法术强度</scaleAP>。",
+      "tooltip": "获得<scaleAP>@Calc_AP@法术强度</scaleAP>。",
+      "dataValues": {}
+    },
+    "EnchantingButterflies": {
+      "name": "迷人蝴蝶",
+      "desc": "为友方英雄提供<healing>治疗</healing>或<shield>护盾</shield>时，会聚集<keyword>蝴蝶</keyword>。<br><br>在收集@MaxButterfly@只<keyword>蝴蝶</keyword>之后，对一个敌方英雄造成伤害时会将它们发射出去以造成<magicDamage>魔法伤害</magicDamage>。",
+      "tooltip": "为友方英雄提供<healing>治疗</healing>或<shield>护盾</shield>时，会在你周围聚集<keyword>蝴蝶</keyword>。<br>收集@MaxButterfly@只<keyword>蝴蝶</keyword>后，对一个敌方英雄造成伤害时将它们全部发射出去，以造成<magicDamage>@SingleFireDamage@魔法伤害</magicDamage>，后续命中造成@RepeatDamageMod@伤害。<br><br><rules>已造成的伤害：@f1@</rules>",
+      "dataValues": {
+        "OrbitRadius": 150
+      }
+    },
+    "UltimateRecursion": {
+      "name": "终极循环往复",
+      "desc": "获得@UltimateHaste@终极技能急速。",
+      "tooltip": "获得@UltimateHaste@终极技能急速。",
+      "dataValues": {}
+    },
+    "ARAM_WitchfulThinking": {
+      "name": "巫师式思考",
+      "desc": "获得%i:scaleAP%<scaleAP>@AP@法术强度</scaleAP>。",
+      "tooltip": "获得%i:scaleAP%<scaleAP>@AP@法术强度</scaleAP>。",
+      "dataValues": {
+        "APFlat": 70
+      }
+    },
+    "ARAM_LightemUp": {
+      "name": "点亮他们！",
+      "desc": "每第4次攻击发射4个飞弹以造成<magicDamage>魔法伤害</magicDamage>{{ Item_Keyword_OnHit }}。",
+      "tooltip": "每第4次攻击发射4个飞弹以造成<magicDamage>@TOOLTIPONLYDamage@魔法伤害</magicDamage>。<br><br>已造成的伤害：@f2@",
+      "dataValues": {}
+    },
+    "ARAM_Goliath": {
+      "name": "歌利亚巨人",
+      "desc": "体型变大，获得<scaleHealth>@HealthAmp*100@%生命值</scaleHealth>和<scaleAF>@AFAmp*100@%适应之力</scaleAF>。",
+      "tooltip": "体型变大，获得<scaleHealth>@HealthAmp*100@%生命值</scaleHealth>和<scaleAF>@AFAmp*100@%适应之力</scaleAF>。",
+      "dataValues": {
+        "SizeAmp": 0.5,
+        "HealthAmp": 0.3499999940395355,
+        "ADAmp": 0.15000000596046448,
+        "APAmp": 0.15000000596046448,
+        "AFAmp": 0.15000000596046448
+      }
+    },
+    "ArcaneAxiom": {
+      "name": "奥术公理",
+      "desc": "在你对一名敌方英雄造成伤害后，如果该英雄在@ResetWindow@秒内阵亡，则会返还你终极技能的部分总冷却时间。",
+      "tooltip": "在你对一名敌方英雄造成伤害后，如果该英雄在@ResetWindow@秒内阵亡，则会返还你终极技能的@UltimateRefund@总冷却时间。",
+      "dataValues": {
+        "ResetWindow": 3
+      }
+    },
+    "GoldenSnowball": {
+      "name": "神圣雪球",
+      "desc": "<spellName>雪球</spellName>获得@Haste@技能急速。<br><br>你在用【雪球】冲刺后短暂<keywordMajor>免疫伤害</keywordMajor>。<br><br><rules>如果你没有雪球，获得一个<spellName>雪球</spellName>。</rules><br><br>",
+      "tooltip": "<spellName>雪球</spellName>获得@Haste@技能急速。<br><br>你在用【雪球】冲刺后会<keywordMajor>免疫伤害</keywordMajor>@InvulnerabilityDuration@秒。<br><br><rules>如果你没有雪球，获得一个<spellName>雪球</spellName>。</rules><br><br>",
+      "dataValues": {
+        "InvulnerabilityDuration": 1.5,
+        "Haste": 100
+      }
+    },
+    "ARAM_Erosion": {
+      "name": "侵蚀",
+      "desc": "对敌人造成伤害时会施加一层持续@ShredDuration@秒且可叠加的<scaleArmor>护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>击碎效果。 ",
+      "tooltip": "对敌人造成伤害时会施加一层持续@ShredDuration@秒的@Shred*100@%<scaleArmor>护甲</scaleArmor>和<scaleMR>魔法抗性</scaleMR>击碎效果，至多在@MaxStacks@层时击碎@MaxShredTooltipOnly@%。 ",
+      "dataValues": {
+        "Shred": 0.014999999664723873,
+        "ShredDuration": 4,
+        "MaxStacks": 20
+      }
+    },
+    "EscapePlan": {
+      "name": "逃跑计划",
+      "desc": "在降至<scaleHealth>@HealthThreshold*100@%生命值</scaleHealth>时，获得巨量<shield>持续衰减的护盾</shield>、持续衰减的<speed>移动速度</speed>和持续衰减的缩小效果。",
+      "tooltip": "在降至<scaleHealth>@HealthThreshold*100@%生命值</scaleHealth>时，获得巨量<shield>@ShieldAmount@持续衰减的护盾</shield>、持续衰减的<speed>@MovespeedModEnhanced*100@%移动速度</speed>和持续衰减的缩小效果。(@Cooldown@秒冷却时间)",
+      "dataValues": {
+        "SizeMod": 0.20000000298023224,
+        "Duration": 5,
+        "MovespeedModEnhanced": 1.5,
+        "Cooldown": 75,
+        "HealthThreshold": 0.3499999940395355,
+        "ShieldRatio": 0.6499999761581421,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_StatsOnStats": {
+      "name": "属性叠属性！",
+      "desc": "获得@AmountOfStatAnvils@个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！",
+      "tooltip": "获得@AmountOfStatAnvils@个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！",
+      "dataValues": {
+        "AmountOfStatAnvils": 3
+      }
+    },
+    "ARAM_Quest_WoogletsWitchcap": {
+      "name": "沃格勒特的巫师帽",
+      "desc": "立刻获得一个<attention>无用大棒</attention>。<br><br><font color='#F0C200'>任务：</font>持有<attention>灭世者的死亡之帽</attention>和<attention>中娅沙漏</attention>。<br><br><font color='#F0C200'>奖励：</font>获得<attention>沃格勒特的巫师帽</attention>。",
+      "tooltip": "立刻获得一个<attention>无用大棒</attention>。<br><br><font color='#F0C200'>任务：</font>持有<attention>灭世者的死亡之帽</attention>和<attention>中娅沙漏</attention>。<br><br><font color='#F0C200'>奖励：</font>获得<attention>沃格勒特的巫师帽</attention>。",
+      "dataValues": {}
+    },
+    "Vampirism": {
+      "name": "吸血习性",
+      "desc": "你不再能够被友军治疗或获得<healing>生命回复</healing>。获得<omnivamp>@OmniVamp*100@%</omnivamp>全能吸血。 ",
+      "tooltip": "你不再能够被友军治疗或获得<healing>生命回复</healing>。获得<omnivamp>@OmniVamp*100@%</omnivamp>全能吸血。 ",
+      "dataValues": {
+        "OmniVamp": 0.25
+      }
+    },
+    "ARAM_IceCold": {
+      "name": "冰寒",
+      "desc": "你的<status>减速</status>效果可使<speed>移动速度</speed>降低额外的@ExtraSlowAmount@。",
+      "tooltip": "你的<status>减速</status>效果可使<speed>移动速度</speed>降低额外的@ExtraSlowAmount@。",
+      "dataValues": {
+        "ExtraSlowAmount": 75,
+        "SlowDuration": 1
+      }
+    },
+    "Upgrade_Ravenous": {
+      "name": "升级：贪欲九头蛇",
+      "desc": "你对敌人的技能命中会触发顺劈。提升【贪欲九头蛇】的生命偷取至@LifeStealTT@。<br><br>获得<font color=\"#ffd138\"><gold>@Gold@金币</gold></font>.",
+      "tooltip": "{{Upgrade_Ravenous_Description}}",
+      "dataValues": {
+        "Cooldown": 1,
+        "Gold": 500
+      }
+    },
+    "HandOfBaron": {
+      "name": "男爵之手",
+      "desc": "获得<scaleAP>@AFAmp*100@%适应之力</scaleAP>。附近友方小兵都获得极大增强。",
+      "tooltip": "获得<scaleAP>@AFAmp*100@%适应之力</scaleAP>。附近友方小兵都获得极大增强。",
+      "dataValues": {
+        "AFAmp": 0.25
+      }
+    },
+    "WardingWeapon": {
+      "name": "自适应防护",
+      "desc": "用【{{SpellName}}】技能打击一个敌方英雄时，为你提供持续@Buff_Duration@秒的<attention>@Calc_Resists@</attention><scaleArmor>护甲</scaleArmor>或<scaleMR>魔法抗性</scaleMR>，基于该技能的伤害类型。这个效果可以叠加。",
+      "tooltip": "用【{{SpellName}}】技能打击一个敌方英雄时，为你提供持续@Buff_Duration@秒的<attention>@Calc_Resists@</attention><scaleArmor>护甲</scaleArmor>或<scaleMR>魔法抗性</scaleMR>，基于该技能的伤害类型。这个效果可以叠加。<br><br>最大防护等级：@f2.0@",
+      "dataValues": {
+        "Buff_Duration": 6,
+        "Cooldown": 4
+      }
+    },
+    "ARAM_Snowday": {
+      "name": "下雪天",
+      "desc": "你的【雪球】获得100技能急速。在命中一名敌人时造成额外魔法伤害。如果你没有【雪球】，则获得一个【雪球】。",
+      "tooltip": "<spellName>雪球</spellName>获得@AH@技能急速并且造成<magicDamage>伤害</magicDamage>提升100%。",
+      "dataValues": {
+        "AH": 100,
+        "DamageAmp": 1
+      }
+    },
+    "ARAM_Eureka": {
+      "name": "尤里卡",
+      "desc": "获得相当于<scaleAP>@APToHasteConversion*100@%法术强度</scaleAP>的<scaleAbilityHaste>技能急速</scaleAbilityHaste>。",
+      "tooltip": "获得<scaleAbilityHaste>@APToHasteConversionCalc@技能急速</scaleAbilityHaste>。",
+      "dataValues": {
+        "APToHasteConversion": 0.30000001192092896
+      }
+    },
+    "ARAM_HeavyHitter": {
+      "name": "重量级打击手",
+      "desc": "你的攻击造成相当于你@HealthPercent*100@%<scaleHealth>最大生命值</scaleHealth>的额外<physicalDamage>物理伤害</physicalDamage>。",
+      "tooltip": "你的攻击造成额外<physicalDamage>@HealthPercentDamage@物理伤害</physicalDamage>。",
+      "dataValues": {
+        "HealthPercent": 0.03500000014901161
+      }
+    },
+    "CriticalRhythm": {
+      "name": "暴击律动",
+      "desc": "你的普攻在<crit>暴击</crit>时获得可叠加的<attackSpeed>攻击速度</attackSpeed>。<br><br>获得<attention>%i:scaleCrit% @CritChance*100@%暴击几率</attention>。",
+      "tooltip": "你的普攻在<crit>暴击</crit>时获得可叠加的<attackSpeed>@ASPerStack*100@%攻击速度</attackSpeed>，至多至@MaxStack@层。<br><br>获得<crit>%i:scaleCrit% @CritChance*100@%暴击几率</crit>。",
+      "dataValues": {
+        "ASPerStack": 0.05999999865889549,
+        "CritChance": 0.25,
+        "MaxStack": 10,
+        "BuffDuration": 6,
+        "MaxLevel": 2,
+        "Cooldown": 4
+      }
+    },
+    "GlassCannon": {
+      "name": "玻璃大炮",
+      "desc": "减少<scaleHealth>@HPReductionPerc*100@%最大生命值</scaleHealth>。造成额外的@TrueDamagePercSplit@伤害作为<trueDamage>真实伤害</trueDamage>。 ",
+      "tooltip": "{{Kiwi_GlassCannon_Summary}}<br><br>已造成的伤害：@f1@",
+      "dataValues": {
+        "TrueDamagePerc": 0.25,
+        "HPReductionPerc": 0.30000001192092896,
+        "MaxLevel": 3,
+        "RangedTrueDamagePercDisplay": 0.15000000596046448
+      }
+    },
+    "ARAM_TapDancer": {
+      "name": "踢踏舞",
+      "desc": "你的攻击会为你提供<speed>移动速度</speed>。基于你的移动速度获得<attackSpeed>攻击速度</attackSpeed>。",
+      "tooltip": "你的攻击会为你提供<speed>@MSPerHit@移动速度</speed>。获得<attackSpeed>@MSToASConversionCalc@攻击速度</attackSpeed>。<br><br><rule>这个增益可无限叠加并刷新，但有@StackDuration@秒的持续时间。</rule>",
+      "dataValues": {
+        "MSPerHit": 10,
+        "MSToASConversion": 0.0010000000474974513,
+        "MaxStack": 100,
+        "StackDuration": 5
+      }
+    },
+    "ARAM_Upgrade_Collector": {
+      "name": "升级：收集者",
+      "desc": "在每次使用【收集者】的被动处决敌人时，会提升处决阈值，并且提供额外金币。<br>获得<gold>250金币</gold>。",
+      "tooltip": "在每次使用【收集者】的被动处决敌人时，会使处决阈值提升@ExecutionInc*100@%，并且提供额外<gold>@UpgradedGoldAmount@金币</gold>。<br><br>获得<gold>250金币</gold>。",
+      "dataValues": {
+        "UpgradedGoldAmount": 50,
+        "ExecutionInc": 0.004999999888241291,
+        "MaxCount": 15,
+        "InstantGoldGain": 250,
+        "MaxLevel": 2
+      }
+    },
+    "ARAM_JeweledGauntlet": {
+      "name": "珠光护手",
+      "desc": "你的技能可以造成<crit>暴击</crit>。<br><br>获得<crit>%i:scaleCrit%@CritGranted@%暴击几率</crit>。",
+      "tooltip": "你的技能可可产生<crit>暴击</crit>以造成@CritDamageTooltip@%额外伤害。<br><br>获得<crit>%i:scaleCrit%@CritGranted@%暴击几率</crit>。<br><br>已对英雄造成的伤害：@f2@",
+      "dataValues": {
+        "CritDamage": 1.4500000476837158,
+        "CritChance": 0.25,
+        "CritConverRatio": 0.00044999999227002263,
+        "CritDamageTooltip": 45
+      }
+    },
+    "Flash2": {
+      "name": "闪闪现现",
+      "desc": "获得第二个【闪现】召唤师技能和@SummonerHaste@召唤师技能急速。",
+      "tooltip": "获得第二个【闪现】召唤师技能和@SummonerHaste@召唤师技能急速。",
+      "dataValues": {
+        "Cooldown": 60,
+        "SummonerHaste": 70
+      }
+    },
+    "ARAM_InfernalSoul": {
+      "name": "炼狱龙魂",
+      "desc": "你获得炼狱龙魂，使用技能或攻击命中敌人时造成额外伤害。",
+      "tooltip": "你获得炼狱龙魂，从而在你使用技能或普攻命中敌人时造成额外伤害。<br><br>已对英雄造成的伤害：@f2@",
+      "dataValues": {}
+    },
+    "ARAM_BladeWaltz": {
+      "name": "利刃华尔兹",
+      "desc": "获得<spellName>利刃华尔兹</spellName>作为一个召唤师技能。",
+      "tooltip": "让你进入不可被选取状态，在此期间对敌人进行突进并造成@Damage@伤害@TotalHits@次(造成50%附带伤害)。",
+      "dataValues": {
+        "TotalHits": 8
+      }
+    },
+    "ARAM_DoubleTap": {
+      "name": "双发快射",
+      "desc": "你的<crit>暴击</crit>施加一次额外的<OnHit>%i:OnHit%攻击特效</OnHit>。<br><br>获得<crit>%i:scaleCrit% @Calc_Crit_Chance@暴击几率</crit>。",
+      "tooltip": "你的暴击施加一次额外的<OnHit>%i:OnHit%攻击特效</OnHit>。<br><br>获得<attention>%i:scaleCrit% @Calc_Crit_Chance@暴击几率</attention>。",
+      "dataValues": {
+        "MaxLevel": 2,
+        "AdditionalOnHitCount": 1,
+        "Cooldown": 5
+      }
+    },
+    "ARAM_Quest_UrfsChampion": {
+      "name": "海牛阿福的勇士",
+      "desc": "<font color='#F0C200'>任务：</font>需求：参与击杀@QuestRequirement@次。<br><br>奖励：【金铲铲】",
+      "tooltip": "{{Kiwi_Quest_UrfsChampion_Summary}}<br><br>参与击杀：@f1@",
+      "dataValues": {}
+    },
+    "Adamant": {
+      "name": "坚若磐石",
+      "desc": "每当你<status>定身</status>或<status>缚地</status>一个敌人时，获得<scaleArmor>护甲</scaleArmor>和<scaleMR>魔抗</scaleMR>。",
+      "tooltip": "每当你<status>定身</status>或<status>缚地</status>一个敌人时，获得持续@AugDuration@秒的@ResistsPerLevel@<scaleArmor>护甲</scaleArmor>和<scaleMR>魔抗</scaleMR>(至多至@MaxStacks@层)。",
+      "dataValues": {
+        "Resists": 10,
+        "SpellIDCD": 5,
+        "MaxStacks": 10,
+        "AugDuration": 10,
+        "MaxLevel": 2
+      }
+    },
+    "DoubleStrike": {
+      "name": "双重打击",
+      "desc": "【{{SpellName}}】技能施加一次额外的{{ Item_Keyword_OnHit }}。",
+      "tooltip": "【{{SpellName}}】技能施加一次额外的{{ Item_Keyword_OnHit }}。",
+      "dataValues": {}
+    },
+    "NatureIsHealing": {
+      "name": "自然即是治愈",
+      "desc": "进入<keyword>草丛</keyword>时回复<healing>大量生命值</healing>。",
+      "tooltip": "进入<keyword>草丛</keyword>时回复<healing>@FlatHeal@ + @MissingHealthHeal@已损失生命值</healing>，每个草丛有@BrushCooldown@秒冷却时间。<br><br>总治疗量：@f1.0@",
+      "dataValues": {
+        "BrushCooldown": 20,
+        "MaxLevel": 1
+      }
+    },
+    "Twinfire": {
+      "name": "双生火焰",
+      "desc": "造成技能伤害时，发射1+@AdditionalMis@个飞弹，每个造成<magicDamage>@Damage@魔法伤害</magicDamage>。<br><br>此外，获得<attention>%i:scaleCrit%@CrtiChance*100@%暴击几率</attention>。",
+      "tooltip": "{{Kiwi_TwinFire_Summary}}",
+      "dataValues": {
+        "ADRatio": 0.07000000029802322,
+        "CrtiChance": 0.25,
+        "AdditionalMisDivision": 3,
+        "APRatio": 0.07000000029802322,
+        "Cooldown": 5,
+        "MaxLevel": 3
+      }
+    },
+    "HandsOffTheTalent": {
+      "name": "远射天资",
+      "desc": "在接近最大攻击距离处打出的攻击会附带额外<physicalDamage>物理伤害</physicalDamage>攻击特效。",
+      "tooltip": "在超过@MaxDistanceProximityTooltip@最大攻击距离处打出的攻击会额外造成<physicalDamage>@AdditionalDamage@物理伤害</physicalDamage>{{ Item_Keyword_OnHit }}。<br><br><rules>已打出的远距离攻击次数：@f1@</rules><br>",
+      "dataValues": {
+        "MaxDistanceProximity": 0.75,
+        "IncreasedDamage": 0.15000000596046448
+      }
+    },
+    "Quest_UltraHydra": {
+      "name": "终极九头蛇",
+      "desc": "在完成一个【九头蛇】装备时，获得一个<attention>提亚马特</attention>。<br><br><font color='#F0C200'>任务：</font>拥有【贪欲九头蛇】，【亵渎九头蛇】和【巨型九头蛇】。<br><br><font color='#F0C200'>奖励：</font>获得【终极九头蛇】。",
+      "tooltip": "{{Quest_UltraHydra_Description}}",
+      "dataValues": {}
+    },
+    "ARAM_WithHaste": {
+      "name": "急急小子",
+      "desc": "获得<speed>移动速度</speed>，相当于你的@AbilityHasteToMSConversion*100@%技能急速。",
+      "tooltip": "获得<speed>@AbilityHasteToMSConversionCalc@移动速度</speed>。",
+      "dataValues": {
+        "AbilityHasteToMSConversion": 0.699999988079071
+      }
+    },
+    "ARAM_OmniSoul": {
+      "name": "全能龙魂",
+      "desc": "获得@SoulsToAdd@个随机<attention>龙魂</attention>。",
+      "tooltip": "获得@SoulsToAdd@个随机<attention>龙魂</attention>。",
+      "dataValues": {
+        "SoulsToAdd": 3
+      }
+    },
+    "ARAM_ItsCritical": {
+      "name": "关键暴击",
+      "desc": "获得<crit>%i:scaleCrit%@CritChance*100@%暴击几率</crit>。",
+      "tooltip": "获得<crit>%i:scaleCrit%@CritChance*100@%暴击几率</crit>。",
+      "dataValues": {
+        "CritChance": 0.5
+      }
+    },
+    "ARAM_Typhoon": {
+      "name": "台风",
+      "desc": "你的攻击会对一个额外目标发射一个飞弹，从而造成削减过的伤害并施加{{ Item_Keyword_OnHit }}。",
+      "tooltip": "你的攻击会对一个额外目标发射一个飞弹，从而造成@ADRatio*100@%伤害并施加{{ Item_Keyword_OnHit }}。",
+      "dataValues": {
+        "ADRatio": 0.30000001192092896
+      }
+    },
+    "TrustyWeapon": {
+      "name": "可靠武器",
+      "desc": "用【{{SpellName}}】技能打击敌方英雄时会铸造一条<keyword>友谊</keyword>纽带。<br><br>【{{SpellName}}】技能基于你的<keyword>友谊</keyword>等级获得到临时提升伤害",
+      "tooltip": "在你用{{SpellName}}打击一个敌方英雄时，铸造一条<keyword>友谊</keyword>纽带来为该技能提供<attention>@Calc_Damage_Amp@</attention>提升伤害，持续@Buff_Duration@秒。这个效果可以叠加。<br><br><rules>额外伤害：@f1.0@<br><font color=\"#ce69d1\">最大友谊等级：@f2.0@</font></rules><br><br><flavorText>“我——我才不是喜欢你呢！”——{{SpellNameOnly}}</flavorText>",
+      "dataValues": {
+        "Buff_Duration": 6
+      }
+    },
+    "ARAM_ShrinkRay": {
+      "name": "缩小射线",
+      "desc": "你的攻击会将目标的伤害与体型削减@DamageReduction*100@%{{ Item_Keyword_OnHit }}。",
+      "tooltip": "你的攻击会对敌人造成持续3秒的@DamageReduction*100@%伤害削减效果。<br><br>已削减的伤害：@f2@",
+      "dataValues": {
+        "DamageReduction": 0.15000000596046448
+      }
+    },
+    "SoulEater": {
+      "name": "吞噬灵魂",
+      "desc": "<status>定身</status>一个敌方英雄时会提供<scaleHealth>@HealthGainPerStack@最大生命值</scaleHealth>。<br><br>如果是你的第二个强化符文，会自带<scaleHealth>@StartingHPIfSecondAugmentTT@生命值</scaleHealth>。",
+      "tooltip": "<status>定身</status>一个敌方英雄时会提供<scaleHealth>@HealthGainPerStack@最大生命值</scaleHealth>。<br><br>总生命值获取：<scaleHealth>@HealthGained@</scaleHealth><br><rules>如果是你的第二个强化符文，会自带<scaleHealth>@StartingHPIfSecondAugmentTT@生命值</scaleHealth>。</rules>",
+      "dataValues": {
+        "HealthGainPerStack": 20,
+        "SpellIDCD": 5
+      }
+    },
+    "ARAM_BreadAndCheese": {
+      "name": "面包和奶酪",
+      "desc": "你的【{{SpellName}}】技能获得@EAbilityHaste@技能急速。",
+      "tooltip": "你的【{{SpellName}}】技能获得@EAbilityHaste@技能急速。",
+      "dataValues": {
+        "EAbilityHaste": 100
+      }
+    },
+    "HextechSoul": {
+      "name": "海克斯科技龙魂",
+      "desc": "周期性地使你的下一个伤害型技能或攻击触发一道闪电爆裂，连锁穿过敌人以造成伤害和<status>减速</status>。",
+      "tooltip": "周期性地使你的下一个伤害型技能或攻击触发一道闪电爆裂，连锁穿过敌人以造成伤害和<status>减速</status>。",
+      "dataValues": {}
+    },
+    "ARAM_StatsOnStatsOnStats": {
+      "name": "属性叠属性叠属性！",
+      "desc": "获得@AmountOfStatAnvils@个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！<br><br>在你的下一次强化符文选取时，每个栏位获得一次额外的刷新。",
+      "tooltip": "获得@AmountOfStatAnvils@个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！<br><br>在你的下一次强化符文选取时，每个栏位获得一次额外的刷新。",
+      "dataValues": {
+        "AmountOfStatAnvils": 4
+      }
+    },
+    "SpellVolley": {
+      "name": "三重射击",
+      "desc": "你的【{{SpellName}}】技能会瞄准你前方2个额外的敌人。",
+      "tooltip": "{{Kiwi_SpellVolley_Summary}}<br><br>额外命中的目标数：@f1@<br><rules>单位从同一技能中承受伤害会减少。</rules>",
+      "dataValues": {
+        "FuzzyRange": 150,
+        "BonusRadiusAroundPrimaryTarget": 0.5,
+        "Bolt": 2,
+        "AHMin": 10,
+        "AHMax": 50,
+        "ReducedDamageIndex": 0.800000011920929
+      }
+    },
+    "ARAM_Upgrade_ZH": {
+      "name": "升级：中娅",
+      "desc": "<attention>【中娅沙漏】</attention>的冷却时间降低至@UpgradeCD@秒。你现在可以在<attention>【中娅沙漏】、【探索者的护臂】</attention>或<attention>【沃格勒特的巫师帽】</attention>凝滞状态持续期间移动并获得<speed>移动速度</speed>。<br><br>获得<gold>250金币</gold>。",
+      "tooltip": "<attention>【中娅沙漏】</attention>的冷却时间降低至@UpgradeCD@秒。你现在可以在<attention>【中娅沙漏】、【探索者的护臂】</attention>或<attention>【沃格勒特的巫师帽】</attention>凝滞状态持续期间移动并获得<speed>@UpgradeMS*100@%移动速度</speed>。<br>",
+      "dataValues": {
+        "UpgradeCD": 45,
+        "UpgradeMS": 0.5
+      }
+    },
+    "Upgrade_SwordOfBlossom": {
+      "name": "升级：花晓之剑",
+      "desc": "获得<speed>@AttackSpeed*100@%攻击速度</speed>。<br><br>你对英雄的攻击会使来自【花晓之剑】的治疗效果提升<scaleHealth>@PercentInc*100@%</scaleHealth>。",
+      "tooltip": "{{Kiwi_Upgrade_SwordOfBlossom_Summary}}",
+      "dataValues": {
+        "AttackSpeed": 1,
+        "AttackDamageNerf": 0.5,
+        "PercentInc": 2.5,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_SpecializedRecursion": {
+      "name": "急速之追求",
+      "desc": "<font color='#F0C200'>任务：</font>用【{{SpellName}}】技能命中敌方英雄@QuestRequirement@次<br><br><font color='#F0C200'>奖励：</font>【{{SpellName}}】技能获得技能急速，基于任务等级，至多至@MaxAbilityHasteReward@。",
+      "tooltip": "{{Augment_ARAM_QQQuest_Tooltip@f6@}}",
+      "dataValues": {
+        "AbilityHastePer10CD": 1,
+        "AbilityHasteReward": 80,
+        "QuestNumerator": 250
+      }
+    },
+    "JeweledBracelet": {
+      "name": "珠光手镯",
+      "desc": "【{{SpellName}}】技能可以<crit>暴击</crit>。<br><br>获得%i:scaleCrit%<crit>@CritChance@暴击几率</crit>。",
+      "tooltip": "【{{SpellName}}】可产生<crit>暴击</crit>以造成@CritDamageTooltip@%额外伤害。<br><br>获得%i:scaleCrit%<crit>@CritChance@暴击几率</crit>。<br><br><rules>已对英雄造成的伤害：@f1.0@</rules>",
+      "dataValues": {}
+    },
+    "ARAM_BacktoBasics": {
+      "name": "回归基本功",
+      "desc": "获得提升过的技能伤害、<healing>治疗效果</healing>、<shield>护盾</shield>和<scaleAbilityHaste>技能急速</scaleAbilityHaste>，但你<keywordMajor>不能使用你的终极技能</keywordMajor>。",
+      "tooltip": "你的终极技能已被封印。获得@DamageAmp*100@%技能伤害、<healing>治疗效果</healing>、<shield>护盾</shield>和<scaleAbilityHaste>@Haste@技能急速</scaleAbilityHaste>。",
+      "dataValues": {
+        "DamageAmp": 0.3499999940395355,
+        "HealingAmp": 0.3499999940395355,
+        "ShieldingAmp": 0.3499999940395355,
+        "Haste": 70
+      }
+    },
+    "ARAM_InfernalConduit": {
+      "name": "炼狱导管",
+      "desc": "你的技能会施加一层可叠加的<keywordMajor>灼烧</keywordMajor>，持续造成魔法伤害。<br><br>你的<keywordMajor>灼烧</keywordMajor>效果会降低你各基础技能的冷却时间。",
+      "tooltip": "你的技能会施加一层可无限叠加的<keywordMajor>灼烧</keywordMajor>，在@BleedDuration@秒的持续时间里每秒造成<magicDamage>@BleedDamagePerSecond@魔法伤害</magicDamage>。<br><br>你的所有<keywordMajor>灼烧</keywordMajor>效果会在对敌方英雄造成伤害时使你的各基础技能的冷却时间缩短@FlatCooldownRefundPerTick@秒。<br><br>已造成的伤害：@f2@",
+      "dataValues": {
+        "BleedDuration": 3,
+        "FlatCooldownRefundPerTick": 0.07999999821186066,
+        "ProcCooldown": 1
+      }
+    },
+    "ARAM_TransmuteChaos": {
+      "name": "质变：混沌",
+      "desc": "获得<keywordMajor>@AugmentsToGrantToolTipOnly@个随机%i:Augment%强化符文</keywordMajor>。",
+      "tooltip": "获得<keywordMajor>@AugmentsToGrantToolTipOnly@个随机%i:Augment%强化符文</keywordMajor>。",
+      "dataValues": {
+        "Augment1SilverChance": 30,
+        "Augment1GoldChance": 70,
+        "Augment2SilverChance": 30,
+        "Augment2GoldChance": 70,
+        "AugmentsToGrantToolTipOnly": 2
+      }
+    },
+    "ARAM_Deft": {
+      "name": "灵巧",
+      "desc": "获得%i:scaleAS% @AttackSpeed*100@%<speed>攻击速度</speed>。",
+      "tooltip": "获得%i:scaleAS% @AttackSpeed*100@%<speed>攻击速度</speed>。",
+      "dataValues": {
+        "AttackSpeed": 0.6000000238418579
+      }
+    },
+    "ForgedByTheMaster": {
+      "name": "大师铸就",
+      "desc": "使你的装备和强化符文伤害提升<attention>@Calc_Damage_Amp@</attention>。",
+      "tooltip": "你的<attention>装备</attention>和<attention>强化符文</attention>伤害提升<attention>@Calc_Damage_Amp@</attention>。<br><br><rules>额外伤害：@f1.0@</rules>",
+      "dataValues": {}
+    },
+    "ARAM_OceanSoul": {
+      "name": "海洋龙魂",
+      "desc": "获得【海洋龙魂】，在对敌方英雄造成伤害后提供高额的<healing>生命</healing>和<scaleMana>法力</scaleMana>回复。",
+      "tooltip": "获得【海洋龙魂】，在对敌方英雄造成伤害后提供高额的<healing>生命</healing>和<scaleMana>法力</scaleMana>回复。<br><br>已造成的治疗效果：@f2@",
+      "dataValues": {}
+    },
+    "ARAM_SlapAround": {
+      "name": "扇巴掌",
+      "desc": "每当你<status>定身</status>或<status>缚地</status>一个敌人时，获得@AdaptiveForce@适应之力。阵亡时损失@PercentOfStacksLost*100@%。",
+      "tooltip": "每当你<status>定身</status>或<status>缚地</status>一个敌人时，获得一层可叠加的<scaleAF>@AdaptiveForce@适应之力</scaleAF>。阵亡时损失@PercentOfStacksLost*100@%层数。<br>",
+      "dataValues": {
+        "AdaptiveForce": 10,
+        "SpellIDCD": 5,
+        "PercentOfStacksLost": 0.5
+      }
+    },
+    "ARAM_EtherealWeapon": {
+      "name": "虚幻武器",
+      "desc": "你的技能可施加{{ Item_Keyword_OnHit }}。每个目标有1秒冷却时间。",
+      "tooltip": "你的技能可施加{{ Item_Keyword_OnHit }}。每个目标有1秒冷却时间。<br><br>已触发的次数：@f2@",
+      "dataValues": {
+        "Cooldown": 1.5
+      }
+    },
+    "ARAM_TransmutePrismatic": {
+      "name": "质变：棱彩阶",
+      "desc": "获得1个随机<keywordMajor>%i:Augment%棱彩阶强化符文</keywordMajor>。",
+      "tooltip": "获得1个随机<keywordMajor>%i:Augment%棱彩阶强化符文</keywordMajor>。",
+      "dataValues": {}
+    },
+    "ARAM_Goredrink": {
+      "name": "渴血",
+      "desc": "获得<lifeSteal>@Omnivamp*100@%全能吸血</lifeSteal>。",
+      "tooltip": "获得<lifeSteal>@Omnivamp*100@%全能吸血</lifeSteal>。",
+      "dataValues": {
+        "Omnivamp": 0.15000000596046448
+      }
+    },
+    "ARAM_DontBlink": {
+      "name": "唯快不破",
+      "desc": "你每比目标多<speed>10移动速度</speed>，则对其多造成@BonusDamagePerMSDifference*1000@%额外伤害。",
+      "tooltip": "你每比目标多<speed>10移动速度</speed>，就会获得@BonusDamagePerMSDifference*1000@%额外伤害。<br><br>额外伤害：@f2@",
+      "dataValues": {
+        "BonusDamagePerMSDifference": 0.0010000000474974513
+      }
+    },
+    "NoManaNoProblem": {
+      "name": "没法力，没问题",
+      "desc": "来自你的装备的<scaleMana>%i:scaleMana%法力值</scaleMana>转化<br>为<scaleAP>%i:scaleAP%法术强度</scaleAP>。<br><br>使你的总<scaleAP>法术强度提升@APAmp*100@%</scaleAP>。",
+      "tooltip": "来自你的装备的<scaleMana>%i:scaleMana%法力值</scaleMana>转化为<scaleAP>%i:scaleAP%法术强度</scaleAP>。<br>(每<scaleMana>@Calc_ManaToAP@法力值</scaleMana>转为<scaleAP>@Calc_APPerMana@法术强度</scaleAP>)<br><br>使你的总<scaleAP>法术强度提升@APAmp*100@%</scaleAP>。<br><br><rules>额外法术强度：@f1.1@</rules>",
+      "dataValues": {
+        "APAmp": 0.15000000596046448
+      }
+    },
+    "Nightstalking": {
+      "name": "夜狩",
+      "desc": "在对敌人造成伤害的@TakedownWindow@秒内参与击杀该敌人会为你提供<speed>移动速度</speed>并使你进入隐身状态。",
+      "tooltip": "在对敌人造成伤害的@TakedownWindow@秒内参与击杀该敌人会为你提供<speed>@StealthMoveSpeed*100@%移动速度</speed>并使你进入隐身状态@StealthDuration@秒。",
+      "dataValues": {
+        "StealthDuration": 1.5,
+        "TakedownWindow": 3,
+        "Cooldown": 10,
+        "StealthMoveSpeed": 0.4000000059604645
+      }
+    },
+    "ARAM_PandorasBox": {
+      "name": "潘朵拉的盒子",
+      "desc": "将你的所有强化符文变为<keywordMajor>随机的棱彩阶%i:Augment%强化符文</keywordMajor>。",
+      "tooltip": "将你的所有强化符文变为<keywordMajor>随机的棱彩阶%i:Augment%强化符文</keywordMajor>。",
+      "dataValues": {}
+    },
+    "ARAM_FirstAidKit": {
+      "name": "急救用具",
+      "desc": "获得<healing>@HealShieldAmp*100@%治疗和护盾强度</healing>。",
+      "tooltip": "获得<healing>@HealShieldAmp*100@%治疗和护盾强度</healing>。",
+      "dataValues": {
+        "HealShieldAmp": 0.20000000298023224
+      }
+    },
+    "ARAM_ThreadtheNeedle": {
+      "name": "穿针引线",
+      "desc": "获得@PercentPen*100@%<armorPen>%i:scaleAPen%护甲穿透</armorPen>和<magicPen>%i:scaleMPen%法术穿透</magicPen>。",
+      "tooltip": "获得@PercentPen*100@%<armorPen>%i:scaleAPen%护甲穿透</armorPen>和<magicPen>%i:scaleMPen%法术穿透</magicPen>。",
+      "dataValues": {
+        "PercentPen": 0.18000000715255737
+      }
+    },
+    "GiftoftheDrowned": {
+      "name": "溺水之赠礼",
+      "desc": "<scaleHealth>%i:scaleHealth%额外生命值</scaleHealth>转化为<br><scaleLethality>%i:scaleAPen%穿甲</scaleLethality>。<br><br>获得<scaleLethality>@Calc_BonusLethality@穿甲</scaleLethality>。",
+      "tooltip": "<scaleHealth>%i:scaleHealth%额外生命值</scaleHealth>转化为<scaleLethality>%i:scaleAPen%穿甲</scaleLethality>。<br>(每<scaleHealth>@Calc_HPtoLethality@生命值</scaleHealth>转为<scaleLethality>@Calc_LethalitytoHP@穿甲</scaleLethality>)<br><br>获得<scaleLethality>@Calc_BonusLethality@穿甲</scaleLethality>。<br><br><rules>额外穿甲：@f1.1@</rules>",
+      "dataValues": {}
+    },
+    "ARAM_BreadAndJam": {
+      "name": "面包和果酱",
+      "desc": "你的【{{SpellName}}】技能获得@WAbilityHaste@技能急速。",
+      "tooltip": "你的【{{SpellName}}】技能获得@WAbilityHaste@技能急速。",
+      "dataValues": {
+        "WAbilityHaste": 100
+      }
+    },
+    "PinballSnowball": {
+      "name": "弹球",
+      "desc": "你的<spellName>雪球</spellName>获得<speed>技能急速</speed>并且造成额外的<trueDamage>真实伤害</trueDamage>。<br><br>当<spellName>雪球</spellName>从墙体上反弹时，它的体型和伤害获得提升，并缩短它的冷却时间。",
+      "tooltip": "你的<spellName>雪球</spellName>获得@AbilityHaste@技能急速，造成额外的@TrueDamage@ <trueDamage>真实伤害</trueDamage>并且可以从墙体上反弹。每次反弹会提升它 @SizeAmp*100@%体型、@DamageAmp*100@%造成伤害，并且缩短它@CDRefundOnBounce*100@%冷却时间。<br><br>反弹次数：<statTracking>@f1@</statTracking>",
+      "dataValues": {
+        "AbilityHaste": 50,
+        "CDRefundOnBounce": 0.30000001192092896,
+        "SizeAmp": 0.25,
+        "DamageAmp": 0.20000000298023224,
+        "CastRangeAmp": 0.10000000149011612,
+        "MaxLevel": 1
+      }
+    },
+    "ARAM_BluntForce": {
+      "name": "大力",
+      "desc": "获得%i:scaleAD%<scaleAD>@ADAmp*100@%攻击力</scaleAD>。",
+      "tooltip": "获得<scaleAD>@ADAmp*100@% (@f1@) 攻击力</scaleAD>。",
+      "dataValues": {
+        "ADAmp": 0.20000000298023224
+      }
+    },
+    "ARAM_escAPADe": {
+      "name": "魔法转物理",
+      "desc": "将<scaleAP>法术强度</scaleAP>转化为<scaleAD>额外攻击力</scaleAD>。获得<scaleAD>@ADAmp*100@%攻击力</scaleAD>。",
+      "tooltip": "将<scaleAP>法术强度</scaleAP>转化为<scaleAD>额外攻击力</scaleAD>，并获得<scaleAD>@ADAmpCalcTooltip@攻击力</scaleAD>。<br><br>当前转化：@f1@<br><br><rules>每点<scaleAP>法术强度</scaleAP>转化为<scaleAD>@ConversionRate@攻击力</scaleAD>。</rules>",
+      "dataValues": {
+        "ConversionRate": 0.6000000238418579,
+        "InverseRate": 1.666659951210022,
+        "ADAmp": 0.15000000596046448
+      }
+    }
+  }
+}
