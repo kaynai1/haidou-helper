@@ -13,11 +13,19 @@
   "scripts": {
     "start": "electron .",
     "start:web": "node tools/serve.js",
+    "check": "node tools/check-data.js",
+    "update-data": "node tools/update-ddragon.js",
+    "update-augments": "node tools/update-augments.js",
+    "format": "prettier --write .",
     "dist": "electron-builder --win --x64"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
-    "electron": "33.4.11",
-    "electron-builder": "25.1.8"
+    "electron": "^45.1.0",
+    "electron-builder": "^26.18.0",
+    "prettier": "^3.9.10"
   },
   "build": {
     "appId": "com.haidou.lite",

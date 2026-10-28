@@ -17,6 +17,11 @@ let tray = null;
 let pinned = false;
 let pollTimer = null;
 let gameLive = false;
+let pollFailures = 0;
+// 连续失败达到这个次数才判定离开对局。单次超时（切屏、读条、客户端卡顿）很常见，
+// 之前一失败就把 gameLive 置回 false，下次轮询成功会重新 showInactive()，
+// 玩家手动隐藏的悬浮窗就被弹回来了。
+const OFFLINE_AFTER_FAILURES = 3;
 
 function sendPinState() {
   if (win && !win.isDestroyed()) win.webContents.send('overlay:pin', pinned);
@@ -106,7 +111,8 @@ function createOverlay() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false,
+      // preload 只用到 contextBridge / ipcRenderer，沙箱下同样可用
+      sandbox: true,
     },
   });
 
@@ -187,6 +193,8 @@ function getLiveData() {
             reject(err);
           }
         });
+        // 响应中途断开时 'end' 不会触发，没有这个监听 Promise 会一直挂着
+        res.on('error', reject);
       }
     );
     req.on('timeout', () => req.destroy(new Error('timeout')));
@@ -215,8 +223,11 @@ function pushState(payload) {
 async function pollGame() {
   try {
     const data = await getLiveData();
+    pollFailures = 0;
     const champ = detectChampion(data);
     const gameData = data.gameData || {};
+    // 只在「从无对局变为有对局」时自动弹出；gameLive 为真说明这一局已经弹过，
+    // 玩家自己隐藏后不该被重新叫出来。
     if (champ && !gameLive && win && !win.isDestroyed()) win.showInactive();
     gameLive = !!champ;
     pushState({
@@ -227,8 +238,12 @@ async function pollGame() {
       mapName: gameData.mapName || '',
     });
   } catch {
-    gameLive = false;
-    pushState({ status: 'offline' });
+    pollFailures += 1;
+    // 短暂失败时保持上一次的状态，避免悬浮窗在「对局中」和「演示模式」之间来回闪。
+    if (pollFailures >= OFFLINE_AFTER_FAILURES) {
+      gameLive = false;
+      pushState({ status: 'offline' });
+    }
   } finally {
     pollTimer = setTimeout(pollGame, 5000);
   }

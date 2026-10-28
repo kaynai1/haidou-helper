@@ -24,7 +24,7 @@ Windows 用户可直接到 [Releases](https://github.com/kaynai1/haidou-helper/r
 **网页版（无需安装、无构建）**
 
 - 42 位英雄的 T1–T5 梯度、胜率、选取率与海克斯适配
-- 64 个海克斯强化图鉴，按棱彩 / 黄金 / 白银分级，含适配英雄
+- 249 个海克斯强化图鉴，名称、稀有度、图标与效果说明来自官方客户端资源
 - 84 套出装方案（每位英雄至少两套），标注核心装、出门装、技能加点
 - 全局搜索（`Ctrl K`）、职业 / 梯度筛选、英雄详情、同梯度推荐
 - 响应式布局，手机浏览器同样可用
@@ -60,7 +60,7 @@ npm install
 npm start
 ```
 
-或在项目根目录双击 **`启动悬浮窗.bat`**（当前工作目录里已经内置了 Electron 运行时）。
+或在项目根目录双击 **`启动悬浮窗.bat`**（使用根目录 `node_modules` 里的 Electron 运行时）。
 
 - 从 GitHub 克隆的源码不包含 `node_modules`，需要先执行 `npm install`，或改用安装包。
 - 应用未签名，首次启动 SmartScreen 可能拦截：点“更多信息 → 仍要运行”。
@@ -104,20 +104,28 @@ haidou-helper/
 │  ├─ index.html
 │  ├─ assets/css/app.css
 │  ├─ assets/js/app.js
-│  └─ data/data.js · data.json 生成后的数据
-├─ overlay/                    Windows 桌面应用源码（Electron 33）
+│  └─ data/data.js             生成后的数据（唯一数据产物）
+├─ overlay/                    Windows 桌面应用源码（Electron）
 │  ├─ main.js                  主窗口、悬浮窗、托盘、热键、Live Client API 轮询
 │  ├─ preload.js               contextBridge 暴露的 IPC 接口
 │  ├─ overlay.html             悬浮窗结构与样式
-│  ├─ overlay.js               悬浮窗渲染逻辑
-│  └─ node_modules/            本地安装的运行时（不提交 Git）
+│  └─ overlay.js               悬浮窗渲染逻辑
 ├─ build/                      应用图标（icon.svg / icon.png）
-├─ package.json                打包配置与构建脚本
+├─ _data/                      官方原始数据（更新脚本会覆盖）
+│  ├─ champion.json            Data Dragon 中文英雄
+│  ├─ item.json                Data Dragon 中文装备
+│  └─ augments.json            官方海克斯强化（图鉴数据源）
+├─ package.json                唯一的依赖清单 / 打包配置 / 构建脚本
+├─ node_modules/               本地安装的运行时（不提交 Git）
 ├─ tools/
-│  ├─ generate-data.js         演示数据生成器
+│  ├─ generate-data.js         数据生成器
+│  ├─ check-data.js            数据完整性与引用校验（CI 使用）
+│  ├─ update-ddragon.js        更新英雄 / 装备数据
+│  ├─ update-augments.js       更新海克斯强化数据
 │  ├─ serve.js                 本地静态服务器（开发用）
 │  ├─ verify-ui.js             网页版 CDP 截图 / 交互验证
 │  └─ verify-overlay.js        悬浮窗 CDP 验证
+├─ .github/workflows/ci.yml    数据校验 / 语法检查 / 数据过期检查
 ├─ documents/
 │  ├─ designs/                 设计系统提取文档
 │  └─ screenshots/             README 截图
@@ -125,13 +133,38 @@ haidou-helper/
 └─ 启动悬浮窗.bat
 ```
 
+### 开发命令
+
+| 命令 | 作用 |
+| --- | --- |
+| `npm start` | 启动桌面应用（主窗口 + 悬浮窗） |
+| `npm run start:web` | 启动本地静态服务器 `http://127.0.0.1:8321/` |
+| `node tools/generate-data.js` | 重新生成 `web/data/data.js` |
+| `npm run check` | 校验数据完整性与内部引用 |
+| `npm run update-data` | 拉取 Data Dragon 最新中文英雄 / 装备数据，自动重新生成并校验 |
+| `npm run update-augments` | 拉取官方海克斯强化数据，自动重新生成并校验 |
+| `npm run format` | 用 Prettier 格式化（首次运行前先 `npm install`） |
+| `npm run dist` | 打包 Windows 安装包与便携版 |
+
 ## 数据说明
 
-- 数据来自演示值：梯度分组、胜率、选取率、强化评分、出装方案均在 `tools/generate-data.js` 中人工编排。
-- 英雄名称、称号、装备名称与图标来自 Riot Data Dragon（16.21.1，zh_CN）。
+数据分两层，来源不同：
+
+| 内容 | 来源 | 能不能自动更新 |
+| --- | --- | --- |
+| 英雄名称 / 称号、装备名称、全部图标 | Riot Data Dragon（zh_CN） | ✅ `npm run update-data` |
+| 海克斯图鉴的名称 / 稀有度 / 图标 / 效果说明 | 官方客户端资源（CommunityDragon 镜像） | ✅ `npm run update-augments` |
+| 英雄梯度、胜率、选取率、出装方案、推荐评分 | `tools/generate-data.js` 里人工编排 | ❌ 没有公开数据源 |
+
+- 原始文件都在 `_data/`：`champion.json`、`item.json`、`augments.json`。
 - 悬浮窗与网页共用 `web/data/data.js`，改一处两边同步。
 - 重新生成：安装 Node 18+ 后运行 `node tools/generate-data.js`。
-- 想换英雄 / 强化 / 出装：编辑生成器里的 `TIERS`、`AUGMENTS`、`OVERRIDES` 等常量后重跑。
+- **更新英雄 / 装备**：`npm run update-data`。它会拉取 Data Dragon 最新版本，同步 `tools/generate-data.js` 里的 `DDRAGON` 版本号和更新日期，然后重新生成并校验；任一步失败都会自动回滚。国内网络慢时可先 `set DDRAGON_BASE=https://你的镜像`。
+- **更新海克斯强化**：`npm run update-augments`。默认拉取 `KIWI` 模式（海克斯大乱斗），可用 `--mode CHERRY` / `--mode KIWI_JADE` 切换；`--dry-run` 只比较变化，会列出新增和移除的强化。官方只公开了约四成强化的文字说明，其余在图鉴里显示「官方暂未提供文字说明」。
+- **强化图鉴和英雄推荐用的是两套数据**：图鉴是官方全量，推荐是手写的 64 个评分池（官方没有胜率和适配定位数据）。所以推荐里出现的强化名在图鉴里搜不到，这是刻意的取舍。
+- 想换英雄 / 出装：编辑生成器里的 `TIERS`、`META`、`POOL`、`OVERRIDES` 等常量后重跑。
+- 改完务必跑一次 `npm run check`：它会校验英雄数、出装数、推荐池数量、id 唯一性，以及英雄→强化、出装→装备的引用是否都存在；图鉴数量会直接和 `_data/augments.json` 对齐。
+- CI 会额外确认 `web/data/data.js` 与生成器的输出完全一致，忘记重跑生成器会直接报错。
 
 ## 悬浮窗原理与隐私
 
@@ -143,7 +176,8 @@ haidou-helper/
 ## 已知限制
 
 - **数值是演示数据**，不要用于严肃上分决策。
-- 当前只覆盖 42 位英雄、64 个强化，并非全英雄全强化。
+- 英雄梯度只覆盖 42 位英雄；强化图鉴收录当前模式的全部 249 个，但其中约六成官方没有公开文字说明。
+- 图鉴的强化和英雄推荐里的强化是两套数据，名字对不上。
 - 悬浮窗仅支持 Windows；网页版支持现代浏览器（Chrome / Edge / Firefox / Safari）。
 - 头像和装备图标从 Data Dragon CDN 加载，需要联网；断网时布局仍可用，图标会缺失。
 - 未做代码签名和自动更新；重复启动只会聚焦已有主窗口。
@@ -155,7 +189,7 @@ haidou-helper/
 - 悬浮窗：384px 宽，演示态 / 实时识别金克丝与卡莎 / 未收录英雄提示 / 点击穿透 / 自动高度均通过（`node tools/verify-overlay.js`，需以 `--remote-debugging-port=9444` 启动）。
 - 桌面应用：启动后主窗口可见、悬浮窗隐藏；`Ctrl Shift H` 显示 / 隐藏悬浮窗、托盘菜单、主窗口与悬浮窗两个页面均无控制台报错（v0.1.1 实测）。
 - Windows 打包：安装包与便携版均成功生成；打包后的 `win-unpacked` 版本实测能加载内置数据、图标与自动高度，控制台无报错。
-- 数据量自检：42 英雄、64 强化、84 套出装、56 件装备。
+- 数据量自检：42 英雄、249 个官方图鉴强化、64 个推荐强化、84 套出装、56 件装备。
 
 ## 声明
 

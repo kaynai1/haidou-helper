@@ -2,7 +2,9 @@
   var D = window.HAIDOU_DATA;
   if (!D) return;
 
-  var $ = function (id) { return document.getElementById(id); };
+  var $ = function (id) {
+    return document.getElementById(id);
+  };
   var els = {
     dot: $('dot'),
     status: $('status-text'),
@@ -27,22 +29,43 @@
     pin: $('btn-pin'),
     web: $('btn-web'),
     hide: $('btn-hide'),
-    close: $('btn-close')
+    close: $('btn-close'),
   };
 
+  // 图片加载失败时隐藏。原先靠内联 onerror 实现，而内联事件处理器会让 CSP
+  // 不得不放开 script-src 'unsafe-inline'；这里改成捕获阶段的全局监听。
+  document.addEventListener(
+    'error',
+    function (e) {
+      if (e.target && e.target.tagName === 'IMG') e.target.style.opacity = 0;
+    },
+    true,
+  );
+
   var augMap = {};
-  D.augments.forEach(function (a) { augMap[a.id] = a; });
+  // 英雄推荐里的强化来自手写推荐池，不是图鉴里的官方数据
+  (D.augmentPool || D.augments).forEach(function (a) {
+    augMap[a.id] = a;
+  });
 
   var champById = {};
   var champByKey = {};
   D.champions.forEach(function (c) {
     champById[c.id] = c;
-    champByKey[key(c.id)] = c;
-    champByKey[key(c.name)] = c;
+    var byId = key(c.id);
+    var byName = key(c.name);
+    // 必须挡掉空 key：c.name 是中文（如「阿狸」），旧的 key() 只保留 a-z0-9，
+    // 会把 42 位英雄全部压成 ''，互相覆盖后只剩最后一位，
+    // 任何非拉丁名字查不到时都会错误地返回那一位。
+    if (byId) champByKey[byId] = c;
+    if (byName && byName !== byId) champByKey[byName] = c;
   });
 
   function key(s) {
-    return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    // 保留各语言的字母与数字，中文英雄名也能命中；只去掉空格、标点和引号。
+    return String(s == null ? '' : s)
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]/gu, '');
   }
 
   function esc(s) {
@@ -53,7 +76,8 @@
 
   function findChampion(name) {
     if (!name) return null;
-    return champById[name] || champByKey[key(name)] || null;
+    var k = key(name);
+    return champById[name] || (k ? champByKey[k] : null) || null;
   }
 
   var TIER_ORDER = { T1: 1, T2: 2, T3: 3, T4: 4, T5: 5 };
@@ -68,22 +92,33 @@
 
   function readDemo() {
     var saved = null;
-    try { saved = localStorage.getItem('haidou.demoChampion'); } catch (e) {}
+    try {
+      saved = localStorage.getItem('haidou.demoChampion');
+    } catch (e) {}
     return findChampion(saved) || D.champions[0];
   }
 
   function fillDemoSelect(current) {
-    els.select.innerHTML = sortedChampions().map(function (c) {
-      return '<option value="' + esc(c.id) + '"' + (c.id === current.id ? ' selected' : '') + '>' +
-        esc(c.tier + ' · ' + c.name) + '</option>';
-    }).join('');
+    els.select.innerHTML = sortedChampions()
+      .map(function (c) {
+        return (
+          '<option value="' +
+          esc(c.id) +
+          '"' +
+          (c.id === current.id ? ' selected' : '') +
+          '>' +
+          esc(c.tier + ' · ' + c.name) +
+          '</option>'
+        );
+      })
+      .join('');
   }
 
   var MODE_NAMES = {
     ARAM: '海克斯大乱斗',
     CLASSIC: '召唤师峡谷',
     CHERRY: '斗魂竞技场',
-    URF: '无限火力'
+    URF: '无限火力',
   };
 
   function renderChampion(c) {
@@ -104,16 +139,32 @@
 
   function renderAugments(c) {
     var top = c.augments.slice(0, 3);
-    els.recs.innerHTML = top.map(function (r) {
-      var a = augMap[r.id] || { name: r.id, rarityName: '' };
-      var width = Math.max(8, Math.min(100, Math.round((r.pickRate / 50) * 100)));
-      return '<div class="rec">' +
-        '<span class="g ' + esc(r.grade) + '">' + esc(r.grade) + '</span>' +
-        '<span class="n">' + esc(a.name) + '<span class="rar">' + esc(a.rarityName) + '</span></span>' +
-        '<span class="p">' + fmt(r.pickRate) + '%</span>' +
-        '<span class="bar"><i style="width:' + width + '%"></i></span>' +
-      '</div>';
-    }).join('');
+    els.recs.innerHTML = top
+      .map(function (r) {
+        var a = augMap[r.id] || { name: r.id, rarityName: '' };
+        var width = Math.max(8, Math.min(100, Math.round((r.pickRate / 50) * 100)));
+        return (
+          '<div class="rec">' +
+          '<span class="g ' +
+          esc(r.grade) +
+          '">' +
+          esc(r.grade) +
+          '</span>' +
+          '<span class="n">' +
+          esc(a.name) +
+          '<span class="rar">' +
+          esc(a.rarityName) +
+          '</span></span>' +
+          '<span class="p">' +
+          fmt(r.pickRate) +
+          '%</span>' +
+          '<span class="bar"><i style="width:' +
+          width +
+          '%"></i></span>' +
+          '</div>'
+        );
+      })
+      .join('');
   }
 
   function renderBuild(c) {
@@ -122,15 +173,31 @@
     els.buildName.textContent = b.name;
     els.skill.textContent = b.skillOrder;
     var core = b.coreCount || 3;
-    els.items.innerHTML = b.items.map(function (id, i) {
-      var info = D.items[id] || { name: String(id) };
-      return '<span class="item' + (i < core ? ' core' : '') + '" title="' + esc(info.name) + '">' +
-        '<img src="' + D.meta.itemIcon + id + '.png" alt="' + esc(info.name) + '" onerror="this.style.opacity=0">' +
-      '</span>';
-    }).join('');
-    els.itemNames.textContent = b.items.slice(0, core).map(function (id) {
-      return (D.items[id] || {}).name || id;
-    }).join(' · ');
+    els.items.innerHTML = b.items
+      .map(function (id, i) {
+        var info = D.items[id] || { name: String(id) };
+        return (
+          '<span class="item' +
+          (i < core ? ' core' : '') +
+          '" title="' +
+          esc(info.name) +
+          '">' +
+          '<img src="' +
+          D.meta.itemIcon +
+          id +
+          '.png" alt="' +
+          esc(info.name) +
+          '">' +
+          '</span>'
+        );
+      })
+      .join('');
+    els.itemNames.textContent = b.items
+      .slice(0, core)
+      .map(function (id) {
+        return (D.items[id] || {}).name || id;
+      })
+      .join(' · ');
   }
 
   var api = window.overlay;
@@ -143,7 +210,7 @@
       status: next.status || 'offline',
       championName: next.championName || null,
       gameMode: next.gameMode || '',
-      gameTime: Number(next.gameTime) || 0
+      gameTime: Number(next.gameTime) || 0,
     };
     stateAt = Date.now();
 
@@ -177,7 +244,8 @@
       els.select.value = demo.id;
       els.demoLabel.textContent = '演示英雄';
       if (state.status === 'live' && state.championName) {
-        els.notice.innerHTML = '检测到 <b>' + esc(state.championName) + '</b>，暂未收录该英雄的速查数据，当前展示演示英雄。';
+        els.notice.innerHTML =
+          '检测到 <b>' + esc(state.championName) + '</b>，暂未收录该英雄的速查数据，当前展示演示英雄。';
         els.notice.hidden = false;
       } else {
         els.notice.hidden = true;
@@ -221,7 +289,9 @@
     var c = findChampion(els.select.value);
     if (!c) return;
     demo = c;
-    try { localStorage.setItem('haidou.demoChampion', c.id); } catch (e) {}
+    try {
+      localStorage.setItem('haidou.demoChampion', c.id);
+    } catch (e) {}
     renderChampion(c);
     renderAugments(c);
     renderBuild(c);
@@ -239,16 +309,28 @@
   if (api) {
     if (api.onGameState) api.onGameState(applyState);
     if (api.onPin) api.onPin(setPinned);
-    els.pin.addEventListener('click', function () { api.togglePin(); });
-    els.web.addEventListener('click', function () { api.openWeb(); });
-    els.hide.addEventListener('click', function () { api.hide(); });
-    els.close.addEventListener('click', function () { api.quit(); });
+    els.pin.addEventListener('click', function () {
+      api.togglePin();
+    });
+    els.web.addEventListener('click', function () {
+      api.openWeb();
+    });
+    els.hide.addEventListener('click', function () {
+      api.hide();
+    });
+    els.close.addEventListener('click', function () {
+      api.quit();
+    });
   } else {
-    els.pin.addEventListener('click', function () { setPinned(!pinned); });
+    els.pin.addEventListener('click', function () {
+      setPinned(!pinned);
+    });
   }
 
   els.patch.textContent = D.meta.patch + ' · 演示数据';
   if (D.meta.patch) els.ver.textContent = D.meta.patch;
 
-  window.__haidouSetState = function (next) { return applyState(next || {}); };
+  window.__haidouSetState = function (next) {
+    return applyState(next || {});
+  };
 })();

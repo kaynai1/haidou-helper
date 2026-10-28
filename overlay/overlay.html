@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://ddragon.leagueoflegends.com; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>海斗速查 · 悬浮窗</title>
 <style>
   :root{
@@ -179,7 +180,7 @@
   <main>
     <section class="champ">
       <div class="splash" id="splash"></div>
-      <img class="avatar" id="avatar" alt="" onerror="this.style.opacity=0">
+      <img class="avatar" id="avatar" alt="">
       <div class="champ-info">
         <div class="champ-name" id="champ-name">阿狸</div>
         <div class="champ-sub"><span class="tier t1" id="champ-tier">T1</span><span id="champ-arch">法师</span><span>·</span><span id="champ-title">九尾妖狐</span></div>

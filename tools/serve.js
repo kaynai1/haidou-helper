@@ -9,7 +9,8 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=
 http.createServer((req, res) => {
   const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
   let file = path.join(root, urlPath === '/' ? 'index.html' : urlPath);
-  if (!file.startsWith(root)) { res.writeHead(403); return res.end('forbidden'); }
+  // 必须带上分隔符再比较，否则 web-evil 这类同前缀目录能绕过检查
+  if (!file.startsWith(root + path.sep)) { res.writeHead(403); return res.end('forbidden'); }
   fs.stat(file, (err, stat) => {
     if (err || !stat.isFile()) {
       res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });

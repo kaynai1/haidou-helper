@@ -1,0 +1,8 @@
+node_modules/
+dist/
+release/
+_data/
+web/data/
+documents/screenshots/
+*.md
+package-lock.json

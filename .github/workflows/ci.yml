@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  data:
+    name: 数据校验
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 语法检查
+        run: |
+          node --check overlay/main.js
+          node --check overlay/preload.js
+          node --check overlay/overlay.js
+          node --check web/assets/js/app.js
+          node --check tools/generate-data.js
+          node --check tools/check-data.js
+          node --check tools/update-ddragon.js
+          node --check tools/update-augments.js
+
+      - name: 校验已提交的数据
+        run: node tools/check-data.js
+
+      - name: 确认 data.js 与生成器一致
+        run: |
+          node tools/generate-data.js
+          if ! git diff --quiet -- web/data/data.js; then
+            echo "::error::web/data/data.js 与 tools/generate-data.js 的输出不一致，请本地重跑生成器并提交"
+            git diff --stat -- web/data/data.js
+            exit 1
+          fi

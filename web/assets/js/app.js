@@ -4,20 +4,26 @@
   const D = window.HAIDOU_DATA;
   const app = document.getElementById('app');
   if (!D) {
-    app.innerHTML = '<div class="wrap" style="padding:80px 0"><h1 class="page-title">数据加载失败</h1><p class="page-desc">请确认 web/data/data.js 存在，或重新运行 tools/generate-data.js。</p></div>';
+    app.innerHTML =
+      '<div class="wrap" style="padding:80px 0"><h1 class="page-title">数据加载失败</h1><p class="page-desc">请确认 web/data/data.js 存在，或重新运行 tools/generate-data.js。</p></div>';
     return;
   }
 
   /* ---------- helpers ---------- */
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-  const esc = (s) => String(s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
   const fmt = (n) => Number(n).toFixed(1);
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-  const randHash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
 
   const champById = new Map(D.champions.map((c) => [c.id, c]));
+  // D.augments 是官方图鉴，D.augmentPool 是英雄推荐用的手写强化池，两边 id 不互通
   const augById = new Map(D.augments.map((a) => [a.id, a]));
+  const augPoolById = new Map((D.augmentPool || []).map((a) => [a.id, a]));
+  const RARITY_ORDER = { prismatic: 0, gold: 1, silver: 2, event: 3 };
+  const byRarity = (a, b) =>
+    (RARITY_ORDER[a.rarity] ?? 9) - (RARITY_ORDER[b.rarity] ?? 9) || a.name.localeCompare(b.name, 'zh-Hans-CN');
   const TIER_ORDER = { T1: 0, T2: 1, T3: 2, T4: 3, T5: 4 };
   const tierCls = (t) => t.toLowerCase();
   const winCls = (w) => (w >= 52 ? '' : w < 50 ? 'low' : '');
@@ -25,6 +31,11 @@
   const itemIcon = (id) => `${D.meta.itemIcon}${id}.png`;
   const champIcon = (c) => `${D.meta.championIcon}${c.id}.png`;
   const gradeFromPower = (p) => (p >= 89 ? 'S' : p >= 72 ? 'A' : p >= 55 ? 'B' : 'C');
+  // 数据里出现对不上的 augment id 时不要直接抛 TypeError（会让整个路由白屏），
+  // 退回一个占位对象，页面照常渲染。英雄推荐里的 id 来自推荐池，要单独查。
+  const augOf = (id) =>
+    augById.get(id) ||
+    augPoolById.get(id) || { id, name: String(id), rarity: '', rarityName: '', category: '', desc: '', arch: [] };
 
   const ICONS = {
     arrow: '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
@@ -32,21 +43,33 @@
     grid: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
     hex: '<svg viewBox="0 0 24 24"><path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3z"/><path d="M12 8l1.7 4.3L18 14l-4.3 1.7L12 20l-1.7-4.3L6 14l4.3-1.7z"/></svg>',
     check: '<svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>',
-    shield: '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 10-4-1.8-7-5.6-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>',
+    shield:
+      '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 10-4-1.8-7-5.6-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>',
     bolt: '<svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>',
     eye: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></svg>',
     cup: '<svg viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 6h2.5a2.5 2.5 0 0 1 0 5H17M7 6H4.5a2.5 2.5 0 0 0 0 5H7M9 20h6M12 14v6"/></svg>',
     info: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
     close: '<svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>',
-    screen: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    screen:
+      '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
   };
   const icon = (n) => ICONS[n] || '';
+
+  // 图片加载失败时隐藏。原先靠散落各处的内联 onerror 实现，而内联事件处理器会让
+  // CSP 不得不放开 script-src 'unsafe-inline'；这里改成捕获阶段的全局监听。
+  document.addEventListener(
+    'error',
+    (e) => {
+      if (e.target && e.target.tagName === 'IMG') e.target.style.opacity = 0;
+    },
+    true,
+  );
 
   /* ---------- components ---------- */
   function champCard(c, opts = {}) {
     const i = opts.i || 0;
     return `<a class="champ-card reveal" href="#/champion/${c.id}" style="--d:${Math.min(i * 35, 300)}ms">
-      <div class="portrait"><img src="${c.loading}" alt="${esc(c.name)}" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div>
+      <div class="portrait"><img src="${c.loading}" alt="${esc(c.name)}" loading="lazy" decoding="async"></div>
       <span class="tier-badge ${tierCls(c.tier)}">${c.tier}</span>
       <div class="champ-meta">
         <div class="champ-name">${esc(c.name)}</div>
@@ -61,20 +84,30 @@
   }
 
   function augmentCard(a, opts = {}) {
-    const grade = opts.grade || gradeFromPower(a.power);
     const i = opts.i || 0;
+    // 官方图鉴的强化没有强度评分和胜率，这些区块整体隐藏
+    const hasStats = Number.isFinite(a.power) && Number.isFinite(a.pickRate) && Number.isFinite(a.winRate);
+    const grade = opts.grade || (Number.isFinite(a.power) ? gradeFromPower(a.power) : '');
+    const meta = [a.rarityName, a.category].filter(Boolean).join(' · ');
+    const iconHtml = a.icon
+      ? `<img class="aug-img" src="${a.icon}" alt="" loading="lazy" decoding="async">`
+      : `<b>${esc(a.name.slice(0, 1))}</b>`;
     return `<article class="aug-card r-${a.rarity} reveal" style="--d:${Math.min(i * 30, 240)}ms" data-augment="${a.id}" tabindex="0" role="button" aria-label="查看海克斯 ${esc(a.name)}">
       <div class="aug-top">
-        <div class="aug-icon"><b>${esc(a.name.slice(0, 1))}</b></div>
+        <div class="aug-icon">${iconHtml}</div>
         <div>
           <div class="aug-name">${esc(a.name)}</div>
-          <div class="aug-rarity">${a.rarityName} · ${a.category}</div>
+          <div class="aug-rarity">${esc(meta)}</div>
         </div>
-        <span class="grade g-${grade}">${grade}</span>
+        ${grade ? `<span class="grade g-${grade}">${grade}</span>` : ''}
       </div>
-      <p class="aug-desc">${esc(a.desc)}</p>
-      <div class="aug-foot"><span>选取率 <b>${fmt(a.pickRate)}%</b></span><span>胜率 ${fmt(a.winRate)}%</span></div>
-      <div class="bar"><i style="--p:${clamp(a.pickRate * 2.2, 6, 100)}%"></i></div>
+      <p class="aug-desc${a.desc ? '' : ' muted'}">${esc(a.desc || '官方暂未提供文字说明')}</p>
+      ${
+        hasStats
+          ? `<div class="aug-foot"><span>选取率 <b>${fmt(a.pickRate)}%</b></span><span>胜率 ${fmt(a.winRate)}%</span></div>
+      <div class="bar"><i style="--p:${clamp(a.pickRate * 2.2, 6, 100)}%"></i></div>`
+          : ''
+      }
     </article>`;
   }
 
@@ -82,11 +115,21 @@
     const i = opts.i || 0;
     const core = b.items.slice(0, 3).map(itemName).join(' · ');
     const rest = b.items.slice(3).map(itemName).join(' · ');
-    const items = b.items.map((id, idx) => `<span class="item${idx < 3 ? ' core' : ''}" title="${esc(itemName(id))}"><img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy" onerror="this.style.opacity=0"></span>`).join('');
-    const starter = b.starter.map((id) => `<span class="item item-starter" title="${esc(itemName(id))}"><img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy" onerror="this.style.opacity=0"></span>`).join('');
+    const items = b.items
+      .map(
+        (id, idx) =>
+          `<span class="item${idx < 3 ? ' core' : ''}" title="${esc(itemName(id))}"><img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy"></span>`,
+      )
+      .join('');
+    const starter = b.starter
+      .map(
+        (id) =>
+          `<span class="item item-starter" title="${esc(itemName(id))}"><img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy"></span>`,
+      )
+      .join('');
     return `<article class="build-card reveal" style="--d:${Math.min(i * 40, 240)}ms">
       <div class="build-head">
-        <img class="build-champ" src="${champIcon(c)}" alt="${esc(c.name)}" loading="lazy" onerror="this.style.opacity=0">
+        <img class="build-champ" src="${champIcon(c)}" alt="${esc(c.name)}" loading="lazy">
         <div class="build-head-txt">
           <div class="build-title">${esc(b.name)}</div>
           <div class="build-champ-name"><a href="#/champion/${c.id}">${esc(c.name)}</a> <span class="tier-text ${tierCls(c.tier)}">${c.tier}</span> <span>· ${esc(c.archetypeName)}</span></div>
@@ -106,15 +149,21 @@
   }
 
   function augRows(c, count = 3) {
-    return c.augments.slice(0, count).map((r) => {
-      const a = augById.get(r.id);
-      return `<div class="mock-aug"><span class="g g-${r.grade}">${r.grade}</span><span class="an">${esc(a.name)}</span><span class="ap">${fmt(r.pickRate)}%</span><span class="prog"><i style="width:${clamp(r.pickRate * 2, 8, 100)}%"></i></span></div>`;
-    }).join('');
+    return c.augments
+      .slice(0, count)
+      .map((r) => {
+        const a = augOf(r.id);
+        return `<div class="mock-aug"><span class="g g-${r.grade}">${r.grade}</span><span class="an">${esc(a.name)}</span><span class="ap">${fmt(r.pickRate)}%</span><span class="prog"><i style="width:${clamp(r.pickRate * 2, 8, 100)}%"></i></span></div>`;
+      })
+      .join('');
   }
 
   function overlayMock(c) {
     const build = c.builds[0];
-    const items = build.items.slice(0, 6).map((id) => `<img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy" onerror="this.style.opacity=0">`).join('');
+    const items = build.items
+      .slice(0, 6)
+      .map((id) => `<img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy">`)
+      .join('');
     return `<div class="mock">
       <div class="mock-bar">
         <span class="mb-mark"><svg viewBox="0 0 40 40"><path d="M20 3 34 11v18L20 37 6 29V11Z" fill="#F0C15B"/></svg></span>
@@ -124,7 +173,7 @@
       <div class="mock-body">
         <div class="mock-status"><i class="live-dot"></i>已识别当前英雄<i class="ms-mode">${D.meta.mode}</i></div>
         <div class="mock-champ">
-          <img src="${champIcon(c)}" alt="${esc(c.name)}" onerror="this.style.opacity=0">
+          <img src="${champIcon(c)}" alt="${esc(c.name)}">
           <div>
             <div class="mc-name">${esc(c.name)}</div>
             <div class="mc-sub"><span class="mc-tier tier-text ${tierCls(c.tier)}">${c.tier}</span><span>${esc(c.archetypeName)}</span><span>·</span><span>${esc(c.title)}</span></div>
@@ -146,12 +195,15 @@
 
   function previewCard(c) {
     const build = c.builds[0];
-    const items = build.items.slice(0, 5).map((id) => `<img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy" onerror="this.style.opacity=0">`).join('');
+    const items = build.items
+      .slice(0, 5)
+      .map((id) => `<img src="${itemIcon(id)}" alt="${esc(itemName(id))}" loading="lazy">`)
+      .join('');
     return `<div class="preview-card">
       <span class="demo-tag">DEMO DATA</span>
       <div class="preview-head"><span class="preview-label">对局速览</span><span class="preview-live"><i class="live-dot"></i>演示模式</span></div>
       <div class="preview-champ">
-        <img src="${champIcon(c)}" alt="${esc(c.name)}" onerror="this.style.opacity=0">
+        <img src="${champIcon(c)}" alt="${esc(c.name)}">
         <div>
           <div class="pc-name">${esc(c.name)}</div>
           <div class="pc-sub"><span class="tier-text ${tierCls(c.tier)}">${c.tier}</span><span>${esc(c.archetypeName)}</span><span>·</span><span>${esc(c.title)}</span></div>
@@ -172,13 +224,15 @@
 
   /* ---------- views ---------- */
   function viewHome() {
-    const ahri = champById.get('Ahri');
+    // 写死的演示英雄一旦从数据里移除，这里会拿到 undefined 并在取 builds[0] 时抛错，
+    // 整个首页白屏。兜底成第一位英雄，并过滤掉没有出装数据的条目。
+    const ahri = champById.get('Ahri') || D.champions[0];
     const t1 = D.champions.filter((c) => c.tier === 'T1');
-    const augTop = [...D.augments].sort((a, b) => b.power - a.power).slice(0, 8);
-    const picks = ['Ahri', 'Jinx', 'Sion'].map((id) => {
-      const c = champById.get(id);
-      return { c, b: c.builds[0] };
-    });
+    const augTop = [...D.augments].sort(byRarity).slice(0, 8);
+    const picks = ['Ahri', 'Jinx', 'Sion']
+      .map((id) => champById.get(id))
+      .filter((c) => c && c.builds && c.builds.length)
+      .map((c) => ({ c, b: c.builds[0] }));
 
     return `
     <section class="hero">
@@ -223,7 +277,7 @@
           <div>
             <div class="eyebrow">AUGMENTS</div>
             <h2 class="section-title">海克斯强度速览</h2>
-            <p class="section-sub">棱彩、黄金、白银三个档位，按综合强度排序，点卡片看适配英雄。</p>
+            <p class="section-sub">棱彩、黄金、白银三个档位，按稀有度排序，点卡片看详细效果。</p>
           </div>
           <a class="link-more" href="#/augments">全部 ${D.meta.augmentCount} 个海克斯 ${icon('arrow')}</a>
         </div>
@@ -306,9 +360,17 @@
   function viewChampions() {
     const avg = (D.champions.reduce((s, c) => s + c.winRate, 0) / D.champions.length).toFixed(1);
     const roleChips = [['all', '全部'], ...ROLES.map((r) => [r, r])]
-      .map(([v, label]) => `<button class="chip ${champState.role === v ? 'active' : ''}" data-role="${v}" type="button">${label}</button>`).join('');
+      .map(
+        ([v, label]) =>
+          `<button class="chip ${champState.role === v ? 'active' : ''}" data-role="${v}" type="button">${label}</button>`,
+      )
+      .join('');
     const tierChips = ['all', 'T1', 'T2', 'T3', 'T4', 'T5']
-      .map((t) => `<button class="chip ${champState.tier === t ? 'active' : ''}" data-tier="${t}" type="button">${t === 'all' ? '全部梯度' : t}</button>`).join('');
+      .map(
+        (t) =>
+          `<button class="chip ${champState.tier === t ? 'active' : ''}" data-tier="${t}" type="button">${t === 'all' ? '全部梯度' : t}</button>`,
+      )
+      .join('');
 
     return `<div class="wrap">
       <div class="page-head">
@@ -347,24 +409,35 @@
     const c = champById.get(id);
     if (!c) return viewNotFound('没有找到这位英雄');
     const builds = c.builds;
-    const recs = c.augments.map((r) => ({ ...r, a: augById.get(r.id) }));
-    const related = D.champions.filter((x) => x.tier === c.tier && x.id !== c.id).sort((a, b) => b.winRate - a.winRate).slice(0, 5);
+    const recs = c.augments.map((r) => ({ ...r, a: augOf(r.id) }));
+    const related = D.champions
+      .filter((x) => x.tier === c.tier && x.id !== c.id)
+      .sort((a, b) => b.winRate - a.winRate)
+      .slice(0, 5);
 
-    const recRows = recs.map((r) => `<div class="rec-row">
+    const recRows = recs
+      .map(
+        (r) => `<div class="rec-row">
       <span class="grade-box g-${r.grade}">${r.grade}</span>
       <div class="rec-main">
         <div class="rec-name">${esc(r.a.name)}<span class="rec-rarity r-${r.a.rarity}">${r.a.rarityName}</span><span class="rec-rarity">${r.a.category}</span></div>
         <div class="rec-note">${esc(r.note)}</div>
       </div>
       <div class="rec-right"><b>${fmt(r.pickRate)}%</b><span>选取</span><div class="bar"><i style="--p:${clamp(r.pickRate * 2.1, 6, 100)}%"></i></div></div>
-    </div>`).join('');
+    </div>`,
+      )
+      .join('');
 
     const tips = c.tips.map((t) => `<li>${esc(t)}</li>`).join('');
-    const relatedRows = related.map((x) => `<a class="related-row" href="#/champion/${x.id}">
-      <img src="${champIcon(x)}" alt="${esc(x.name)}" loading="lazy" onerror="this.style.opacity=0">
+    const relatedRows = related
+      .map(
+        (x) => `<a class="related-row" href="#/champion/${x.id}">
+      <img src="${champIcon(x)}" alt="${esc(x.name)}" loading="lazy">
       <div><div class="rn">${esc(x.name)}</div><div class="rt">${esc(x.title)}</div></div>
       <span class="tier-text ${tierCls(x.tier)}">${x.tier}</span>
-    </a>`).join('');
+    </a>`,
+      )
+      .join('');
 
     return `<div class="wrap">
       <div class="crumbs"><a href="#/champions">英雄梯度</a>${icon('chev')}<span>${esc(c.name)}</span></div>
@@ -436,20 +509,17 @@
   }
 
   /* ---------- augments list ---------- */
-  const augState = { q: '', rarity: 'all', cat: 'all', sort: 'pick' };
+  const augState = { q: '', rarity: 'all', sort: 'rarity' };
 
   function augmentList() {
     const q = augState.q.trim().toLowerCase();
-    let list = D.augments.filter((a) => {
+    const list = D.augments.filter((a) => {
       if (augState.rarity !== 'all' && a.rarity !== augState.rarity) return false;
-      if (augState.cat !== 'all' && a.category !== augState.cat) return false;
       if (!q) return true;
-      return [a.name, a.desc, a.category, a.rarityName, ...a.arch].join(' ').toLowerCase().includes(q);
+      return [a.name, a.desc, a.category || '', a.rarityName, ...(a.arch || [])].join(' ').toLowerCase().includes(q);
     });
-    if (augState.sort === 'power') list.sort((a, b) => b.power - a.power);
-    else if (augState.sort === 'win') list.sort((a, b) => b.winRate - a.winRate);
-    else if (augState.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'));
-    else list.sort((a, b) => b.pickRate - a.pickRate);
+    if (augState.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'));
+    else list.sort(byRarity);
     return list;
   }
 
@@ -460,7 +530,6 @@
     const count = $('#aug-count');
     if (count) count.innerHTML = `共 <b>${list.length}</b> 个`;
     $$('.chip[data-rarity]').forEach((el) => el.classList.toggle('active', el.dataset.rarity === augState.rarity));
-    $$('.chip[data-cat]').forEach((el) => el.classList.toggle('active', el.dataset.cat === augState.cat));
     wrap.innerHTML = list.length
       ? `<div class="aug-grid">${list.map((a, i) => augmentCard(a, { i })).join('')}</div>`
       : `<div class="empty"><b>没有匹配的海克斯</b>换个关键词，或切换稀有度与类型。</div>`;
@@ -468,21 +537,32 @@
   }
 
   function viewAugments() {
+    const countOf = (r) => D.augments.filter((a) => a.rarity === r).length;
     const counts = {
-      prismatic: D.augments.filter((a) => a.rarity === 'prismatic').length,
-      gold: D.augments.filter((a) => a.rarity === 'gold').length,
-      silver: D.augments.filter((a) => a.rarity === 'silver').length,
+      prismatic: countOf('prismatic'),
+      gold: countOf('gold'),
+      silver: countOf('silver'),
+      event: countOf('event'),
     };
-    const rarities = [['all', '全部'], ['prismatic', '棱彩'], ['gold', '黄金'], ['silver', '白银']]
-      .map(([v, l]) => `<button class="chip ${augState.rarity === v ? 'active' : ''}" data-rarity="${v}" type="button">${l}</button>`).join('');
-    const cats = [['all', '全部类型'], ['输出', '输出'], ['生存', '生存'], ['功能', '功能']]
-      .map(([v, l]) => `<button class="chip ${augState.cat === v ? 'active' : ''}" data-cat="${v}" type="button">${l}</button>`).join('');
+    const rarities = [
+      ['all', '全部'],
+      ['prismatic', '棱彩'],
+      ['gold', '黄金'],
+      ['silver', '白银'],
+    ]
+      .concat(counts.event ? [['event', '事件']] : [])
+      .map(
+        ([v, l]) =>
+          `<button class="chip ${augState.rarity === v ? 'active' : ''}" data-rarity="${v}" type="button">${l}</button>`,
+      )
+      .join('');
+    const withDesc = D.augments.filter((a) => a.desc).length;
 
     return `<div class="wrap">
       <div class="page-head">
         <div class="page-eyebrow">AUGMENT LIBRARY</div>
         <h1 class="page-title">海克斯图鉴</h1>
-        <p class="page-desc">按稀有度和类型筛选，点卡片查看详细效果与该强化最适配的英雄。强度 S-A-B-C 表示综合优先级。</p>
+        <p class="page-desc">名称、稀有度、图标和效果说明来自官方客户端资源，跑 <code>npm run update-augments</code> 就能跟随版本更新。${withDesc} / ${D.augments.length} 个强化有官方文字说明，其余官方未公开。</p>
         <div class="stat-strip">
           <div class="stat"><b>${counts.prismatic}</b><span>棱彩</span></div>
           <div class="stat"><b>${counts.gold}</b><span>黄金</span></div>
@@ -497,11 +577,8 @@
         </label>
         <div class="chips">${rarities}</div>
         <span class="filter-sep"></span>
-        <div class="chips">${cats}</div>
         <select class="select" id="aug-sort" aria-label="排序">
-          <option value="pick"${augState.sort === 'pick' ? ' selected' : ''}>选取率优先</option>
-          <option value="power"${augState.sort === 'power' ? ' selected' : ''}>综合强度</option>
-          <option value="win"${augState.sort === 'win' ? ' selected' : ''}>胜率优先</option>
+          <option value="rarity"${augState.sort === 'rarity' ? ' selected' : ''}>按稀有度</option>
           <option value="name"${augState.sort === 'name' ? ' selected' : ''}>按名称</option>
         </select>
         <span class="result-count" id="aug-count">共 <b>${D.augments.length}</b> 个</span>
@@ -545,7 +622,12 @@
   function viewBuilds() {
     const champs = D.champions.filter((c) => c.builds.length);
     const options = ['<option value="all">全部英雄</option>']
-      .concat(champs.map((c) => `<option value="${c.id}"${buildState.champ === c.id ? ' selected' : ''}>${esc(c.name)}</option>`)).join('');
+      .concat(
+        champs.map(
+          (c) => `<option value="${c.id}"${buildState.champ === c.id ? ' selected' : ''}>${esc(c.name)}</option>`,
+        ),
+      )
+      .join('');
 
     return `<div class="wrap">
       <div class="page-head">
@@ -577,9 +659,11 @@
 
   /* ---------- overlay page ---------- */
   function viewOverlay(id) {
-    const c = champById.get(id) || champById.get('Ahri');
-    const demos = ['Ahri', 'Jinx', 'Sion', 'Yasuo'].map((cid) => champById.get(cid));
-    const demoChips = demos.map((x) => `<a class="chip ${x.id === c.id ? 'active' : ''}" href="#/overlay/${x.id}">${esc(x.name)}</a>`).join('');
+    const c = champById.get(id) || champById.get('Ahri') || D.champions[0];
+    const demos = ['Ahri', 'Jinx', 'Sion', 'Yasuo'].map((cid) => champById.get(cid)).filter(Boolean);
+    const demoChips = demos
+      .map((x) => `<a class="chip ${x.id === c.id ? 'active' : ''}" href="#/overlay/${x.id}">${esc(x.name)}</a>`)
+      .join('');
 
     return `<div class="wrap">
       <section class="overlay-hero">
@@ -662,16 +746,32 @@
 
   function searchData(q) {
     const s = q.trim().toLowerCase();
-    const champs = (s ? D.champions.filter((c) => [c.name, c.title, c.archetypeName, ...c.roles, c.blurb].join(' ').toLowerCase().includes(s)) : D.champions.slice(0, 5)).slice(0, 6);
-    const augs = (s ? D.augments.filter((a) => [a.name, a.desc, a.category, a.rarityName].join(' ').toLowerCase().includes(s)) : [...D.augments].sort((a, b) => b.power - a.power)).slice(0, 6);
-    const builds = (s ? allBuilds().filter(({ b, c }) => [b.name, b.style, c.name, ...b.items.map(itemName)].join(' ').toLowerCase().includes(s)) : []).slice(0, 4);
+    const champs = (
+      s
+        ? D.champions.filter((c) =>
+            [c.name, c.title, c.archetypeName, ...c.roles, c.blurb].join(' ').toLowerCase().includes(s),
+          )
+        : D.champions.slice(0, 5)
+    ).slice(0, 6);
+    const augs = (
+      s
+        ? D.augments.filter((a) => [a.name, a.desc, a.category || '', a.rarityName].join(' ').toLowerCase().includes(s))
+        : [...D.augments].sort(byRarity)
+    ).slice(0, 6);
+    const builds = (
+      s
+        ? allBuilds().filter(({ b, c }) =>
+            [b.name, b.style, c.name, ...b.items.map(itemName)].join(' ').toLowerCase().includes(s),
+          )
+        : []
+    ).slice(0, 4);
     return { champs, augs, builds };
   }
 
   function searchItemHtml(kind, obj) {
     if (kind === 'champ') {
       return `<div class="search-item" data-kind="champ" data-id="${obj.id}">
-        <img src="${champIcon(obj)}" alt="" loading="lazy" onerror="this.style.opacity=0">
+        <img src="${champIcon(obj)}" alt="" loading="lazy">
         <div><div class="si-name">${esc(obj.name)}</div><div class="si-sub">${obj.tier} · ${esc(obj.archetypeName)} · ${fmt(obj.winRate)}%</div></div>
         <span class="si-right">${icon('arrow')}</span>
       </div>`;
@@ -679,13 +779,13 @@
     if (kind === 'aug') {
       return `<div class="search-item" data-kind="aug" data-id="${obj.id}">
         <span class="si-glyph ${obj.rarity}" aria-hidden="true">${esc(obj.name.slice(0, 1))}</span>
-        <div><div class="si-name">${esc(obj.name)}</div><div class="si-sub">${obj.rarityName} · ${obj.category} · 选取 ${fmt(obj.pickRate)}%</div></div>
-        <span class="si-right">${gradeFromPower(obj.power)}</span>
+        <div><div class="si-name">${esc(obj.name)}</div><div class="si-sub">${[obj.rarityName, obj.category].filter(Boolean).join(' · ')}${Number.isFinite(obj.pickRate) ? ` · 选取 ${fmt(obj.pickRate)}%` : ''}</div></div>
+        <span class="si-right">${Number.isFinite(obj.power) ? gradeFromPower(obj.power) : ''}</span>
       </div>`;
     }
     const c = obj.c;
     return `<div class="search-item" data-kind="build" data-id="${obj.b.id}" data-champ="${c.id}">
-      <img src="${champIcon(c)}" alt="" loading="lazy" onerror="this.style.opacity=0">
+      <img src="${champIcon(c)}" alt="" loading="lazy">
       <div><div class="si-name">${esc(c.name)} · ${esc(obj.b.name)}</div><div class="si-sub">${esc(obj.b.items.slice(0, 3).map(itemName).join(' / '))}</div></div>
       <span class="si-right">${icon('arrow')}</span>
     </div>`;
@@ -694,9 +794,12 @@
   function renderSearchResults(q) {
     const { champs, augs, builds } = searchData(q);
     let html = '';
-    if (champs.length) html += `<div class="search-group-title">英雄</div>${champs.map((c) => searchItemHtml('champ', c)).join('')}`;
-    if (augs.length) html += `<div class="search-group-title">海克斯</div>${augs.map((a) => searchItemHtml('aug', a)).join('')}`;
-    if (builds.length) html += `<div class="search-group-title">出装</div>${builds.map((b) => searchItemHtml('build', b)).join('')}`;
+    if (champs.length)
+      html += `<div class="search-group-title">英雄</div>${champs.map((c) => searchItemHtml('champ', c)).join('')}`;
+    if (augs.length)
+      html += `<div class="search-group-title">海克斯</div>${augs.map((a) => searchItemHtml('aug', a)).join('')}`;
+    if (builds.length)
+      html += `<div class="search-group-title">出装</div>${builds.map((b) => searchItemHtml('build', b)).join('')}`;
     if (!html) html = `<div class="search-empty">没有找到「${esc(q)}」相关内容<br>试试英雄名、海克斯名或装备名</div>`;
     searchResults.innerHTML = html;
     searchActive = 0;
@@ -741,33 +844,63 @@
   const modalCard = $('#modal-card');
 
   function openAugment(id) {
-    const a = augById.get(id);
+    // 图鉴里的 id 和推荐池里的 id 是两套，这里两边都查
+    const a = augById.get(id) || augPoolById.get(id);
     if (!a || !modalOverlay) return;
     const users = D.champions
       .map((c) => ({ c, rec: c.augments.find((r) => r.id === id) }))
       .filter((x) => x.rec)
       .sort((x, y) => 'SABC'.indexOf(x.rec.grade) - 'SABC'.indexOf(y.rec.grade));
-    const champPills = users.slice(0, 12).map(({ c }) => `<a class="modal-champ" href="#/champion/${c.id}"><img src="${champIcon(c)}" alt="">${esc(c.name)}</a>`).join('');
+    const champPills = users
+      .slice(0, 12)
+      .map(
+        ({ c }) =>
+          `<a class="modal-champ" href="#/champion/${c.id}"><img src="${champIcon(c)}" alt="">${esc(c.name)}</a>`,
+      )
+      .join('');
+    // 官方强化没有强度评分和胜率，缺什么就不显示什么
+    const hasStats = Number.isFinite(a.power) && Number.isFinite(a.pickRate) && Number.isFinite(a.winRate);
+    const ARCH_LABEL = {
+      mage: '法师',
+      marksman: '射手',
+      assassin: '刺客',
+      fighter: '战士',
+      tank: '坦克',
+      support: '辅助',
+    };
+    const archText = (a.arch || []).map((x) => ARCH_LABEL[x] || x).join(' / ');
+    const iconHtml = a.icon
+      ? `<img class="aug-img" src="${a.icon}" alt="">`
+      : `<b style="font-size:18px">${esc(a.name.slice(0, 1))}</b>`;
+    const infoRows = [
+      `<div class="info-row"><span>稀有度</span><b>${esc(a.rarityName)}</b></div>`,
+      hasStats
+        ? `<div class="info-row"><span>综合强度</span><b class="gold">${gradeFromPower(a.power)} 级</b></div>`
+        : '',
+      hasStats ? `<div class="info-row"><span>选取率</span><b>${fmt(a.pickRate)}%</b></div>` : '',
+      hasStats ? `<div class="info-row"><span>胜率</span><b>${fmt(a.winRate)}%</b></div>` : '',
+      archText ? `<div class="info-row"><span>适配定位</span><b>${archText}</b></div>` : '',
+    ].join('');
+
     modalCard.innerHTML = `
       <div class="modal-head">
-        <div class="aug-icon" style="width:50px;height:50px"><b style="font-size:18px">${esc(a.name.slice(0, 1))}</b></div>
+        <div class="aug-icon" style="width:50px;height:50px">${iconHtml}</div>
         <div>
-          <div class="aug-rarity">${a.rarityName} · ${a.category}</div>
+          <div class="aug-rarity">${esc([a.rarityName, a.category].filter(Boolean).join(' · '))}</div>
           <h3 class="modal-title">${esc(a.name)}</h3>
         </div>
         <button class="modal-close" type="button" data-close-modal aria-label="关闭">${icon('close')}</button>
       </div>
-      <p class="modal-desc">${esc(a.desc)}</p>
-      <div class="info-list">
-        <div class="info-row"><span>综合强度</span><b class="gold">${gradeFromPower(a.power)} 级</b></div>
-        <div class="info-row"><span>选取率</span><b>${fmt(a.pickRate)}%</b></div>
-        <div class="info-row"><span>胜率</span><b>${fmt(a.winRate)}%</b></div>
-        <div class="info-row"><span>适配定位</span><b>${a.arch.map((x) => ({ mage: '法师', marksman: '射手', assassin: '刺客', fighter: '战士', tank: '坦克', support: '辅助' }[x])).join(' / ')}</b></div>
-      </div>
-      <div class="modal-section">
+      <p class="modal-desc${a.desc ? '' : ' muted'}">${esc(a.desc || '官方暂未提供文字说明。')}</p>
+      <div class="info-list">${infoRows}</div>
+      ${
+        users.length
+          ? `<div class="modal-section">
         <h5>推荐该强化的英雄（${users.length}）</h5>
-        <div class="modal-champs">${champPills || '<span class="muted">暂无</span>'}</div>
-      </div>`;
+        <div class="modal-champs">${champPills}</div>
+      </div>`
+          : ''
+      }`;
     modalOverlay.hidden = false;
     document.body.style.overflow = 'hidden';
     modalCard.scrollTop = 0;
@@ -788,7 +921,14 @@
   }
 
   function updateNav(name) {
-    const map = { home: 'home', champions: 'champions', champion: 'champions', augments: 'augments', builds: 'builds', overlay: 'overlay' };
+    const map = {
+      home: 'home',
+      champions: 'champions',
+      champion: 'champions',
+      augments: 'augments',
+      builds: 'builds',
+      overlay: 'overlay',
+    };
     $$('[data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === map[name]));
   }
 
@@ -851,14 +991,17 @@
       return;
     }
     if (io) io.disconnect();
-    io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add('in');
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.06, rootMargin: '0px 0px -30px' });
+    io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { threshold: 0.06, rootMargin: '0px 0px -30px' },
+    );
     els.forEach((el) => io.observe(el));
   }
 
@@ -995,7 +1138,12 @@
       return;
     }
 
-    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.dataset && document.activeElement.dataset.augment) {
+    if (
+      (e.key === 'Enter' || e.key === ' ') &&
+      document.activeElement &&
+      document.activeElement.dataset &&
+      document.activeElement.dataset.augment
+    ) {
       e.preventDefault();
       openAugment(document.activeElement.dataset.augment);
     }
@@ -1005,8 +1153,12 @@
 
   /* ---------- boot ---------- */
   const patchEls = $$('.version-pill span, #foot-patch');
-  patchEls.forEach((el) => { el.textContent = D.meta.patch; });
-  $$('.version-pill').forEach((el) => { el.title = `数据版本 ${D.meta.patch} · 更新于 ${D.meta.updated}`; });
+  patchEls.forEach((el) => {
+    el.textContent = D.meta.patch;
+  });
+  $$('.version-pill').forEach((el) => {
+    el.title = `数据版本 ${D.meta.patch} · 更新于 ${D.meta.updated}`;
+  });
 
   router();
 })();
