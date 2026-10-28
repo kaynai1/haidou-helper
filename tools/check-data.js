@@ -65,6 +65,15 @@ check(D.meta && D.meta.augmentCount === augments.length, 'meta.augmentCount 与�
 check(D.meta && D.meta.augmentPoolCount === pool.length, 'meta.augmentPoolCount 与实际推荐池数量不符');
 check(D.meta && D.meta.buildCount === buildCount, 'meta.buildCount 与实际出装数不符');
 
+// 2.5 官方全量英雄名单：悬浮窗对局识别的兜底依据，必须覆盖全部英雄
+const roster = D.roster || {};
+const rosterCount = Object.keys(roster).length;
+check(rosterCount >= 160, `官方英雄名单应至少 160 位，实际 ${rosterCount} 位`);
+for (const [id, r] of Object.entries(roster)) {
+  check(r && typeof r.name === 'string' && r.name, `roster.${id} 缺少中文名`);
+  check(r && typeof r.title === 'string' && r.title, `roster.${id} 缺少称号`);
+}
+
 // 3. 唯一性
 const champIds = new Set();
 for (const c of champions) {

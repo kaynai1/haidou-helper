@@ -15,6 +15,14 @@ const officialData = JSON.parse(fs.readFileSync(AUGMENT_FILE, 'utf8'));
 const officialAugments = officialData.augments;
 const DDRAGON = '16.21.1';
 
+// 官方全量英雄名单（Data Dragon 中文，含全部英雄）。悬浮窗用它把 Live API 报上来的
+// 任何英雄 id / 名字 / 称号认出来——国服客户端会把称号（诺克萨斯之手）当英雄名上报，
+// 只靠手写收录的 42 位会误报「未收录」。
+const roster = {};
+for (const [key, c] of Object.entries(champRaw)) {
+  roster[key] = { name: c.name, title: c.title };
+}
+
 const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
 const pick = (seed, min, max) => {
   const v = (hash(seed) % 1000) / 1000;
@@ -781,8 +789,7 @@ const data = {
     name: '海斗速查',
     mode: '海克斯大乱斗',
     patch: DDRAGON,
-    updated: '2026-10-28',
-    championCount: champions.length,
+    updated: '2026-10-28',    championCount: champions.length,
     augmentCount: officialAugments.length,
     augmentPoolCount: poolAugments.length,
     augmentMode: officialData.mode,
@@ -799,6 +806,8 @@ const data = {
   // 推荐：手写强化池，只给英雄详情和悬浮窗用
   augmentPool: poolAugments,
   champions,
+  // 官方全量英雄名单（id → 中文名 / 称号），只用于悬浮窗的对局识别
+  roster,
 };
 
 fs.mkdirSync(path.join(ROOT, 'web', 'data'), { recursive: true });

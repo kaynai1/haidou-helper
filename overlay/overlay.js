@@ -59,6 +59,10 @@
     // 任何非拉丁名字查不到时都会错误地返回那一位。
     if (byId) champByKey[byId] = c;
     if (byName && byName !== byId) champByKey[byName] = c;
+    // 国服 Live API 会把英雄的称号（如德莱厄斯报成「诺克萨斯之手」）放进 championName，
+    // 所以称号也要能反查。
+    var byTitle = key(c.title);
+    if (byTitle && byTitle !== byId && byTitle !== byName) champByKey[byTitle] = c;
   });
 
   function key(s) {
@@ -78,6 +82,25 @@
     if (!name) return null;
     var k = key(name);
     return champById[name] || (k ? champByKey[k] : null) || null;
+  }
+
+  // 官方全量名单（Data Dragon，全部英雄）：Live API 报上来的任何 id / 名字 / 称号
+  // 都能在这里认出来，避免把收录名单之外的英雄误判成「不认识」。
+  var rosterKey = {};
+  var roster = D.roster || {};
+  Object.keys(roster).forEach(function (id) {
+    var byId = key(id);
+    var byName = key(roster[id].name);
+    var byTitle = key(roster[id].title);
+    if (byId) rosterKey[byId] = id;
+    if (byName) rosterKey[byName] = id;
+    if (byTitle) rosterKey[byTitle] = id;
+  });
+
+  function findRosterName(name) {
+    if (!name) return null;
+    var id = rosterKey[key(name)];
+    return id ? { id: id, name: roster[id].name } : null;
   }
 
   var TIER_ORDER = { T1: 1, T2: 2, T3: 3, T4: 4, T5: 5 };
@@ -244,8 +267,13 @@
       els.select.value = demo.id;
       els.demoLabel.textContent = '演示英雄';
       if (state.status === 'live' && state.championName) {
+        // 名字认不出来时再用官方全量名单兜底一次，把国服上报的称号翻译成正式名
+        var official = findRosterName(state.championName);
+        var shown = official ? official.name : state.championName;
         els.notice.innerHTML =
-          '检测到 <b>' + esc(state.championName) + '</b>，暂未收录该英雄的速查数据，当前展示演示英雄。';
+          '检测到 <b>' +
+          esc(shown) +
+          '</b>，暂未收录该英雄的速查数据，当前展示演示英雄。';
         els.notice.hidden = false;
       } else {
         els.notice.hidden = true;
@@ -275,7 +303,8 @@
       els.clock.textContent = '--:--';
       return;
     }
-    var t = Math.max(0, state.gameTime + Math.floor((Date.now() - stateAt) / 1000));
+    // Live API 的 gameTime 是带小数的秒，先取整再换算，否则秒位会显示成一串小数
+    var t = Math.floor(Math.max(0, state.gameTime + (Date.now() - stateAt) / 1000));
     var m = Math.floor(t / 60);
     var s = t % 60;
     els.clock.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
